@@ -40,10 +40,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/all").hasAnyRole("admin")
-                        .requestMatchers("/topics/all").hasAnyRole("admin")
-                        .requestMatchers("/users/*/delete").hasAnyRole("admin")
-                        .requestMatchers("/WEB-INF/views/header.jsp", "/", "/login", "/login?error", "/logout", "/sing-up", "/style").permitAll()
+                        .requestMatchers("/WEB-INF/views/header.jsp", "/", "/login", "/login?error", "/logout", "/static").permitAll()
                         .anyRequest().authenticated()
                 )
 

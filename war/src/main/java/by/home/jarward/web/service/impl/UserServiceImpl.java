@@ -14,6 +14,11 @@ public class UserServiceImpl implements UserService {
     UserJpaRepository userJpaRepository;
 
     @Override
+    public User save(User user) {
+        return userJpaRepository.save(user);
+    }
+
+    @Override
     public Optional<User> getByLogin(String login) {
         return userJpaRepository.findByLogin(login);
     }
