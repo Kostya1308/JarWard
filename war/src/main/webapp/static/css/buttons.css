@@ -1,0 +1,68 @@
+.sign_in_header_button{
+    font-family: 'Open Sans', sans-serif;
+    margin-left:5px;
+    margin-right:5px;
+    color:white;
+    font-size: 15px;
+    padding:7px 15px;
+}
+
+.sign_up_header_button{
+    font-family: 'Open Sans', sans-serif;
+    margin-left:5px;
+    margin-right:5px;
+    padding:7px 15px;
+    color:white;
+    font-size: 15px;
+    background-color: #0d6efd;
+    border-radius: 10px;
+    transition-duration: 0.3s;
+}
+
+.sign_up_header_button:hover{
+    background-color: #0b5ed7;
+}
+
+.sign_up_header_button:visited{
+    background-color: #0b5ed7;
+}
+
+.sign_in_button{
+    transition-duration: 0.3s;
+    border: none;
+    border-radius: 10px;
+    padding:10px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    width: 250px;
+    text-align:center;
+    background-color: #0d6efd;
+
+}
+
+.sign_in_button:hover{
+    background-color: #0b5ed7;
+    cursor: pointer;
+}
+
+.sign_up_on_sigh_in_page_button{
+    background:#32CD32;
+    transition-duration: 0.3s;
+    border-radius: 10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:90px;
+    padding-right:90px;
+    text-decoration:none;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    text-align:center;
+    border: none;
+}
+
+.sign_up_on_sigh_in_page_button:hover{
+    background-color: #228B22;
+    cursor: pointer;
+}

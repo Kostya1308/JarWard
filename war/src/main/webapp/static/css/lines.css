@@ -1,0 +1,13 @@
+.short_line_start_page{
+    border-color:rgb(255 255 255 / 16%);
+    width: 280px;
+}
+
+.short_line_sidebar{
+    border-color:rgb(255 255 255 / 16%);
+}
+
+.line {
+    border-bottom: 1px solid rgb(255 255 255 / 16%);
+    margin: 10px;
+}

@@ -1,0 +1,58 @@
+.header_container{
+    position:fixed;
+    display: flex;
+    height: 65px;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2e2d2d;
+    border-bottom:thin solid rgb(255 255 255 / 16%);
+    padding-left:30px;
+    padding-right:30px;
+}
+
+.buttons_on_header_container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.sign_in_page_container{
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #212020;
+    height:100%;
+    width: 100%;
+}
+
+.sign_in_container{
+    width: 330px;
+    height: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #2e2d2d;
+    padding: 30px;
+    border-width: thin;
+    border-radius: 10px;
+}
+
+.sign_up_on_login_page_container{
+    width: 330px;
+    height: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #2e2d2d;
+    padding: 30px 30px 20px 30px;
+    border-width: thin;
+    border-radius: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item_input_container_sign_in{
+    position:relative;
+}

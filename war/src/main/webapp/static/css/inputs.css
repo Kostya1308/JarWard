@@ -1,0 +1,85 @@
+.item_input_sign_in_page{
+    position:static;
+    border-width: thin;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(255 255 255 / 16%);
+    background-color: #333333;
+    height:50px;
+    font-size:20px;
+    color: white;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 8px 0px 8px;
+}
+
+.item_input_invalidate_sign_in_page{
+    position:static;
+    border-width: thin;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: red;
+    background-color: #333333;
+    height:50px;
+    font-size:20px;
+    color: white;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 8px 0px 8px;
+}
+
+.item_input_sign_in_page:focus{
+    border-color:#0d6efd;
+    outline: none;
+}
+
+.item_input_invalidate_sign_in_page:focus{
+    border-color:#0d6efd;
+    outline: none;
+}
+
+.login_input_label_sign_in_page{
+    position:absolute;
+    left: 10px;
+    top: 12px;
+    font-size:20px;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(255 255 255 / 16%);
+}
+
+.item_input_invalidate_sign_in_page:focus + .login_input_label_sign_in_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_sign_in_page:focus + .login_input_label_sign_in_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_sign_in_page:valid + .login_input_label_sign_in_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_invalidate_sign_in_page:valid + .login_input_label_sign_in_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}

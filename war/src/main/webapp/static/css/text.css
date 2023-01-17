@@ -1,0 +1,20 @@
+.main_name_text{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: white;
+}
+
+.text_1{
+    font-family: 'Open Sans', sans-serif;
+    color:	rgb(255 255 255 / 16%);
+    text-align: center;
+    font-size: 13px;
+}
+
+.text_1_invalidate{
+    font-family: 'Open Sans', sans-serif;
+    color: red;
+    text-align: center;
+    font-size: 13px;
+}
