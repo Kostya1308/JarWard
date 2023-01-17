@@ -25,4 +25,7 @@ public class Teacher extends User {
     @ToString.Exclude
     private List<Lesson> lessons;
 
+    @ManyToMany(mappedBy = "teachers", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<Course> courses;
+
 }

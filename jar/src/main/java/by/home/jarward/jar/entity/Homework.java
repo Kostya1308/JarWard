@@ -2,10 +2,13 @@ package by.home.jarward.jar.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +18,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Access(AccessType.FIELD)
+@OptimisticLocking(type = OptimisticLockType.VERSION)
 public class Homework extends DateTimeEntity implements Serializable {
     @Version
     private static long serialVersionUID;
@@ -22,6 +26,7 @@ public class Homework extends DateTimeEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idHomework")
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCourse")
     @ToString.Exclude
@@ -30,12 +35,8 @@ public class Homework extends DateTimeEntity implements Serializable {
     @Column
     private LocalDateTime deadLine;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idUser")
-    @ToString.Exclude
-    private Student student;
-    @Column
-    private int mark;
+    @OneToMany(mappedBy = "markId.homework", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Mark> marks;
 
     @Override
     public boolean equals(Object o) {

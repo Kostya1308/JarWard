@@ -11,12 +11,14 @@ public class Student extends User {
     @Column
     private String education;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Homework> homeworks;
-
-    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @ToString.Exclude
     private List<Lesson> lessons;
+
+    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private List<Course> courses;
+
+    @OneToMany(mappedBy = "markId.homework", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Mark> marks;
 
 }

@@ -2,6 +2,8 @@ package by.home.jarward.jar.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,25 +17,32 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Access(AccessType.FIELD)
+@OptimisticLocking(type = OptimisticLockType.VERSION)
 public class Lesson extends DateTimeEntity implements Serializable {
     @Version
     private static long serialVersionUID;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idLesson")
     private Long id;
+
     @Column
     @Lob
     private String description;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCourse")
     @ToString.Exclude
     private Course course;
+
     @Column
     private LocalDateTime dateTimeStart;
+
     @Column
     private LocalDateTime dateTimeEnd;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(
             name = "lesson_student",
             joinColumns = {@JoinColumn(name = "idLesson")},
@@ -41,7 +50,7 @@ public class Lesson extends DateTimeEntity implements Serializable {
     @ToString.Exclude
     private List<Student> students;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(
             name = "lesson_teacher",
             joinColumns = {@JoinColumn(name = "idLesson")},
