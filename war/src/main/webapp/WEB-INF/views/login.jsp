@@ -28,7 +28,7 @@
                         <c:if test="${sessionScope.isValid==false}">
                             <form:input id="login_input" cssClass="item_input_invalidate_sign_in_page" path="login" name="login" required="required"/>
                         </c:if>
-                        <form:label for="login_input" cssClass="login_input_label_sign_in_page" path="login" required="required"> Login </form:label>
+                        <form:label for="login_input" cssClass="item_input_label_sign_in_page" path="login" required="required"> Login </form:label>
                     </div>
                     <div class="item_input_container_sign_in">
                         <c:if test="${sessionScope.isValid==null}">
@@ -37,7 +37,7 @@
                         <c:if test="${sessionScope.isValid==false}">
                             <form:password id="password_input" cssClass="item_input_invalidate_sign_in_page" path="password" name="password" required="required"/>
                         </c:if>
-                        <form:label for="password_input" cssClass="login_input_label_sign_in_page" path="password" required="required"> Password </form:label>
+                        <form:label for="password_input" cssClass="item_input_label_sign_in_page" path="password" required="required"> Password </form:label>
                     </div>
                     <div display:flex>
                         <form:checkbox path="isRemember" value="true" checked="checked"/>

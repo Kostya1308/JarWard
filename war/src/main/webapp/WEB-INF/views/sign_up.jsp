@@ -23,10 +23,8 @@
                 <form:form id="sign_up_form" cssClass="sign_up_form" action="${pageContext.request.contextPath}/*" method="post" modelAttribute="userForm">
                     <div class="item_input_container_sign_up">
                         <form:input id="login_input" cssClass="item_input_sign_up_page" path="login" name="login" required="required"/>
-                        <form:label for="login_input" cssClass="login_input_label_sign_up_page" path="login" required="required"> Login </form:label>
-
-
-
+                        <form:label for="login_input" cssClass="item_input_label_sign_up_page" path="login" required="required"> Login </form:label>
+                        <form:errors path="login" cssClass="error_sign_up_page"/>
                     </div>
 
 

@@ -38,7 +38,7 @@
     outline: none;
 }
 
-.login_input_label_sign_in_page{
+.item_input_label_sign_in_page{
     position:absolute;
     left: 10px;
     top: 12px;
@@ -48,7 +48,7 @@
     color: rgb(255 255 255 / 16%);
 }
 
-.item_input_invalidate_sign_in_page:focus + .login_input_label_sign_in_page{
+.item_input_invalidate_sign_in_page:focus + .item_input_label_sign_in_page{
     position:absolute;
     border-color:#0d6efd;
     outline: none;
@@ -57,7 +57,7 @@
     top: 4px;
 }
 
-.item_input_sign_in_page:focus + .login_input_label_sign_in_page{
+.item_input_sign_in_page:focus + .item_input_label_sign_in_page{
     position:absolute;
     border-color:#0d6efd;
     outline: none;
@@ -66,7 +66,7 @@
     top: 4px;
 }
 
-.item_input_sign_in_page:valid + .login_input_label_sign_in_page{
+.item_input_sign_in_page:valid + .item_input_label_sign_in_page{
     position:absolute;
     border-color:#0d6efd;
     outline: none;
@@ -75,7 +75,7 @@
     top: 4px;
 }
 
-.item_input_invalidate_sign_in_page:valid + .login_input_label_sign_in_page{
+.item_input_invalidate_sign_in_page:valid + .item_input_label_sign_in_page{
     position:absolute;
     border-color:#0d6efd;
     outline: none;
@@ -100,4 +100,24 @@
     transition-duration: 0.3s;
     font-family: 'Open Sans', sans-serif;
     padding: 10px 8px 0px 8px;
+}
+
+.item_input_label_sign_up_page{
+    position:absolute;
+    left: 10px;
+    top: 12px;
+    font-size:13px;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    color: rgb(255 255 255 / 16%);
+}
+
+.error_sign_up_page{
+    position:absolute;
+    top:59px;
+    left:5px;
+    font-size:8px;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    color: red;
 }
