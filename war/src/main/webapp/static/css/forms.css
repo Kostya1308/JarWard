@@ -1,7 +1,16 @@
 .sign_in_form{
-     height: 260px;
-     display:flex;
-     flex-direction: column;
-     justify-content: space-around;
-     align-items: center;
- }
+    height: 260px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.sign_up_form{
+    width:900px;
+    height: 400px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

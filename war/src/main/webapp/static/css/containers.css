@@ -56,3 +56,29 @@
 .item_input_container_sign_in{
     position:relative;
 }
+
+.sign_up_page_container{
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #212020;
+    height:100%;
+    width: 100%;
+}
+
+.sign_up_container{
+    width: 900px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #2e2d2d;
+    padding: 30px;
+    border-width: thin;
+    border-radius: 10px;
+}
+
+.item_input_container_sign_up{
+    position:relative;
+}

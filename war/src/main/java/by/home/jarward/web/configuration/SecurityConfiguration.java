@@ -36,25 +36,19 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain loginFilterChain(HttpSecurity http) throws Exception {
-
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/WEB-INF/views/header.jsp", "/", "/login", "/login?error", "/logout", "/static").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/welcome").authenticated()
+                        .anyRequest().permitAll()
                 )
-
                 .formLogin()
-                    .loginPage("/WEB-INF/views/login.jsp")
+                    .loginPage("/login")
                     .usernameParameter("login")
                     .loginProcessingUrl("/loginS")
-                    .defaultSuccessUrl("/loginS", true)
+                    .defaultSuccessUrl("/welcome", true)
                     .failureUrl("/login?error")
                     .permitAll()
-                    .and()
-                .anonymous().disable()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                     .and()
                 .logout()
                     .invalidateHttpSession(true)
@@ -62,7 +56,6 @@ public class SecurityConfiguration {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/logout")
                     .permitAll();
-
         return http.build();
     }
 
@@ -72,6 +65,4 @@ public class SecurityConfiguration {
                 .ignoring()
                 .requestMatchers("/static/**");
     }
-
-
 }

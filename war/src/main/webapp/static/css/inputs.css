@@ -83,3 +83,21 @@
     left: 9px;
     top: 4px;
 }
+
+
+
+
+.item_input_sign_up_page{
+    position:static;
+    border-width: thin;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(255 255 255 / 16%);
+    background-color: #333333;
+    height:30px;
+    font-size:13px;
+    color: white;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 8px 0px 8px;
+}

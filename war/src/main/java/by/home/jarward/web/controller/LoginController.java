@@ -37,16 +37,6 @@ public class LoginController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/loginS")
-    public RedirectView loginSecurity(HttpServletRequest req, HttpSession session) {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            return new RedirectView(req.getContextPath() + "/welcome");
-        } else {
-            return new RedirectView(req.getContextPath() + "/error");
-        }
-    }
     @GetMapping(value = "/welcome")
     public ModelAndView welcome(){
         return new ModelAndView("home");
