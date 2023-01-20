@@ -40,7 +40,7 @@
                         <form:label for="password_input" cssClass="item_input_label_sign_in_page" path="password" required="required"> Password </form:label>
                     </div>
                     <div display:flex>
-                        <form:checkbox path="isRemember" value="true" checked="checked"/>
+                        <input id="remember-me" type="checkbox" name="remember-me"/>
                         <small class="text_1">Remember me</small>
                     </div>
                     <input class="sign_in_button" value="Sign in" type="submit" required>

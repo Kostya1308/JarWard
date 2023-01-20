@@ -22,7 +22,7 @@
 
         <div class="sign_up_page_container">
             <div class="sign_up_container">
-                <form:form id="sign_up_form" cssClass="sign_up_form" action="${pageContext.request.contextPath}/*" method="post" modelAttribute="userForm">
+                <form:form id="sign_up_form" cssClass="sign_up_form" action="${pageContext.request.contextPath}/sign-up" method="post" modelAttribute="userForm" enctype="multipart/form-data">
 
                     <div style="display:flex">
                         <div class="item_input_container_sign_up">
@@ -74,7 +74,7 @@
                     <div style="display:flex">
                         <div>
                             <div class="item_input_container_sign_up">
-                                <form:input id="date_input" cssClass="item_input_sign_up_page" style="width:255px;" path="dateOfBirth" name="dateOfBirth" type="date" min="1900-00-00"/>
+                                <form:input id="date_input" cssClass="item_input_sign_up_page" style="width:255px;" path="dateOfBirth" name="dateOfBirth" type="date" min="1900-00-00" max="2222-12-12"/>
                                 <form:label for="date_input" cssClass="item_input_label_sign_up_page" path="dateOfBirth"> Date of Birth </form:label>
                             </div>
                         </div>
@@ -90,17 +90,17 @@
                     <div class="item_input_container_sign_up">
                         <p class="gender">Gender:</p>
                         <div style="position:relative; margin:0px 15px; display:flex; align-items:center">
-                            <form:radiobutton id="gender_male" path="dateOfBirth" name="dateOfBirth" value="Male"/>
+                            <form:radiobutton id="gender_male" path="gender" name="gender" value="Male"/>
                             <form:label for="gender_male" cssClass="item_input_label_radio_sign_up_page" path="gender"> Male </form:label>
                         </div>
 
                         <div style="position:relative; margin:0px 15px; display:flex; align-items:center">
-                            <form:radiobutton id="gender_female" path="dateOfBirth" name="dateOfBirth" value="Female"/>
+                            <form:radiobutton id="gender_female" path="gender" name="gender" value="Female"/>
                             <form:label for="gender_female" cssClass="item_input_label_radio_sign_up_page" path="gender"> Female </form:label>
                         </div>
 
                         <div style="position:relative; margin:0px 15px; display:flex; align-items:center">
-                            <form:radiobutton id="gender_other" path="dateOfBirth" name="dateOfBirth" value="Other"/>
+                            <form:radiobutton id="gender_other" path="gender" name="gender" value="Other"/>
                             <form:label for="gender_other" cssClass="item_input_label_radio_sign_up_page" path="gender"> Other </form:label>
                         </div>
                     </div>
@@ -110,8 +110,6 @@
                     </div>
 
                     <input class="sign_up_button" value="Sign up" type="submit" required/>
-
-
                 </form:form>
             </div>
 

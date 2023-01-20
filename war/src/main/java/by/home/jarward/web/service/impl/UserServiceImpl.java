@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getByLogin(String login) {
         return userJpaRepository.findByLogin(login);
     }
+
+    @Override
+    public Optional<User> getByEmail(String email) {
+        return userJpaRepository.findByEmail(email);
+    }
 }

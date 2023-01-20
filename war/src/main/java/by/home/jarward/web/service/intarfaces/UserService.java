@@ -9,4 +9,6 @@ public interface UserService {
     User save(User user);
 
     Optional<User> getByLogin(String login);
+
+    Optional<User> getByEmail(String email);
 }

@@ -218,3 +218,13 @@
     border-color:#0d6efd;
     outline: none;
 }
+
+.error_sign_up_page{
+    position:absolute;
+    top:59px;
+    left:5px;
+    font-size:12px;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    color: red;
+}

@@ -55,7 +55,14 @@ public class SecurityConfiguration {
                     .clearAuthentication(true)
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/logout")
-                    .permitAll();
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+                    .and()
+                .rememberMe()
+                .key("uniqueAndSecret")
+                .rememberMeParameter("remember-me")
+                .tokenValiditySeconds(86400);
+
         return http.build();
     }
 
