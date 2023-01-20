@@ -16,19 +16,17 @@
     font-size: 15px;
     background-color: #0d6efd;
     border-radius: 10px;
-    transition-duration: 0.3s;
+    transition-duration: 0.2s;
 }
 
 .sign_up_header_button:hover{
     background-color: #0b5ed7;
 }
 
-.sign_up_header_button:visited{
-    background-color: #0b5ed7;
-}
+
 
 .sign_in_button{
-    transition-duration: 0.3s;
+    transition-duration: 0.2s;
     border: none;
     border-radius: 10px;
     padding:10px;
@@ -38,7 +36,6 @@
     width: 250px;
     text-align:center;
     background-color: #0d6efd;
-
 }
 
 .sign_in_button:hover{
@@ -48,7 +45,7 @@
 
 .sign_up_on_sigh_in_page_button{
     background:#32CD32;
-    transition-duration: 0.3s;
+    transition-duration: 0.2s;
     border-radius: 10px;
     padding-top:10px;
     padding-bottom:10px;
@@ -63,6 +60,25 @@
 }
 
 .sign_up_on_sigh_in_page_button:hover{
+    background-color: #228B22;
+    cursor: pointer;
+}
+
+.sign_up_button{
+    transition-duration: 0.2s;
+    border: none;
+    border-radius: 10px;
+    padding:10px;
+    margin:20px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    width: 255px;
+    text-align:center;
+    background-color: #32CD32;
+}
+
+.sign_up_button:hover{
     background-color: #228B22;
     cursor: pointer;
 }

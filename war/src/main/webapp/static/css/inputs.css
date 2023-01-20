@@ -87,6 +87,8 @@
 
 
 
+
+
 .item_input_sign_up_page{
     position:static;
     border-width: thin;
@@ -94,30 +96,125 @@
     border-style: solid;
     border-color: rgb(255 255 255 / 16%);
     background-color: #333333;
-    height:30px;
-    font-size:13px;
+    height:50px;
+    font-size:20px;
     color: white;
     transition-duration: 0.3s;
     font-family: 'Open Sans', sans-serif;
     padding: 10px 8px 0px 8px;
 }
 
+.item_input_invalidate_sign_up_page{
+    position:static;
+    border-width: thin;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: red;
+    background-color: #333333;
+    height:50px;
+    font-size:20px;
+    color: white;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 8px 0px 8px;
+}
+
+.item_input_sign_up_page:focus{
+    border-color:#0d6efd;
+    outline: none;
+}
+
+.item_input_invalidate_sign_up_page:focus{
+    border-color:#0d6efd;
+    outline: none;
+}
+
 .item_input_label_sign_up_page{
     position:absolute;
     left: 10px;
     top: 12px;
-    font-size:13px;
+    font-size:20px;
     transition-duration: 0.3s;
     font-family: 'Open Sans', sans-serif;
     color: rgb(255 255 255 / 16%);
 }
 
-.error_sign_up_page{
+.item_input_invalidate_sign_up_page:focus + .item_input_label_sign_up_page{
     position:absolute;
-    top:59px;
-    left:5px;
-    font-size:8px;
-    transition-duration: 0.3s;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_sign_up_page:focus + .item_input_label_sign_up_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_sign_up_page:valid + .item_input_label_sign_up_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_invalidate_sign_up_page:valid + .item_input_label_sign_up_page{
+    position:absolute;
+    border-color:#0d6efd;
+    outline: none;
+    font-size:10px;
+    left: 9px;
+    top: 4px;
+}
+
+.item_input_label_radio_sign_up_page{
+    font-size:20px;
     font-family: 'Open Sans', sans-serif;
-    color: red;
+    color: rgb(255 255 255 / 16%);
+    left: 15px;
+    margin-left:5px;
+}
+
+.opt_sign_up_language{
+    font-family: 'Open Sans', sans-serif;
+    font-size:20px;
+    background-color: #333333;
+    color:white;
+    padding:5px 0px;
+    transition-duration: 0.3s;
+}
+
+.opt_sign_up_language_hidden{
+    font-family: 'Open Sans', sans-serif;
+    font-size:20px;
+    background-color: #333333;
+    color:rgb(255 255 255 / 16%);
+    padding:5px;
+    transition-duration: 0.3s;
+}
+
+.select_language{
+    padding:9px 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size:20px;
+    background-color: #333333;
+    color:white;
+    transition-duration: 0.3s;
+    border-width: thin;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(255 255 255 / 16%);
+}
+
+.select_language:focus{
+    border-color:#0d6efd;
+    outline: none;
 }

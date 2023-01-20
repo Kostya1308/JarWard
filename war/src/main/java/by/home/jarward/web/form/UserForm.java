@@ -1,6 +1,5 @@
 package by.home.jarward.web.form;
 
-import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,7 @@ public class UserForm {
     private String surname;
     private String login;
     private String password;
-    @Email(message = "incorrect format")
+    private String passwordConfirm;
     private String email;
     private String dateOfBirth;
     private String gender;

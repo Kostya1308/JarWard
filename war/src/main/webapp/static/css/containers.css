@@ -69,16 +69,18 @@
 }
 
 .sign_up_container{
-    width: 900px;
-    height: 400px;
+    width: 650px;
+    height: 650px;
     margin-left: auto;
     margin-right: auto;
     background-color: #2e2d2d;
-    padding: 30px;
     border-width: thin;
     border-radius: 10px;
 }
 
 .item_input_container_sign_up{
     position:relative;
+    display:flex;
+    align-items:center;
+    margin:20px;
 }

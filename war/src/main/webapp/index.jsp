@@ -11,6 +11,7 @@
         <link href="static/css/containers.css" rel="stylesheet">
         <link href="static/css/buttons.css" rel="stylesheet">
         <link href="static/css/text.css" rel="stylesheet">
+        <link href="static/css/icons.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -19,6 +20,8 @@
 
     <body>
         <jsp:include page="WEB-INF/views/header.jsp" flush="true" />
+        <jsp:include page="WEB-INF/views/icons.jsp" flush="true" />
+
 
 
 

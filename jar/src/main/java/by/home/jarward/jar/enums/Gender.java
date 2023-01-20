@@ -1,5 +1,5 @@
 package by.home.jarward.jar.enums;
 
 public enum Gender {
-    MALE, FEMALE, NONE
+    MALE, FEMALE, OTHER
 }
