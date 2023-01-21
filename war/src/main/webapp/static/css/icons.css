@@ -5,18 +5,22 @@
     display: inline-block;
     transition-duration: 0.3s;
     width:100px;
+
 }
 
 .question_sign_up_form:hover::after {
-position:absolute;
+    position:absolute;
     content: attr(data-title);
     margin:10px;
     position:absolute;
     font-family: 'Open Sans', sans-serif;
-    color: rgb(255 255 255 / 16%);
+    color: rgb(255 255 255);
     width:100px;
     font-size:10px;
-    z-index:1;
     transition-duration: 0.3s;
+    z-index: 1;
+    background: rgb(255 255 255 / 16%);
+    border-radius: 5px;
+    padding: 5px;
 
 }

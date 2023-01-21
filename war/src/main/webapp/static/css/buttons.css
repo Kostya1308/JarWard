@@ -82,3 +82,14 @@
     background-color: #228B22;
     cursor: pointer;
 }
+
+.main_page_header_button{
+    border: none;
+    padding:10px;
+    margin:20px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    width: 255px;
+    text-align:center;
+}

@@ -26,13 +26,13 @@
 
                     <div style="display:flex">
                         <div class="item_input_container_sign_up">
-                            <form:input id="login_input" cssClass="item_input_sign_up_page" path="login" name="login" required="required"/>
+                            <form:input id="login_input" cssClass="item_input_sign_up_page" cssErrorClass="item_input_invalidate_sign_up_page" path="login" name="login" required="required"/>
                             <form:label for="login_input" cssClass="item_input_label_sign_up_page" path="login" required="required"> Login </form:label>
                             <form:errors path="login" cssClass="error_sign_up_page"/>
                         </div>
 
                         <div class="item_input_container_sign_up">
-                            <form:input id="email_input" cssClass="item_input_sign_up_page" path="email" name="email" required="required"/>
+                            <form:input id="email_input" cssClass="item_input_sign_up_page" cssErrorClass="item_input_invalidate_sign_up_page" path="email" name="email" required="required"/>
                             <form:label for="email_input" cssClass="item_input_label_sign_up_page" path="email" required="required"> E-mail </form:label>
                             <form:errors path="email" cssClass="error_sign_up_page"/>
                         </div>
@@ -54,13 +54,13 @@
 
                     <div style="display:flex">
                         <div class="item_input_container_sign_up">
-                            <form:password id="password_input" cssClass="item_input_sign_up_page" path="password" name="password" required="required"/>
+                            <form:password id="password_input" cssClass="item_input_sign_up_page" cssErrorClass="item_input_invalidate_sign_up_page" path="password" name="password" required="required"/>
                             <form:label for="password_input" cssClass="item_input_label_sign_up_page" path="password" required="required"> Password </form:label>
                             <form:errors path="password" cssClass="error_sign_up_page"/>
                         </div>
 
                         <div class="item_input_container_sign_up">
-                            <form:password id="password_confirm_input" cssClass="item_input_sign_up_page" path="passwordConfirm" name="passwordConfirm" required="required"/>
+                            <form:password id="password_confirm_input" cssClass="item_input_sign_up_page" cssErrorClass="item_input_invalidate_sign_up_page" path="passwordConfirm" name="passwordConfirm" required="required"/>
                             <form:label for="password_confirm_input" cssClass="item_input_label_sign_up_page" path="passwordConfirm" required="required"> Password Confirm </form:label>
                             <div class="question_sign_up_form" data-title="Use at least eight characters, at least one number and one capital letter">
                                 <svg width=15 height=15>
@@ -74,7 +74,7 @@
                     <div style="display:flex">
                         <div>
                             <div class="item_input_container_sign_up">
-                                <form:input id="date_input" cssClass="item_input_sign_up_page" style="width:255px;" path="dateOfBirth" name="dateOfBirth" type="date" min="1900-00-00" max="2222-12-12"/>
+                                <form:input id="date_input" cssClass="item_input_sign_up_page" style="width:255px;" path="dateOfBirth" name="dateOfBirth" type="date" min="1900-00-00" max="2222-12-12" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
                                 <form:label for="date_input" cssClass="item_input_label_sign_up_page" path="dateOfBirth"> Date of Birth </form:label>
                             </div>
                         </div>
@@ -104,12 +104,15 @@
                             <form:label for="gender_other" cssClass="item_input_label_radio_sign_up_page" path="gender"> Other </form:label>
                         </div>
                     </div>
+                        <div class="item_input_container_sign_up">
+                            <input id="image_uploads" type="file" path="fileData" class="item_input_sign_up_page" name="fileData" required />
+                        </div>
 
-                    <div class="item_input_container_sign_up">
-                        <input id="image_uploads" type="file" path="fileData" class="item_input_sign_up_page" name="fileData" required />
+                    <div style="display:flex">
+                        <input class="sign_up_button" value="Sign up" type="submit" required/>
+                            <a class="main_page_header_button" href="${pageContext.request.contextPath}">Main page</a>
                     </div>
 
-                    <input class="sign_up_button" value="Sign up" type="submit" required/>
                 </form:form>
             </div>
 
