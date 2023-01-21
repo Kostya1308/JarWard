@@ -54,7 +54,7 @@
                     </c:if>
                     <c:if test="${sessionScope.isValid==false}">
                         <p class="text_1_invalidate">Incorrect data or unverified user</p>
-                        <p class="text_1_invalidate">Try again or contact us.</p>
+                        <p class="text_1_invalidate">Try again or contact us</p>
                     </c:if>
                 </div>
                 <div class="sign_up_on_login_page_container">
