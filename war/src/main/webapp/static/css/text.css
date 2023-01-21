@@ -23,5 +23,17 @@
     font-family: 'Open Sans', sans-serif;
     color:	rgb(255 255 255 / 16%);
     font-size: 20px;
-
 }
+
+.text_mail_sent{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    color:white;
+}
+
+.text_mail_sent_bold{
+     font-family: 'Open Sans', sans-serif;
+     font-size: 30px;
+     color:white;
+     font-weight:bold;
+ }

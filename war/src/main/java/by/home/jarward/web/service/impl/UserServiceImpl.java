@@ -4,8 +4,11 @@ import by.home.jarward.jar.entity.User;
 import by.home.jarward.jar.repository.interfaces.UserJpaRepository;
 import by.home.jarward.web.service.intarfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +29,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getByEmail(String email) {
         return userJpaRepository.findByEmail(email);
+    }
+
+    @Override
+    @Scheduled(fixedRate = 86400000)
+    public void deleteNotEnabledUsers() {
+        LocalDateTime now = LocalDateTime.now();
+
+        List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
+        userJpaRepository.deleteAllInBatch(users);
     }
 }

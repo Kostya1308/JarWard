@@ -110,7 +110,7 @@
 
                     <div style="display:flex">
                         <input class="sign_up_button" value="Sign up" type="submit" required/>
-                            <a class="main_page_header_button" href="${pageContext.request.contextPath}">Main page</a>
+                            <a class="main_page_header_button" href="/">Main page</a>
                     </div>
 
                 </form:form>

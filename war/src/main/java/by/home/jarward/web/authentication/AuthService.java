@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
@@ -28,7 +29,7 @@ public class AuthService implements UserDetailsService {
         AtomicReference<String> role = new AtomicReference<>();
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         GrantedAuthority authority;
-        boolean enabled = true;
+        AtomicBoolean enabled = new AtomicBoolean(false);
         boolean accountNotExpired = true;
         boolean credentialsNotExpired = true;
         boolean accountNotLocked = true;
@@ -37,12 +38,13 @@ public class AuthService implements UserDetailsService {
             login.set(item.getLogin());
             password.set(new String(item.getPassword()));
             role.set("ROLE_" + item.getRole().getName());
+            enabled.set(item.isEnabled());
         });
 
         authority = new SimpleGrantedAuthority(role.get());
         grantedAuthorities.add(authority);
 
         return new org.springframework.security.core.userdetails.User(login.get(), password.get(),
-                enabled, accountNotExpired, credentialsNotExpired, accountNotLocked, grantedAuthorities);
+                enabled.get(), accountNotExpired, credentialsNotExpired, accountNotLocked, grantedAuthorities);
     }
 }

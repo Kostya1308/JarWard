@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,14 @@ class UserJpaRepositoryTest {
         mark.ifPresent(markItem -> Assertions.assertEquals(markItem.getMark(), 9));
     }
 
+    @Test
+    public void getListNotEnabledUsersTest(){
+        List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(LocalDateTime.now().plusDays(1L));
+        System.out.println(users);
+    }
+
+
+
     @BeforeAll
     public void fillBase() {
 
@@ -53,6 +62,7 @@ class UserJpaRepositoryTest {
         teacher.setLogin("Yulia");
         teacher.setPassword("qwertyui".toCharArray());
         teacher.setEmail("Yulia@gmail.com");
+        teacher.setEnabled(false);
         userJpaRepository.save(teacher);
 
         student1.setName("Kostya");
@@ -60,6 +70,7 @@ class UserJpaRepositoryTest {
         student1.setLogin("Kostya1308");
         student1.setPassword("qwertyui".toCharArray());
         student1.setEmail("kostya1308@gmail.com");
+        student1.setEnabled(false);
         userJpaRepository.save(student1);
 
         student2.setName("Alex");
@@ -67,6 +78,7 @@ class UserJpaRepositoryTest {
         student2.setLogin("Alex");
         student2.setPassword("qwertyui".toCharArray());
         student2.setEmail("alex@gmail.com");
+        student2.setEnabled(true);
         userJpaRepository.save(student2);
 
         javaCoreCourse.setTitle("Java Core");

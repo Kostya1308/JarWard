@@ -24,6 +24,8 @@ public class UserForm {
     private String passwordConfirm;
     @Email(message = "incorrect format")
     private String email;
+    private String verifyCode;
+    private String verifyCodeConfirm;
     private String dateOfBirth;
     private String gender;
     private String language;

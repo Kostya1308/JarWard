@@ -9,6 +9,15 @@
     border-bottom:thin solid rgb(255 255 255 / 16%);
     padding-left:30px;
     padding-right:30px;
+    z-index:1;
+}
+
+.black_page{
+    position:relative;
+    display:flex;
+    background-color:#212020;
+    width:100%;
+    height: 100%;
 }
 
 .buttons_on_header_container{
@@ -17,12 +26,13 @@
 }
 
 .sign_in_page_container{
+    padding-top:65px;
     position:relative;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #212020;
+    background-color: transient;
     height:100%;
     width: 100%;
 }
@@ -84,3 +94,16 @@
     align-items:center;
     margin:20px;
 }
+
+.verify_info_page_container{
+    position:relative;
+    display:flex;
+    padding-top:65px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+    width: 100%;
+    background-color:transient;
+}
+

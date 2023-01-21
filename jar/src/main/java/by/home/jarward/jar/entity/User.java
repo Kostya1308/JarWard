@@ -53,6 +53,10 @@ public class User extends DateTimeEntity implements Serializable {
     private Role role;
     @Column
     private boolean isBlocked;
+    @Column
+    private boolean enabled;
+    @Column
+    private char[] verifyToken;
 
 
     @Override
@@ -157,6 +161,21 @@ public class User extends DateTimeEntity implements Serializable {
         isBlocked = blocked;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public char[] getVerifyToken() {
+        return verifyToken;
+    }
+
+    public void setVerifyToken(char[] verifyToken) {
+        this.verifyToken = verifyToken;
+    }
 }
 
 
