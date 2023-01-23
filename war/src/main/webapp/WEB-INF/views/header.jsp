@@ -35,18 +35,18 @@
 
             <div class="line_2"></div>
 
-            <a class="dropdown_item_container" href="/users/settings">
-                <svg width=25 height=25 class="dropdown_item_icon">
-                    <use xlink:href="#settings"></use>
-                </svg>
-                <span class="dropdown_item_link">Settings<span>
-            </a>
-
             <a class="dropdown_item_container" href="/course">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#book"></use>
                 </svg>
                 <span class="dropdown_item_link">My courses<span>
+            </a>
+
+            <a class="dropdown_item_container" href="/users/settings">
+                <svg width=25 height=25 class="dropdown_item_icon">
+                    <use xlink:href="#settings"></use>
+                </svg>
+                <span class="dropdown_item_link">Settings<span>
             </a>
 
             <div class="line_2"></div>

@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Scheduled(fixedRate = 86400000)
+    @Scheduled(fixedRate = 100000)
     public void deleteNotEnabledUsers() {
         LocalDateTime now = LocalDateTime.now();
         List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
