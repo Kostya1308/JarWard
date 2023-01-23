@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="item_input_container_sign_up">
-                            <input id="image_uploads" type="file" path="fileData" class="item_input_sign_up_page" name="fileData" required />
+                            <input id="image_uploads" type="file" path="fileData" class="item_input_sign_up_page" name="fileData"/>
                         </div>
 
                         <div style="display:flex">

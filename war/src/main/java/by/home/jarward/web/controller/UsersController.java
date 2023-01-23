@@ -10,6 +10,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -47,9 +53,7 @@ public class UsersController {
     public ModelAndView getSettingsPage(@Validated @ModelAttribute("userForm") UserForm userForm, BindingResult bindingResult) {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> user = userService.getByLogin(principal.getUsername());
-        user.ifPresent(item -> {
-            userFacade.getUserFormFromUser(userForm, item);
-        });
+        user.ifPresent(item -> userFacade.getUserFormFromUser(userForm, item));
         return new ModelAndView("user_settings");
     }
 
@@ -73,28 +77,31 @@ public class UsersController {
                     userFacade.getUserFromUserForm(item, userForm);
                     userService.save(item);
 
-//                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//                    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-//                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + item.getRole().getName());
-//                    updatedAuthorities.add(grantedAuthority);
-//                    UserDetails userDetails = authService.loadUserByUsername(userForm.getLogin());
-//                    Authentication newAuth = new UsernamePasswordAuthenticationToken(userDetails,
-//                            auth.getCredentials(), updatedAuthorities);
-//                    SecurityContextHolder.getContext().setAuthentication(newAuth);
+                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + item.getRole().getName());
+                    updatedAuthorities.add(grantedAuthority);
+                    UserDetails userDetails = authService.loadUserByUsername(userForm.getLogin());
+                    Authentication newAuth = new UsernamePasswordAuthenticationToken(userDetails,
+                            auth.getCredentials(), updatedAuthorities);
+                    SecurityContextHolder.getContext().setAuthentication(newAuth);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
 
 
-//                session.setAttribute("login", userForm.getLogin());
-//                session.setAttribute("language", userForm.getLanguage());
-//                try {
-//                    session.setAttribute("photo", userForm.getFileData().getBytes());
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
+                session.setAttribute("login", userForm.getLogin());
+                session.setAttribute("language", userForm.getLanguage());
+                if (userForm.getFileData() != null) {
+                    try {
+                        session.setAttribute("photo", userForm.getFileData().getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
             });
-            return new RedirectView(req.getContextPath() + "/logout");
+            return new RedirectView(req.getContextPath() + "/");
         }
 
     }

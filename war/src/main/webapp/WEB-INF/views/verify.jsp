@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
     <head>
-        <title>Sing Up</title>
+        <title>Jarward | Sing Up</title>
         <link href="${pageContext.request.contextPath}/static/css/reset_styles.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/static/css/containers.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/static/css/buttons.css" rel="stylesheet">

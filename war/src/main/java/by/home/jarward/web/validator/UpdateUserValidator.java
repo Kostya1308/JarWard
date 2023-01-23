@@ -46,9 +46,8 @@ public class UpdateUserValidator implements Validator {
         UserForm userForm = (UserForm) target;
         char[] passwordField = new JPasswordField(userForm.getPassword()).getPassword();
         char[] passwordConfirmField = new JPasswordField(userForm.getPasswordConfirm()).getPassword();
-
-        if (passwordField.length >= 1 && oldUser.isPresent() &&
-                !String.copyValueOf(oldUser.get().getPassword()).equals(passwordEncoder.encode(String.copyValueOf(passwordField)))) {
+        if (oldUser.isPresent() && passwordField.length >= 1 &&
+                !passwordEncoder.matches(String.copyValueOf(passwordField), String.copyValueOf(oldUser.get().getPassword()))) {
             errors.rejectValue("password", "", "password is not confirm");
         }
 

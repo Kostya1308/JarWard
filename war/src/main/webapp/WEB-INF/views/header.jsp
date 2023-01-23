@@ -10,7 +10,7 @@
 
     <security:authorize access="isAuthenticated()">
         <div class="buttons_auth_on_header_container">
-            <a class="sign_in_header_button" href="/login">Home</a>
+            <a class="sign_in_header_button" href="/">Home</a>
             <a class="sign_in_header_button" href="/sign-up">Courses</a>
             <a class="sign_in_header_button" href="/sign-up">Teachers</a>
             <a class="sign_in_header_button" href="/sign-up">About</a>
@@ -42,7 +42,7 @@
                 <span class="dropdown_item_link">Settings<span>
             </a>
 
-            <a class="dropdown_item_container" href="#">
+            <a class="dropdown_item_container" href="/course">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#book"></use>
                 </svg>
@@ -58,7 +58,6 @@
                 <span class="dropdown_item_link">Logout<span>
             </a>
         </div>
-
     </security:authorize>
 </div>
 

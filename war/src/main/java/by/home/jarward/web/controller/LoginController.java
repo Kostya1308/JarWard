@@ -39,11 +39,4 @@ public class LoginController {
         return new ModelAndView("home");
     }
 
-    @GetMapping(value = "/logout")
-    public ModelAndView logout(){
-        return new ModelAndView("home");
-    }
-
-
-
 }
