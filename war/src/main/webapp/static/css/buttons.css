@@ -110,4 +110,9 @@
     background-color: #228B22;
     cursor: pointer;
     opacity:1;
+    transition: 0.2s;
+}
+
+.dropdown_item_link{
+    font-color:white;
 }

@@ -40,14 +40,13 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/welcome").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin()
                     .loginPage("/login")
                     .usernameParameter("login")
                     .loginProcessingUrl("/loginS")
-                    .defaultSuccessUrl("/welcome", true)
+                    .defaultSuccessUrl("/", true)
                     .failureUrl("/login?error")
                     .permitAll()
                     .and()
@@ -57,6 +56,7 @@ public class SecurityConfiguration {
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/logout")
                     .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true)
                     .permitAll()
                     .and()
                 .rememberMe()

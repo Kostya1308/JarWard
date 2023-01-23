@@ -19,8 +19,7 @@ import java.io.InputStream;
 public class FilesController {
 
     @GetMapping(value = "/show-photo")
-    public ResponseEntity<byte[]> showPhoto(@RequestParam("param") String value, HttpServletResponse resp,
-                                            HttpServletRequest req) throws IOException {
+    public ResponseEntity<byte[]> showPhoto(@RequestParam("param") String value, HttpServletRequest req) throws IOException {
         ServletContext servletContext = req.getServletContext();
         String resource;
         switch (value){
@@ -32,4 +31,14 @@ public class FilesController {
         return new ResponseEntity<>(bytes, HttpStatus.OK);
 
     }
+
+    @GetMapping(value = "/show-avatar")
+    public void showAvatar(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Object photo = req.getSession().getAttribute("photo");
+        resp.setContentType("image/jpg");
+        resp.getOutputStream().write((byte[]) photo);
+        resp.getOutputStream().close();
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package by.home.jarward.web.configuration;
 
+import by.home.jarward.web.interceptor.AuthInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -18,6 +20,10 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = {"by.home.jarward.web"})
 public class WebMvcConfig implements WebMvcConfigurer {
+    @Bean
+    AuthInterceptor authInterceptor(){
+        return new AuthInterceptor();
+    };
 
     @Bean
     public InternalResourceViewResolver resolver() {
@@ -38,12 +44,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("/static/");
     }
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new AuthInterceptor())
-//                .addPathPatterns("/loginS")
-//                .excludePathPatterns("/", "/style/**", "/sign-up");
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authInterceptor())
+                .addPathPatterns("/")
+                .excludePathPatterns("/static/**");
+    }
 
     @Bean
     public MultipartResolver multipartResolver() {

@@ -27,3 +27,15 @@
 .mail_icon{
     fill: #0d6efd;
 }
+
+.circle_image{
+    border-radius: 1000px;
+    width:50px;
+}
+
+.dropdown_item_icon{
+    fill: white;
+    margin:0px 10px;
+}
+
+
