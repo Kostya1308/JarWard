@@ -25,6 +25,13 @@
     font-size: 20px;
 }
 
+.language{
+    font-family: 'Open Sans', sans-serif;
+    color:	rgb(255 255 255 / 16%);
+    font-size: 20px;
+    margin-right: 35px;
+}
+
 .text_mail_sent{
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
@@ -71,7 +78,7 @@
 
 .login_on_dropdown{
     color:white;
-    font-size: 20px;
+    font-size: 17px;
     font-family: 'Open Sans', sans-serif;
     display:flex;
         flex-direction: column;

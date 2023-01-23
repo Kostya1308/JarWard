@@ -35,7 +35,7 @@
 
             <div class="line_2"></div>
 
-            <a class="dropdown_item_container" href="/user/${sessionScope.login}">
+            <a class="dropdown_item_container" href="/users/settings">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#settings"></use>
                 </svg>
@@ -51,7 +51,7 @@
 
             <div class="line_2"></div>
 
-            <a class="dropdown_item_container" href="#">
+            <a class="dropdown_item_container" href="/logout">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#logout"></use>
                 </svg>

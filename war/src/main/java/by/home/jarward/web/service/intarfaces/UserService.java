@@ -13,4 +13,5 @@ public interface UserService {
     Optional<User> getByEmail(String email);
 
     void deleteNotEnabledUsers();
+
 }

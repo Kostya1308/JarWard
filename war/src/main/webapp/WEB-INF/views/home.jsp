@@ -6,7 +6,7 @@
 
 <html>
     <head>
-        <title>JarWard University</title>
+        <title>JarWard | Home</title>
         <link href="static/css/reset_styles.css" rel="stylesheet">
         <link href="static/css/containers.css" rel="stylesheet">
         <link href="static/css/buttons.css" rel="stylesheet">
@@ -26,7 +26,7 @@
         <div class="black_page">
             <div class="index_page_container">
                 <div class="text_about_university_container">
-                    <span class="text_about_university">...Like Harvard, but Jarward</span>
+                    <span class="text_about_university">"Like Harvard, but Jarward"</span>
                     <span class="text_2_about_university">Piskunov Constantine</span>
                 </div>
                 <div class="image_student_container">

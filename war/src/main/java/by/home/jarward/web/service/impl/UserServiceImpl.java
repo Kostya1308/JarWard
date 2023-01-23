@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        return userJpaRepository.save(user);
+        return userJpaRepository.saveAndFlush(user);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
     @Scheduled(fixedRate = 86400000)
     public void deleteNotEnabledUsers() {
         LocalDateTime now = LocalDateTime.now();
-
         List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
         userJpaRepository.deleteAllInBatch(users);
     }
+
 }

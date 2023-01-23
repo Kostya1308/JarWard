@@ -2,8 +2,8 @@ package by.home.jarward.web.controller;
 
 import by.home.jarward.jar.entity.Student;
 import by.home.jarward.jar.entity.User;
-import by.home.jarward.jar.enums.Gender;
 import by.home.jarward.jar.enums.Role;
+import by.home.jarward.web.facade.UserFacade;
 import by.home.jarward.web.form.UserForm;
 import by.home.jarward.web.service.intarfaces.EmailService;
 import by.home.jarward.web.service.intarfaces.UserService;
@@ -22,10 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.swing.*;
 import java.io.IOException;
-
-import java.time.LocalDate;
 
 import java.util.Optional;
 import java.util.Properties;
@@ -38,6 +35,8 @@ public class SignUpController {
     UserService userService;
     @Autowired
     EmailService emailService;
+    @Autowired
+    UserFacade userFacade;
 
     @Qualifier(value = "newUserValidator")
     @Autowired
@@ -71,14 +70,18 @@ public class SignUpController {
             return new RedirectView(req.getContextPath() + "/sign-up");
         } else {
             Student user = new Student();
-            fillUser(user, userForm);
+            userFacade.getUserFromUserForm(user, userForm);
+            user.setBlocked(false);
+            user.setRole(Role.STUDENT);
+            user.setEnabled(false);
+            user.setVerifyToken(passwordEncoder.encode(userForm.getLogin()).toCharArray());
             emailService.sendEmail("konstantinpiskunov1308@gmail.com", properties.getProperty("admin.email"),
                     "Verify your account",
                     "http://localhost:8080/sign-up/verify?login=" + user.getLogin() + "&token="
                             + String.copyValueOf(user.getVerifyToken()));
             userService.save(user);
 
-            return new RedirectView(req.getContextPath() + "/verify-info");
+            return new RedirectView(req.getContextPath() + "/sign-up/verify-info");
         }
     }
 
@@ -98,26 +101,5 @@ public class SignUpController {
         } else {
             return new RedirectView("/error");
         }
-    }
-
-
-    private void fillUser(User user, UserForm userForm) throws IOException {
-        user.setLogin(userForm.getLogin());
-        char[] passwordField = new JPasswordField(userForm.getPassword()).getPassword();
-        user.setPassword(passwordEncoder.encode(String.copyValueOf(passwordField)).toCharArray());
-        user.setEmail(userForm.getEmail());
-        user.setName(userForm.getName());
-        user.setSurname(userForm.getSurname());
-        user.setDateOfBirth(LocalDate.parse(userForm.getDateOfBirth()));
-        switch (userForm.getGender()) {
-            case "Male" -> user.setGender(Gender.MALE);
-            case "Female" -> user.setGender(Gender.FEMALE);
-            case "Other" -> user.setGender(Gender.OTHER);
-        }
-        user.setBlocked(false);
-        user.setRole(Role.STUDENT);
-        user.setEnabled(false);
-        user.setVerifyToken(passwordEncoder.encode(userForm.getLogin()).toCharArray());
-        user.setPhoto(userForm.getFileData().getBytes());
     }
 }
