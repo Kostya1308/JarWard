@@ -39,7 +39,7 @@
                             dynamically developing industry. The programs are designed for different levels of training.
                             </span>
                             <div>
-                                <a href="/courses" class="courses_button_index_page">Courses</a>
+                                <a href="/courses/all" class="courses_button_index_page">Courses</a>
                             </div>
                     </div>
                 </div>

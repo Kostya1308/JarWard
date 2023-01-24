@@ -31,12 +31,12 @@ public class UserServiceImpl implements UserService {
         return userJpaRepository.findByEmail(email);
     }
 
-    @Override
-    @Scheduled(fixedRate = 100000)
-    public void deleteNotEnabledUsers() {
-        LocalDateTime now = LocalDateTime.now();
-        List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
-        userJpaRepository.deleteAllInBatch(users);
-    }
+//    @Override
+//    @Scheduled(fixedRate = 100000)
+//    public void deleteNotEnabledUsers() {
+//        LocalDateTime now = LocalDateTime.now();
+//        List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
+//        userJpaRepository.deleteAllInBatch(users);
+//    }
 
 }

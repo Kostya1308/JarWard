@@ -1,5 +1,7 @@
 package by.home.jarward.jar.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OptimisticLockType;
@@ -11,7 +13,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -39,7 +40,7 @@ public class Course extends DateTimeEntity implements Serializable {
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "course_user",
+            name = "course_student",
             joinColumns = {@JoinColumn(name = "idCourse")},
             inverseJoinColumns = {@JoinColumn(name = "idUser")})
     @ToString.Exclude
@@ -47,17 +48,20 @@ public class Course extends DateTimeEntity implements Serializable {
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "course_user",
+            name = "course_teacher",
             joinColumns = {@JoinColumn(name = "idCourse")},
             inverseJoinColumns = {@JoinColumn(name = "idUser")})
     @ToString.Exclude
+
     private List<Teacher> teachers;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @ToString.Exclude
+
     private List<Lesson> lessons;
-    @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @ToString.Exclude
+
     private List<Homework> homeworks;
 
     @Override
@@ -145,4 +149,6 @@ public class Course extends DateTimeEntity implements Serializable {
     public void setHomeworks(List<Homework> homeworks) {
         this.homeworks = homeworks;
     }
+
+
 }

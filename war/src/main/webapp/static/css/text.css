@@ -81,10 +81,22 @@
     font-size: 17px;
     font-family: 'Open Sans', sans-serif;
     display:flex;
-        flex-direction: column;
-
+    flex-direction: column;
     justify-content: space-between;
     align-items:center;
     padding:0px 10px;
+}
 
+.title_course{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 30px;
+    color:white;
+    margin:10px;
+}
+
+.desc_course{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    color:white;
+    margin:10px;
 }

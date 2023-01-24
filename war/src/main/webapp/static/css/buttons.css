@@ -117,3 +117,22 @@
     font-color:white;
     font-weight:100;
 }
+
+.appoint_button_courses_page{
+    font-family: 'Open Sans', sans-serif;
+    width: 100px;
+    height: 20px;
+    font-size: 20px;
+    padding: 5px 30px;
+    border-radius:10px;
+    color:white;
+    background-color: #32CD32;
+    opacity:1;
+}
+.appoint_button_courses_page:hover{
+    background-color: #228B22;
+    cursor: pointer;
+    opacity:1;
+    transition: 0.2s;
+}
+

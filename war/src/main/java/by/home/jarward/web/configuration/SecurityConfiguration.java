@@ -28,7 +28,6 @@ public class SecurityConfiguration {
         managerBuilder.userDetailsService(authService);
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -39,6 +38,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/users", "/courses/registration").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin()

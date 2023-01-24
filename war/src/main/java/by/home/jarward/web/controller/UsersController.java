@@ -54,6 +54,7 @@ public class UsersController {
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> user = userService.getByLogin(principal.getUsername());
         user.ifPresent(item -> userFacade.getUserFormFromUser(userForm, item));
+
         return new ModelAndView("user_settings");
     }
 
@@ -89,7 +90,6 @@ public class UsersController {
                     throw new RuntimeException(e);
                 }
 
-
                 session.setAttribute("login", userForm.getLogin());
                 session.setAttribute("language", userForm.getLanguage());
                 if (userForm.getFileData() != null) {
@@ -103,7 +103,5 @@ public class UsersController {
             });
             return new RedirectView(req.getContextPath() + "/");
         }
-
     }
-
 }
