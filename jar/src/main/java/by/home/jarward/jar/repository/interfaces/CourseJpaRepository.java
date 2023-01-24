@@ -21,4 +21,8 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
             countQuery = "SELECT c FROM Course c LEFT JOIN FETCH c.students s WHERE c.dateStart > :dateStart AND s.login <> :login OR s = null")
     Page<Course> findByDateStartGreaterThanAndLoginNot(@Param("dateStart") LocalDate localDate,
                                                        @Param("login") String login, Pageable pageable);
+    @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.students s WHERE c.dateEnd > :dateEnd AND s.login = :login",
+            countQuery = "SELECT c FROM Course c LEFT JOIN FETCH c.students s WHERE c.dateEnd > :dateEnd AND s.login = :login")
+    Page<Course> findByDateEndGreaterThanAndLogin(@Param("dateEnd") LocalDate localDate,
+                                                  @Param("login") String login, Pageable pageable);
 }

@@ -33,9 +33,11 @@
                         <span class="title_course">
                             ${course.title}
                         </span>
+                        <c:if test="${pageContext.request.contextPath} != '/courses/sessionScope.login'}">
                         <div>
                             <a href="${pageContext.request.contextPath}/courses/registration" class="appoint_button_courses_page">Registration</a>
                         </div>
+                        </c:if>
                     </div>
                     <div style="width: 600px">
                         <p class="desc_course">

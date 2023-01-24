@@ -40,4 +40,9 @@ public class CourseServiceImpl implements CourseService {
     public Page<Course> getAllByDateStartGreaterThanByLoginNot(LocalDate localDate, String login, Pageable pageable) {
         return courseJpaRepository.findByDateStartGreaterThanAndLoginNot(localDate, login, pageable);
     }
+
+    @Override
+    public Page<Course> getAllByDateEndGreaterThanAndLogin(LocalDate localDate, String login, Pageable pageable) {
+        return courseJpaRepository.findByDateEndGreaterThanAndLogin(localDate, login, pageable);
+    }
 }

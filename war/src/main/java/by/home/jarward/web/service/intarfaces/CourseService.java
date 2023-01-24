@@ -13,5 +13,6 @@ public interface CourseService {
     List<Course> getAllWithStudents();
     List<Course> getAll();
     Page<Course> getAllByDateStartGreaterThanByLoginNot(LocalDate localDate, String login, Pageable pageable);
+    Page<Course> getAllByDateEndGreaterThanAndLogin(LocalDate localDate, String login, Pageable pageable);
 
 }

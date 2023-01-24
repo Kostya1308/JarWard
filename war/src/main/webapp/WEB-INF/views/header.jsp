@@ -35,7 +35,7 @@
 
             <div class="line_2"></div>
 
-            <a class="dropdown_item_container" href="/courses">
+            <a class="dropdown_item_container" href="${pageContext.request.contextPath}/courses/${sessionScope.login}">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#book"></use>
                 </svg>

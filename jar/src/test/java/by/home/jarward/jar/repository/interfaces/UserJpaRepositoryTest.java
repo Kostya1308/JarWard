@@ -62,10 +62,18 @@ class UserJpaRepositoryTest {
         System.out.println(users);
     }
     @Test
-    public void getCourses(){
+    public void getCourses_1(){
         Pageable pageWithThreeElements = PageRequest.of(0, 3);
         Page<Course> coursesPage =
                 courseJpaRepository.findByDateStartGreaterThanAndLoginNot(LocalDate.now(), "Kostya1308", pageWithThreeElements);
+        System.out.println(coursesPage.get().toList().size());
+    }
+
+    @Test
+    public void getCourses_2(){
+        Pageable pageWithThreeElements = PageRequest.of(0, 3);
+        Page<Course> coursesPage =
+                courseJpaRepository.findByDateEndGreaterThanAndLogin(LocalDate.now(), "Kostya1308", pageWithThreeElements);
         System.out.println(coursesPage.get().toList().size());
     }
 
@@ -106,15 +114,19 @@ class UserJpaRepositoryTest {
 
         javaCoreCourse.setTitle("Java Core");
         javaCoreCourse.setDateStart(LocalDate.of(2023, 6, 6));
+        javaCoreCourse.setDateEnd(LocalDate.of(2023, 8, 6));
         javaCoreCourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
         javaEnterpriseCourse.setTitle("Java Enterprise");
         javaEnterpriseCourse.setDateStart(LocalDate.of(2023, 6, 6));
+        javaEnterpriseCourse.setDateEnd(LocalDate.of(2023, 8, 6));
         javaEnterpriseCourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
         dataBasecourse.setTitle("Database");
         dataBasecourse.setDateStart(LocalDate.of(2023, 6, 6));
+        dataBasecourse.setDateEnd(LocalDate.of(2023, 8, 6));
         dataBasecourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
         javaScriptCourse.setTitle("JavaScript");
         javaScriptCourse.setDateStart(LocalDate.of(2023, 6, 6));
+        javaScriptCourse.setDateEnd(LocalDate.of(2023, 8, 6));
         javaScriptCourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
 
         courseJpaRepository.save(javaCoreCourse);
