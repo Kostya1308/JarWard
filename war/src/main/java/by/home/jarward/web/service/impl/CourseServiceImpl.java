@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -44,5 +45,9 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Page<Course> getAllByDateEndGreaterThanAndLogin(LocalDate localDate, String login, Pageable pageable) {
         return courseJpaRepository.findByDateEndGreaterThanAndLogin(localDate, login, pageable);
+    }
+
+    public Optional<Course> getByTitleWithStudents(String title){
+        return courseJpaRepository.findByIdWithStudents(title);
     }
 }

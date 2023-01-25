@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseService {
     Course save(Course course);
@@ -14,5 +15,6 @@ public interface CourseService {
     List<Course> getAll();
     Page<Course> getAllByDateStartGreaterThanByLoginNot(LocalDate localDate, String login, Pageable pageable);
     Page<Course> getAllByDateEndGreaterThanAndLogin(LocalDate localDate, String login, Pageable pageable);
+    Optional<Course> getByTitleWithStudents(String title);
 
 }

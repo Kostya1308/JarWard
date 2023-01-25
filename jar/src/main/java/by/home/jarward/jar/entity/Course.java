@@ -24,7 +24,6 @@ public class Course extends DateTimeEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idCourse")
-
     private Long id;
     @Column
     private String title;

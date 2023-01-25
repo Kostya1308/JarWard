@@ -1,8 +1,11 @@
 package by.home.jarward.web.controller;
 
 import by.home.jarward.jar.entity.Course;
+import by.home.jarward.jar.entity.Student;
 import by.home.jarward.jar.entity.Teacher;
+import by.home.jarward.jar.entity.User;
 import by.home.jarward.web.service.intarfaces.CourseService;
+import by.home.jarward.web.service.intarfaces.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,9 +28,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,6 +40,8 @@ import java.util.stream.Collectors;
 public class CoursesController {
     @Autowired
     CourseService courseService;
+    @Autowired
+    UserService userService;
 
     @GetMapping(value = "/all")
     public ModelAndView getAllCourses(@RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber) {
@@ -59,8 +66,19 @@ public class CoursesController {
     }
 
     @GetMapping(value = "/registration")
-    public ModelAndView getRegistrationPage() {
-        return new ModelAndView("registration");
+    public RedirectView getRegistrationPage(@RequestParam("course") String title) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String loginPrincipal = ((UserDetails) principal).getUsername();
+        Optional<User> student = userService.getByLogin(loginPrincipal);
+        Optional<Course> course = courseService.getByTitleWithStudents(title);
+        course.ifPresent(itemCourse -> {
+                    student.ifPresent(itemStudent ->
+                            itemCourse.getStudents().add((Student) itemStudent));
+                    courseService.save(itemCourse);
+                }
+        );
+
+        return new RedirectView("/courses/all");
     }
 
     @GetMapping(value = "/{login}")
@@ -77,6 +95,7 @@ public class CoursesController {
 
         Page<Course> page = courseService.getAllByDateEndGreaterThanAndLogin(LocalDate.now(), loginPrincipal, pageWithThreeElements);
         List<Course> courses = page.get().toList();
+        modelAndView.addObject("isMyCourses", true);
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("page", page);
 
