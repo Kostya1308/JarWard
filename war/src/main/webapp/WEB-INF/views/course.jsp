@@ -6,8 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
     <head>
-        <title>Jarward | ${course.title}</title>
-
+        <title>Jarward | Course</title>
         <link href="${pageContext.request.contextPath}/static/css/reset_styles.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/static/css/containers.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/static/css/buttons.css" rel="stylesheet">
@@ -24,12 +23,23 @@
     </head>
     <body>
         <jsp:include page="header.jsp" flush="true" />
-        <div class="courses_page_container">
+        <div class="course_page_container">
             <span class="course_title_container">
                 ${course.title}
             </span>
-            <div class="average_mark_container"
 
+            <div class="average_mark_container">
+                <span class="average_mark_text">Your average mark:</span>
+                <span class="average_mark">${average}</span>
+            </div>
+            <div class="homework_container">
+                <c:forEach items="${marks}" var="mark" >
+                    <div class="homework_item_container">
+                        <span class="homework_title_text_course_page">${mark.markId.homework.title}</span>
+                        <span class="homework_title_text_course_page">mark: ${mark.mark}</span>
+                    </div>
+                </c:forEach>
+            </div>
 
         </div>
     </body>

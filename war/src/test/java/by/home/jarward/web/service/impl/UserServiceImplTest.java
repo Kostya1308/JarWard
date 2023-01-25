@@ -121,6 +121,7 @@ class UserServiceImplTest {
         courseService.save(javaCoreCourse);
 
         homework1.setCourse(javaCoreCourse);
+        homework1.setTitle("Homework N1");
         Mark mark = new Mark();
         MarkId markId = new MarkId();
         markId.setStudent(student1);

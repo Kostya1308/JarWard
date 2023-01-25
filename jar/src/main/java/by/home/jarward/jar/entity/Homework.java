@@ -27,6 +27,9 @@ public class Homework extends DateTimeEntity implements Serializable {
     @Column(name = "idHomework")
     private Long id;
 
+    @Column
+    private String title;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idCourse")
     @ToString.Exclude

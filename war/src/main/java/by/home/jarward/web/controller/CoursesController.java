@@ -28,9 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -86,7 +84,7 @@ public class CoursesController {
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView getCoursePage(@PathVariable("id") String id){
+    public ModelAndView getCoursePage(@PathVariable("id") String id) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String loginPrincipal = ((UserDetails) principal).getUsername();
 
@@ -95,11 +93,16 @@ public class CoursesController {
         List<Homework> homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
         final List<Mark>[] marks = new List[]{new ArrayList<>()};
         student.ifPresent(itemStudent -> marks[0] = markService.getByHomeworksAndStudent(homeworkList, itemStudent));
+        OptionalDouble average = marks[0].stream()
+                .map(Mark::getMark)
+                .mapToInt(item -> item)
+                .average();
 
         ModelAndView modelAndView = new ModelAndView("course");
-        modelAndView.addObject("course", course);
+        modelAndView.addObject("marks", marks[0]);
         modelAndView.addObject("homeworks", homeworkList);
-        modelAndView.addObject("marks", marks);
+        course.ifPresent(itemCourse -> modelAndView.addObject("course", itemCourse));
+        average.ifPresent(itemAverage -> modelAndView.addObject("average", itemAverage));
 
         return modelAndView;
     }
