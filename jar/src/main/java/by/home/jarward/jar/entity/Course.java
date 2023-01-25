@@ -77,6 +77,10 @@ public class Course extends DateTimeEntity implements Serializable {
         return Objects.hash(super.hashCode(), id);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }

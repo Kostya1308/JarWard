@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -57,12 +58,13 @@ class UserJpaRepositoryTest {
     }
 
     @Test
-    public void getListNotEnabledUsersTest(){
+    public void getListNotEnabledUsersTest() {
         List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(LocalDateTime.now().plusDays(1L));
         System.out.println(users);
     }
+
     @Test
-    public void getCourses_1(){
+    public void getCourses_1() {
         Pageable pageWithThreeElements = PageRequest.of(0, 3);
         Page<Course> coursesPage =
                 courseJpaRepository.findByDateStartGreaterThanAndLoginNot(LocalDate.now(), "Kostya1308", pageWithThreeElements);
@@ -70,7 +72,7 @@ class UserJpaRepositoryTest {
     }
 
     @Test
-    public void getCourses_2(){
+    public void getCourses_2() {
         Pageable pageWithThreeElements = PageRequest.of(0, 3);
         Page<Course> coursesPage =
                 courseJpaRepository.findByDateEndGreaterThanAndLogin(LocalDate.now(), "Kostya1308", pageWithThreeElements);
@@ -78,7 +80,22 @@ class UserJpaRepositoryTest {
     }
 
     @Test
-    public void init(){
+    public void getHomework() {
+        List<Homework> homeworkList = homeworkJpaRepository.findAllByCourseId(1L);
+        System.out.println(homeworkList.size());
+    }
+
+    @Test
+    public void getMark() {
+        Optional<Homework> homeworkById = homeworkJpaRepository.findById(1L);
+        Optional<User> studentById = userJpaRepository.findById(2L);
+        Optional<Mark> mark = markJpaRepository.findById(new MarkId(homeworkById.get(), (Student) studentById.get()));
+        System.out.println(mark.get().getMark());
+    }
+
+
+    @Test
+    public void init() {
         courseJpaRepository.findAll();
     }
 

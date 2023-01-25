@@ -62,10 +62,9 @@ public class User extends DateTimeEntity implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User user)) return false;
         if (!super.equals(o)) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        return id.equals(user.id);
     }
 
     @Override

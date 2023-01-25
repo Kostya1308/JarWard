@@ -274,11 +274,23 @@
 
 .pagination_container{
     margin-top:20px;
-
     display:flex;
     align-items:center;
     justify-content: center;
 }
+
+.course_title_container{
+     top:100px;
+     width: 900px;
+     height: 110px;
+     font-family: 'Open Sans', sans-serif;
+     font-size: 50px;
+     font-weight: bold;
+     color:white;
+     display:flex;
+     align-items: center;
+     justify-content: start;
+ }
 
 
 

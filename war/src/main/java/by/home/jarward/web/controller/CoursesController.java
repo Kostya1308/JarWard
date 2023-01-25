@@ -1,17 +1,14 @@
 package by.home.jarward.web.controller;
 
-import by.home.jarward.jar.entity.Course;
-import by.home.jarward.jar.entity.Student;
-import by.home.jarward.jar.entity.Teacher;
-import by.home.jarward.jar.entity.User;
-import by.home.jarward.web.service.intarfaces.CourseService;
-import by.home.jarward.web.service.intarfaces.UserService;
+import by.home.jarward.jar.entity.*;
+import by.home.jarward.web.service.intarfaces.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +40,12 @@ public class CoursesController {
     CourseService courseService;
     @Autowired
     UserService userService;
+    @Autowired
+    HomeworkService homeworkService;
+    @Autowired
+    LessonService lessonService;
+    @Autowired
+    MarkService markService;
 
     @GetMapping(value = "/all")
     public ModelAndView getAllCourses(@RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber) {
@@ -66,11 +70,11 @@ public class CoursesController {
     }
 
     @GetMapping(value = "/registration")
-    public RedirectView getRegistrationPage(@RequestParam("course") String title) {
+    public RedirectView getRegistrationPage(@RequestParam("course") String id) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String loginPrincipal = ((UserDetails) principal).getUsername();
         Optional<User> student = userService.getByLogin(loginPrincipal);
-        Optional<Course> course = courseService.getByTitleWithStudents(title);
+        Optional<Course> course = courseService.getByIdWithStudents(Long.parseLong(id));
         course.ifPresent(itemCourse -> {
                     student.ifPresent(itemStudent ->
                             itemCourse.getStudents().add((Student) itemStudent));
@@ -81,7 +85,26 @@ public class CoursesController {
         return new RedirectView("/courses/all");
     }
 
-    @GetMapping(value = "/{login}")
+    @GetMapping(value = "/{id}")
+    public ModelAndView getCoursePage(@PathVariable("id") String id){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String loginPrincipal = ((UserDetails) principal).getUsername();
+
+        Optional<User> student = userService.getByLogin(loginPrincipal);
+        Optional<Course> course = courseService.getById(Long.parseLong(id));
+        List<Homework> homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
+        final List<Mark>[] marks = new List[]{new ArrayList<>()};
+        student.ifPresent(itemStudent -> marks[0] = markService.getByHomeworksAndStudent(homeworkList, itemStudent));
+
+        ModelAndView modelAndView = new ModelAndView("course");
+        modelAndView.addObject("course", course);
+        modelAndView.addObject("homeworks", homeworkList);
+        modelAndView.addObject("marks", marks);
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/user/{login}")
     public ModelAndView getCoursesByUser(@PathVariable("login") String login,
                                          @RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

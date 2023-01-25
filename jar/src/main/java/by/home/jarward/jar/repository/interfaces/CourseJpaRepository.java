@@ -31,6 +31,8 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     Page<Course> findByDateEndGreaterThanAndLogin(@Param("dateEnd") LocalDate localDate,
                                                   @Param("login") String login, Pageable pageable);
 
-    @Query(value = "select c from Course c left join fetch c.students s where c.title =:title")
-    Optional<Course> findByIdWithStudents(@Param("title") String title);
+    @Query(value = "select c from Course c left join fetch c.students s where c.id =:id")
+    Optional<Course> findByIdWithStudents(@Param("id") Long id);
+
+
 }

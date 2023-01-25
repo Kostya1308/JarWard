@@ -47,7 +47,12 @@ public class CourseServiceImpl implements CourseService {
         return courseJpaRepository.findByDateEndGreaterThanAndLogin(localDate, login, pageable);
     }
 
-    public Optional<Course> getByTitleWithStudents(String title){
-        return courseJpaRepository.findByIdWithStudents(title);
+    public Optional<Course> getByIdWithStudents(Long id){
+        return courseJpaRepository.findByIdWithStudents(id);
+    }
+
+    @Override
+    public Optional<Course> getById(Long id) {
+        return courseJpaRepository.findById(id);
     }
 }
