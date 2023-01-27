@@ -26,6 +26,9 @@
 }
 
 .buttons_auth_on_header_container{
+    position:absolute;
+    left:50%;
+    right:50%;
     display: flex;
     justify-content: space-around;
 }
@@ -308,26 +311,54 @@
     width: 900px;
     height: 60px;
     padding: 30px 0px;
+    margin-bottom: 30px;
     display:flex;
     align-items: center;
     justify-content: start;
-    border-bottom:thin solid rgb(255 255 255 / 16%);
+}
+
+.schedule_homework_container{
+    width: 900px;
+    display:flex;
+    justify-content: space-between;
 }
 
 .homework_container{
-     display:flex;
-     justify-content: start;
-     align-items: center;
+    width: 300px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .homework_item_container{
-    width: 900px;
+    width: 300px;
     height: 60px;
     padding: 30px 0px;
     display:flex;
+    justify-content: space-between;
     align-items: center;
     border-bottom:thin solid rgb(255 255 255 / 16%);
 }
+
+.schedule_container{
+    width: 500px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lesson_item_container{
+    width: 500px;
+    height: 60px;
+    padding: 30px 0px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:thin solid rgb(255 255 255 / 16%);
+}
+
 
 
 

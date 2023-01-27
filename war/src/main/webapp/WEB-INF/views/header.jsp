@@ -2,19 +2,19 @@
 
 <div class="header_container">
     <a href="/" style="display:flex; align-items:center">
-        <svg width=30 height=30 class="dropdown_item_icon">
+        <svg width=30 height=30 class="main_item_icon">
             <use xlink:href="#bank"></use>
         </svg>
         <span class="main_name_text">JarWard</span>
     </a>
 
     <security:authorize access="isAuthenticated()">
-        <div class="buttons_auth_on_header_container">
-            <a class="sign_in_header_button" href="/">Home</a>
-            <a class="sign_in_header_button" href="/courses/all">Courses</a>
-            <a class="sign_in_header_button" href="/sign-up">Teachers</a>
-            <a class="sign_in_header_button" href="/sign-up">About</a>
-        </div>
+            <div class="buttons_auth_on_header_container">
+                <a class="sign_in_header_button" href="/">Home</a>
+                <a class="sign_in_header_button" href="/courses/all">Courses</a>
+                <a class="sign_in_header_button" href="/sign-up">Teachers</a>
+                <a class="sign_in_header_button" href="/sign-up">About</a>
+            </div>
     </security:authorize>
 
     <security:authorize access="!isAuthenticated()">

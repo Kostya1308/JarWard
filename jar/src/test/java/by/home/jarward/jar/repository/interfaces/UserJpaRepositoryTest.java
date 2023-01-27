@@ -45,6 +45,9 @@ class UserJpaRepositoryTest {
     Course javaScriptCourse = new Course();
     Homework homework1 = new Homework();
     Lesson lesson1 = new Lesson();
+    Lesson lesson2 = new Lesson();
+    Lesson lesson3 = new Lesson();
+
     private static final String PASSWORD = "qwertyui";
 
     @Test
@@ -91,6 +94,14 @@ class UserJpaRepositoryTest {
         Optional<User> studentById = userJpaRepository.findById(2L);
         Optional<Mark> mark = markJpaRepository.findById(new MarkId(homeworkById.get(), (Student) studentById.get()));
         System.out.println(mark.get().getMark());
+    }
+
+    @Test
+    public void getLessonsTest(){
+        Optional<Course> course = courseJpaRepository.findById(1L);
+        List<Lesson> lessons = lessonJpaRepository.findAllByCourse(course.get());
+        System.out.println(lessons);
+
     }
 
 
@@ -175,6 +186,16 @@ class UserJpaRepositoryTest {
         lesson1.setStudents(students);
         lesson1.setTeachers(teachers);
         lessonJpaRepository.save(lesson1);
+
+        lesson2.setCourse(javaCoreCourse);
+        lesson2.setStudents(students);
+        lesson2.setTeachers(teachers);
+        lessonJpaRepository.save(lesson2);
+
+        lesson3.setCourse(javaCoreCourse);
+        lesson3.setStudents(students);
+        lesson3.setTeachers(teachers);
+        lessonJpaRepository.save(lesson3);
     }
 
 //    @AfterAll

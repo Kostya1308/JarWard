@@ -51,16 +51,14 @@ public class Course extends DateTimeEntity implements Serializable {
             joinColumns = {@JoinColumn(name = "idCourse")},
             inverseJoinColumns = {@JoinColumn(name = "idUser")})
     @ToString.Exclude
-
     private List<Teacher> teachers;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @ToString.Exclude
-
     private List<Lesson> lessons;
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @ToString.Exclude
-
     private List<Homework> homeworks;
 
     @Override

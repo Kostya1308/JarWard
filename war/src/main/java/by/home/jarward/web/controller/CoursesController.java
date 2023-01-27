@@ -2,19 +2,10 @@ package by.home.jarward.web.controller;
 
 import by.home.jarward.jar.entity.*;
 import by.home.jarward.web.service.intarfaces.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.ws.rs.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/courses")
@@ -87,19 +77,25 @@ public class CoursesController {
     public ModelAndView getCoursePage(@PathVariable("id") String id) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String loginPrincipal = ((UserDetails) principal).getUsername();
+        var ref = new Object() {
+            List<Lesson> lessons;
+            List<Mark> marks;
+        };
 
         Optional<User> student = userService.getByLogin(loginPrincipal);
         Optional<Course> course = courseService.getById(Long.parseLong(id));
         List<Homework> homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
-        final List<Mark>[] marks = new List[]{new ArrayList<>()};
-        student.ifPresent(itemStudent -> marks[0] = markService.getByHomeworksAndStudent(homeworkList, itemStudent));
-        OptionalDouble average = marks[0].stream()
+        course.ifPresent(itemCourse -> ref.lessons = lessonService.getAllByCourse(itemCourse));
+        student.ifPresent(itemStudent -> ref.marks = markService.getByHomeworksAndStudent(homeworkList, itemStudent));
+
+        OptionalDouble average = ref.marks.stream()
                 .map(Mark::getMark)
                 .mapToInt(item -> item)
                 .average();
 
         ModelAndView modelAndView = new ModelAndView("course");
-        modelAndView.addObject("marks", marks[0]);
+        modelAndView.addObject("marks", ref.marks);
+        modelAndView.addObject("lessons", ref.lessons);
         modelAndView.addObject("homeworks", homeworkList);
         course.ifPresent(itemCourse -> modelAndView.addObject("course", itemCourse));
         average.ifPresent(itemAverage -> modelAndView.addObject("average", itemAverage));

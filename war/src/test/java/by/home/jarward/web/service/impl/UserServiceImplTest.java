@@ -18,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +52,9 @@ class UserServiceImplTest {
     Course javaScriptCourse = new Course();
     Homework homework1 = new Homework();
     Lesson lesson1 = new Lesson();
+    Lesson lesson2 = new Lesson();
+    Lesson lesson3 = new Lesson();
+
     private static final String PASSWORD = "qwertyui";
 
     @Test
@@ -66,7 +70,7 @@ class UserServiceImplTest {
         teacher.setName("Yulia");
         teacher.setSurname("Ivanauskas");
         teacher.setLogin("Yulia");
-        teacher.setPassword(passwordEncoder.encode(PASSWORD).toCharArray());
+        teacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
         teacher.setEmail("Yulia@gmail.com");
         teacher.setRole(Role.TEACHER);
         teacher.setEnabled(true);
@@ -75,7 +79,7 @@ class UserServiceImplTest {
         student1.setName("Kostya");
         student1.setSurname("Piskunou");
         student1.setLogin("Kostya1308");
-        student1.setPassword(passwordEncoder.encode(PASSWORD).toCharArray());
+        student1.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
         student1.setEmail("kostya1308@gmail.com");
         student1.setRole(Role.STUDENT);
         student1.setEnabled(true);
@@ -84,7 +88,7 @@ class UserServiceImplTest {
         student2.setName("Alex");
         student2.setSurname("Ivanov");
         student2.setLogin("Alex");
-        student2.setPassword(passwordEncoder.encode(PASSWORD).toCharArray());
+        student2.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
         student2.setEmail("alex@gmail.com");
         student2.setRole(Role.STUDENT);
         student2.setEnabled(true);
@@ -121,7 +125,6 @@ class UserServiceImplTest {
         courseService.save(javaCoreCourse);
 
         homework1.setCourse(javaCoreCourse);
-        homework1.setTitle("Homework N1");
         Mark mark = new Mark();
         MarkId markId = new MarkId();
         markId.setStudent(student1);
@@ -136,7 +139,20 @@ class UserServiceImplTest {
         lesson1.setCourse(javaCoreCourse);
         lesson1.setStudents(students);
         lesson1.setTeachers(teachers);
+        lesson1.setDateTimeStart(LocalDateTime.of(2023, 6, 1, 18, 0));
         lessonService.save(lesson1);
+
+        lesson2.setCourse(javaCoreCourse);
+        lesson2.setStudents(students);
+        lesson2.setTeachers(teachers);
+        lesson2.setDateTimeStart(LocalDateTime.of(2023, 6, 5, 18, 0));
+        lessonService.save(lesson2);
+
+        lesson3.setCourse(javaCoreCourse);
+        lesson3.setStudents(students);
+        lesson3.setTeachers(teachers);
+        lesson3.setDateTimeStart(LocalDateTime.of(2023, 6, 10, 18, 0));
+        lessonService.save(lesson3);
     }
     @Test
     public void init(){

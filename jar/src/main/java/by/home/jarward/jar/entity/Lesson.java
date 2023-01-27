@@ -42,6 +42,9 @@ public class Lesson extends DateTimeEntity implements Serializable {
     @Column
     private LocalDateTime dateTimeEnd;
 
+    @Column
+    private String title;
+
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(
             name = "lesson_student",
