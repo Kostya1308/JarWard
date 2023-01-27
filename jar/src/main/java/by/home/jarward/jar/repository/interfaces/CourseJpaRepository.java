@@ -18,7 +18,7 @@ public interface CourseJpaRepository extends JpaRepository<Course, Long> {
     @Query("select c from Course c left join fetch c.students s")
     List<Course> findAllWithStudents();
 
-    @Query("select c from Course c join fetch c.teachers t")
+    @Query("select c from Course c")
     List<Course> findAllWithTeachers();
 
     @Query(value = "SELECT c FROM Course c LEFT JOIN FETCH c.students s WHERE c.dateStart > :dateStart AND s.login <> :login OR s = null",

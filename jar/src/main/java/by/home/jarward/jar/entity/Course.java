@@ -45,13 +45,10 @@ public class Course extends DateTimeEntity implements Serializable {
     @ToString.Exclude
     private List<Student> students;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "course_teacher",
-            joinColumns = {@JoinColumn(name = "idCourse")},
-            inverseJoinColumns = {@JoinColumn(name = "idUser")})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "idTeacher")
     @ToString.Exclude
-    private List<Teacher> teachers;
+    private Teacher teacher;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -127,12 +124,12 @@ public class Course extends DateTimeEntity implements Serializable {
         this.students = students;
     }
 
-    public List<Teacher> getTeachers() {
-        return teachers;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public List<Lesson> getLessons() {
