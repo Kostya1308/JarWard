@@ -34,46 +34,59 @@
             <div class="schedule_homework_container">
                 <div class="schedule_container">
                     <span class="schedule_text">Schedule</span>
+
                     <c:forEach items="${lessons}" var="lesson" >
+                        <jsp:useBean id="now" class="java.util.Date"/>
+                        <fmt:parseDate value = "${lesson.dateEnd}" var = "parsedEndDate" pattern = "yyyy-MM-dd" />
+                        <fmt:parseDate value = "${lesson.dateStart}" var = "parsedStartDate" pattern = "yyyy-MM-dd" />
                         <div class="lesson_item_container">
-                            <span class="lesson_title_text_course_page">${lesson.title}</span>
-                                <fmt:parseDate value="${lesson.dateTimeStart}" var="parsedDate" pattern="yyyy-MM-dd'T'HH:mm"/>
-                                <jsp:useBean id="now" class="java.util.Date" />
-                                <fmt:formatDate var="nowFormat" value="${now}" pattern="dd/MM/yyyy hh:mm" />
-                            <c:if test="${lesson.dateTimeEnd < nowFormat}">
+                            <c:if test="${parsedEndDate le now}">
+                                <span class="lesson_title_text_course_page_passed">${lesson.title}</span>
                                 <span class="lesson_title_text_course_page_passed">
-                                    <fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${parsedDate}"/>
+                                    <c:out value="${lesson.dateStart}"/>
+                                </span>
+                                <span class="lesson_title_text_course_page_passed">
+                                    <c:out value="${lesson.timeStart}"/>
                                 </span>
                             </c:if>
-                            <c:if test="${lesson.dateTimeEnd > nowFormat}">
+                            <c:if test="${parsedEndDate ge now}">
+                                <span class="lesson_title_text_course_page">${lesson.title}</span>
                                 <span class="lesson_title_text_course_page">
-                                    <fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${parsedDate}"/>
+                                    <c:out value="${lesson.dateStart}"/>
+                                </span>
+                                <span class="lesson_title_text_course_page">
+                                    <c:out value="${lesson.timeStart}"/>
                                 </span>
                             </c:if>
                         </div>
                     </c:forEach>
                 </div>
+
                 <div class="homework_container">
                     <span class="schedule_text">Marks</span>
-                    <c:forEach items="${marks}" var="mark" >
-                        <c:if test="${marks == null}">
-                            <span class="homework_title_text_course_page">You haven't marks yet</span>
-                        </c:if>
-                        <c:if test="${marks != null}">
-                            <c:if test="mark.markId.homework.deadLine > mark.dateTimeCreate">
-                                <div class="homework_item_container">
-                                    <span class="homework_title_text_course_page_red">${mark.markId.homework.title}</span>
-                                    <span class="homework_title_text_course_page_red">${mark.mark}</span>
-                                </div>
-                            </c:if>
-                            <c:if test="mark.markId.homework.deadLine < mark.dateTimeCreate">
+                    <c:if test="${marks == null}">
+                        <span class="homework_title_text_course_page">You haven't marks yet</span>
+                    </c:if>
+                    <c:if test="${marks != null}">
+                        <c:forEach items="${marks}" var="mark" >
+                            <fmt:parseDate value = "${mark.dateCreate}" var = "parsedDateCreate" pattern = "yyyy-MM-dd" />
+                            <fmt:parseDate value = "${mark.markId.homework.deadLine}" var = "parsedDeadline" pattern = "yyyy-MM-dd" />
+
+                            <c:if test="${parsedDateCreate le parsedDeadline}">
                                 <div class="homework_item_container">
                                     <span class="homework_title_text_course_page">${mark.markId.homework.title}</span>
                                     <span class="homework_title_text_course_page">${mark.mark}</span>
                                 </div>
                             </c:if>
-                        </c:if>
-                    </c:forEach>
+                            <c:if test="${parsedDateCreate ge parsedDeadline}">
+                                <div class="homework_item_container">
+                                    <span class="homework_title_text_course_page_red">${mark.markId.homework.title}</span>
+                                    <span class="homework_title_text_course_page_red">Deadline - ${mark.markId.homework.deadLine}</span>
+                                    <span class="homework_title_text_course_page_red">${mark.mark}</span>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>

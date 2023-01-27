@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface HomeworkJpaRepository extends JpaRepository<Homework, Long> {
-    @Query(value = "select h from Homework h join fetch h.course where h.id =:id")
+    @Query(value = "select h from Homework h join fetch h.course c where c.id =:id")
     List<Homework> findAllByCourseId(@Param("id") Long id);
 }

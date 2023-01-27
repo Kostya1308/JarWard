@@ -1,8 +1,6 @@
 package by.home.jarward.jar.entity;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -13,12 +11,13 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Getter
 @Setter
+@ToString
 public class MarkId implements Serializable {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idHomework")
     private Homework homework;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "idUser")
     private Student student;
 

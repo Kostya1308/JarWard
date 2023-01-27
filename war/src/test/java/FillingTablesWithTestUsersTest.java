@@ -10,13 +10,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Properties;
 
@@ -44,6 +44,7 @@ public class FillingTablesWithTestUsersTest {
     private final Teacher herbertSchildtTeacher = new Teacher();
     private final Teacher kathySierraTeacher = new Teacher();
     private final Teacher joshuaBlochTeacher = new Teacher();
+    private final Teacher nastyaTeacher = new Teacher();
 
     private final Student kostyaStudent = new Student();
     private final Student nastyaStudent = new Student();
@@ -53,6 +54,7 @@ public class FillingTablesWithTestUsersTest {
     private final Course javaEnterpriseCourse = new Course();
     private final Course dataBaseCourse = new Course();
     private final Course javaScriptCourse = new Course();
+    private final Course smmCourse = new Course();
 
     private final Homework javaFundamentalsHomework1 = new Homework();
     private final Homework javaFundamentalsHomework2 = new Homework();
@@ -74,6 +76,15 @@ public class FillingTablesWithTestUsersTest {
     @Test
     public void initDataBase() {
         courseService.getAll();
+    }
+
+    @Test
+    public void clearDataBase(){
+        markService.deleteAll();
+        lessonService.deleteAll();
+        homeworkService.deleteAll();
+        courseService.deleteAll();
+        userService.deleteAll();
     }
 
     @Test
@@ -139,6 +150,20 @@ public class FillingTablesWithTestUsersTest {
         inputStream.close();
         userService.save(jamesGoslingTeacher);
 
+        nastyaTeacher.setName("Nastya");
+        nastyaTeacher.setSurname("Glushenok");
+        nastyaTeacher.setLogin("Nastya");
+        nastyaTeacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        nastyaTeacher.setEmail("nastya@gmail.com");
+        nastyaTeacher.setRole(Role.TEACHER);
+        nastyaTeacher.setEnabled(true);
+        nastyaTeacher.setDateOfBirth(LocalDate.of(1992, 9, 10));
+        nastyaTeacher.setGender(Gender.FEMALE);
+        inputStream = new FileInputStream("src/main/resources/photos/nastya.jpg");
+        nastyaTeacher.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(nastyaTeacher);
+
         kostyaStudent.setName("Constantine");
         kostyaStudent.setSurname("Piskunov");
         kostyaStudent.setLogin("Kostya");
@@ -193,63 +218,91 @@ public class FillingTablesWithTestUsersTest {
         javaEnterpriseCourse.setDescription(properties.getProperty("java_enterprise"));
         courseService.save(javaEnterpriseCourse);
 
-        dataBaseCourse.setTitle("Java Enterprise");
+        dataBaseCourse.setTitle("Data Base");
         dataBaseCourse.setDateStart(LocalDate.of(2023, 2, 20));
         dataBaseCourse.setDateEnd(LocalDate.of(2023, 3, 6));
         dataBaseCourse.setDescription(properties.getProperty("database"));
         courseService.save(dataBaseCourse);
 
-        javaScriptCourse.setTitle("Java Enterprise");
+        javaScriptCourse.setTitle("Java Script");
         javaScriptCourse.setDateStart(LocalDate.of(2023, 3, 6));
         javaScriptCourse.setDateEnd(LocalDate.of(2023, 3, 20));
-        javaScriptCourse.setDescription(properties.getProperty("database"));
+        javaScriptCourse.setDescription(properties.getProperty("javascript"));
         courseService.save(javaScriptCourse);
 
+        smmCourse.setTitle("SMM");
+        smmCourse.setDateStart(LocalDate.of(2023, 3, 20));
+        smmCourse.setDateEnd(LocalDate.of(2023, 4, 6));
+        smmCourse.setDescription(properties.getProperty("smm"));
+        courseService.save(smmCourse);
+
         javaFundamentalsHomework1.setTitle("Variables");
-        javaFundamentalsHomework1.setDeadLine(LocalDateTime.of(2023, 1, 20, 0, 0));
+        javaFundamentalsHomework1.setDeadLine(LocalDate.of(2023, 1, 20));
+        javaFundamentalsHomework1.setCourse(javaFundamentalsCourse);
         homeworkService.save(javaFundamentalsHomework1);
 
         javaFundamentalsHomework2.setTitle("Generics");
-        javaFundamentalsHomework2.setDeadLine(LocalDateTime.of(2023, 1, 25, 0, 0));
+        javaFundamentalsHomework2.setDeadLine(LocalDate.of(2023, 1, 25));
+        javaFundamentalsHomework2.setCourse(javaFundamentalsCourse);
         homeworkService.save(javaFundamentalsHomework2);
 
         javaFundamentalsHomework3.setTitle("Stream API");
-        javaFundamentalsHomework3.setDeadLine(LocalDateTime.of(2023, 1, 30, 0, 0));
+        javaFundamentalsHomework3.setDeadLine(LocalDate.of(2023, 1, 30));
+        javaFundamentalsHomework3.setCourse(javaFundamentalsCourse);
         homeworkService.save(javaFundamentalsHomework3);
 
         javaFundamentalsLesson1.setTitle("Lesson 1");
-        javaFundamentalsLesson1.setDateTimeStart(LocalDateTime.of(2023, 1, 16, 18, 0));
-        javaFundamentalsLesson1.setDateTimeEnd(LocalDateTime.of(2023, 1, 16, 21, 0));
+        javaFundamentalsLesson1.setDateStart(LocalDate.of(2023, 1, 16));
+        javaFundamentalsLesson1.setDateEnd(LocalDate.of(2023, 1, 16));
+        javaFundamentalsLesson1.setTimeStart(LocalTime.of(18,0));
+        javaFundamentalsLesson1.setTimeEnd(LocalTime.of(21,0));
+        javaFundamentalsLesson1.setCourse(javaFundamentalsCourse);
         lessonService.save(javaFundamentalsLesson1);
 
         javaFundamentalsLesson2.setTitle("Lesson 2");
-        javaFundamentalsLesson2.setDateTimeStart(LocalDateTime.of(2023, 1, 31, 18, 0));
-        javaFundamentalsLesson2.setDateTimeEnd(LocalDateTime.of(2023, 1, 31, 21, 0));
+        javaFundamentalsLesson2.setDateStart(LocalDate.of(2023, 1, 31));
+        javaFundamentalsLesson2.setDateEnd(LocalDate.of(2023, 1, 31));
+        javaFundamentalsLesson2.setTimeStart(LocalTime.of(18,0));
+        javaFundamentalsLesson2.setTimeEnd(LocalTime.of(21,0));
+        javaFundamentalsLesson2.setCourse(javaFundamentalsCourse);
         lessonService.save(javaFundamentalsLesson2);
 
         javaFundamentalsLesson3.setTitle("Lesson 3");
-        javaFundamentalsLesson3.setDateTimeStart(LocalDateTime.of(2023, 2, 5, 18, 0));
-        javaFundamentalsLesson3.setDateTimeEnd(LocalDateTime.of(2023, 2, 5, 21, 0));
+        javaFundamentalsLesson3.setDateStart(LocalDate.of(2023, 2, 5));
+        javaFundamentalsLesson3.setDateEnd(LocalDate.of(2023, 2, 5));
+        javaFundamentalsLesson3.setTimeStart(LocalTime.of(18,0));
+        javaFundamentalsLesson3.setTimeEnd(LocalTime.of(21,0));
+        javaFundamentalsLesson3.setCourse(javaFundamentalsCourse);
         lessonService.save(javaFundamentalsLesson3);
 
-        javaFundamentalsCourse.setHomeworks(List.of(javaFundamentalsHomework1, javaFundamentalsHomework2, javaFundamentalsHomework3));
-        javaFundamentalsCourse.setLessons(List.of(javaFundamentalsLesson1, javaFundamentalsLesson2, javaFundamentalsLesson3));
         javaFundamentalsCourse.setStudents(List.of(kostyaStudent, nastyaStudent, catStudent));
         javaFundamentalsCourse.setTeacher(jamesGoslingTeacher);
         courseService.save(javaFundamentalsCourse);
 
-        markHomework1.setMarkId(new MarkId(javaFundamentalsHomework1, kostyaStudent));
-        markHomework1.setMark(8);
-        markService.save(markHomework1);
 
-        markHomework2.setMarkId(new MarkId(javaFundamentalsHomework1, kostyaStudent));
-        markHomework2.setMark(9);
-        markService.save(markHomework2);
+        MarkId markId1 = new MarkId();
+        markId1.setStudent(kostyaStudent);
+        markId1.setHomework(javaFundamentalsHomework1);
+        markHomework1.setMarkId(markId1);
+        markHomework1.setMark(9);
+        javaFundamentalsHomework1.setMarks(List.of(markHomework1));
+        homeworkService.save(javaFundamentalsHomework1);
+
+        MarkId markId2 = new MarkId();
+        markId2.setStudent(kostyaStudent);
+        markId2.setHomework(javaFundamentalsHomework2);
+        markHomework2.setMarkId(markId2);
+        markHomework2.setMark(8);
+        javaFundamentalsHomework2.setMarks(List.of(markHomework2));
+        homeworkService.save(javaFundamentalsHomework2);
+
+
 
         javaFundamentalsCourse.setTeacher(jamesGoslingTeacher);
         javaEnterpriseCourse.setTeacher(joshuaBlochTeacher);
         dataBaseCourse.setTeacher(kathySierraTeacher);
         javaScriptCourse.setTeacher(herbertSchildtTeacher);
+        smmCourse.setTeacher(nastyaTeacher);
 
         courseService.save(javaFundamentalsCourse);
         courseService.save(javaEnterpriseCourse);

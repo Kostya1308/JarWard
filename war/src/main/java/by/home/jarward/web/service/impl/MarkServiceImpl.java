@@ -34,4 +34,9 @@ public class MarkServiceImpl implements MarkService {
         }
         return marks;
     }
+
+    @Override
+    public void deleteAll() {
+        markJpaRepository.deleteAll();
+    }
 }

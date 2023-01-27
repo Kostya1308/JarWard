@@ -9,5 +9,5 @@ import java.util.List;
 public interface HomeworkService {
     Homework save(Homework homework);
     List<Homework> getAllByCourseId(Long id);
-
+    void deleteAll();
 }

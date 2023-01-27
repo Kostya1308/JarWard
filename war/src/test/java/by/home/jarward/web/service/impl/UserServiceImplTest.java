@@ -58,11 +58,12 @@ class UserServiceImplTest {
 
     @Test
     public void getMarks(){
-        List<Homework> homeworkList = homeworkService.getAllByCourseId(1L);
-        Optional<User> student = userService.getByLogin("Kostya1308");
+        List<Homework> homeworkList = homeworkService.getAllByCourseId(39L);
+        Optional<User> student = userService.getByLogin("Kostya");
         List<Mark> marks = markService.getByHomeworksAndStudent(homeworkList, student.get());
         System.out.println(marks.size());
     }
+
 
 //    @Test
 //    public void fillBase() {

@@ -15,4 +15,6 @@ public interface MarkService {
 
     List<Mark> getByHomeworksAndStudent(List<Homework> homeworkList, User student);
 
+    void deleteAll();
+
 }

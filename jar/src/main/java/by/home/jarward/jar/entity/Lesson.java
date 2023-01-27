@@ -6,7 +6,9 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,10 +39,16 @@ public class Lesson extends DateTimeEntity implements Serializable {
     private Course course;
 
     @Column
-    private LocalDateTime dateTimeStart;
+    private LocalDate dateStart;
 
     @Column
-    private LocalDateTime dateTimeEnd;
+    private LocalDate dateEnd;
+
+    @Column
+    private LocalTime timeStart;
+
+    @Column
+    private LocalTime timeEnd;
 
     @Column
     private String title;

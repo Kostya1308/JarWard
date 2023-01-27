@@ -22,4 +22,9 @@ public class HomeworkServiceImpl implements HomeworkService {
     public List<Homework> getAllByCourseId(Long id) {
         return homeworkJpaRepository.findAllByCourseId(id);
     }
+
+    @Override
+    public void deleteAll() {
+        homeworkJpaRepository.deleteAll();
+    }
 }

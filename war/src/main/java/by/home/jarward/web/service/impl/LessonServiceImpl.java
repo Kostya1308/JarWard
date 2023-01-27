@@ -23,4 +23,9 @@ public class LessonServiceImpl implements LessonService {
     public List<Lesson> getAllByCourse(Course course) {
         return lessonJpaRepository.findAllByCourse(course);
     }
+
+    @Override
+    public void deleteAll() {
+        lessonJpaRepository.deleteAll();
+    }
 }

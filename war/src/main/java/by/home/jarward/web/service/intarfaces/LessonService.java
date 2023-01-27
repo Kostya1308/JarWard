@@ -9,4 +9,5 @@ import java.util.List;
 public interface LessonService {
     Lesson save(Lesson lesson);
     List<Lesson> getAllByCourse(Course course);
+    void deleteAll();
 }

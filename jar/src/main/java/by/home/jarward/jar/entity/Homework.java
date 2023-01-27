@@ -6,6 +6,7 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -36,9 +37,10 @@ public class Homework extends DateTimeEntity implements Serializable {
     private Course course;
 
     @Column
-    private LocalDateTime deadLine;
+    private LocalDate deadLine;
 
     @OneToMany(mappedBy = "markId.homework", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Mark> marks;
 
     @Override

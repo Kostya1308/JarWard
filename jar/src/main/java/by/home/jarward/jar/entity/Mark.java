@@ -3,18 +3,28 @@ package by.home.jarward.jar.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 public class Mark {
     @Version
     private static long serialVersionUID;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDate dateCreate;
+
     @EmbeddedId
     private MarkId markId;
 

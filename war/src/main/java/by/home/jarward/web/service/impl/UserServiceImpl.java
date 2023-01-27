@@ -31,7 +31,12 @@ public class UserServiceImpl implements UserService {
         return userJpaRepository.findByEmail(email);
     }
 
-//    @Override
+    @Override
+    public void deleteAll() {
+        userJpaRepository.deleteAll();
+    }
+
+    //    @Override
 //    @Scheduled(fixedRate = 100000)
 //    public void deleteNotEnabledUsers() {
 //        LocalDateTime now = LocalDateTime.now();

@@ -97,6 +97,7 @@ public class CoursesController {
         modelAndView.addObject("marks", ref.marks);
         modelAndView.addObject("lessons", ref.lessons);
         modelAndView.addObject("homeworks", homeworkList);
+        modelAndView.addObject("test", LocalDate.of(2023,8,8));
         course.ifPresent(itemCourse -> modelAndView.addObject("course", itemCourse));
         average.ifPresent(itemAverage -> modelAndView.addObject("average", itemAverage));
 

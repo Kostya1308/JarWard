@@ -55,4 +55,9 @@ public class CourseServiceImpl implements CourseService {
     public Optional<Course> getById(Long id) {
         return courseJpaRepository.findById(id);
     }
+
+    @Override
+    public void deleteAll() {
+        courseJpaRepository.deleteAll();
+    }
 }
