@@ -142,6 +142,36 @@
                     </security:authorize>
                 </div>
             </div>
+            <security:authorize access="hasRole('teacher')">
+                <div class="user_stat_container">
+                    <span class="stat_text">Statistics</span>
+                    <c:forEach items="${course.students}" var="student">
+                        <div class="user_stat_item_container">
+                            <div style="display:flex; align-items:center; justify-content:space-between">
+                                <div>
+                                    <img src="${pageContext.request.contextPath}/file/show-avatar?login=${student.login}" class="circle_image_course_page"/>
+                                </div>
+                                <span class="user_stat_text">
+                                    ${student.name} ${student.surname}
+                                </span>
+                            </div>
+                            <span class="user_stat_text" style="position:absolute; left:50%; right:50% min-width:100%">
+                                classes visited:
+                                <c:import var="data" scope="request" charEncoding="utf-8"
+                                    url="${pageContext.request.contextPath}/statistic/present?login=${student.login}&courseId=${course.id}"/>
+                                <c:out value="${data}"/>
+                                from ${lessons.size()}
+                            </span>
+                            <span class="user_stat_text">
+                                average mark:
+                                <c:import var="data" scope="request" charEncoding="utf-8"
+                                    url="${pageContext.request.contextPath}/statistic/average-mark?login=${student.login}&courseId=${course.id}"/>
+                                <c:out value="${data}"/>
+                            </span>
+                        </div>
+                    </c:forEach>
+                </div>
+            </security:authorize>
         </div>
     </body>
 </html>

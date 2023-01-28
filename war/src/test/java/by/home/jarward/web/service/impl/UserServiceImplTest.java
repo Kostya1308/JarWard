@@ -72,6 +72,16 @@ class UserServiceImplTest {
         System.out.println(courses.get().toList().size());
     }
 
+    @Test
+    public void getCourseWithStudents(){
+
+        Optional<Course> course = courseService.getByIdWithStudents(64L);
+        course.ifPresent(itemCourse -> {
+            int size = itemCourse.getStudents().size();
+            System.out.println(size);
+        });
+    }
+
 
 //    @Test
 //    public void fillBase() {

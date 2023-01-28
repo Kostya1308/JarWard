@@ -173,3 +173,15 @@
     color:#4a4848;
     font-size: 15px;
 }
+
+.user_stat_text{
+    font-family: 'Open Sans', sans-serif;
+    color:white;
+    font-size: 15px;
+}
+
+.stat_text{
+    font-family: 'Open Sans', sans-serif;
+    color:white;
+    font-size: 30px;
+}

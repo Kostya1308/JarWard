@@ -83,17 +83,16 @@ public class CoursesController {
         String loginPrincipal = ((UserDetails) principal).getUsername();
         ModelAndView modelAndView = new ModelAndView("course");
         var ref = new Object() {
-            List<Homework> homeworkList = new ArrayList<>();
+            List<Homework> homeworkList;
             List<Lesson> lessons;
             List<Mark> marks;
         };
 
-        Optional<Course> course = Optional.empty();
+        Optional<Course> course = courseService.getByIdWithStudents(Long.parseLong(id));
 
         if (auth.getAuthorities().stream()
                 .anyMatch(item -> item.getAuthority().equals("ROLE_student"))) {
             Optional<User> student = userService.getByLogin(loginPrincipal);
-            course = courseService.getById(Long.parseLong(id));
             ref.homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
             course.ifPresent(itemCourse -> ref.lessons = lessonService.getAllByCourse(itemCourse));
             student.ifPresent(itemStudent -> ref.marks = markService.getByHomeworksAndStudent(ref.homeworkList, itemStudent));
@@ -108,7 +107,6 @@ public class CoursesController {
 
         } else if (auth.getAuthorities().stream()
                 .anyMatch(item -> item.getAuthority().equals("ROLE_teacher"))) {
-            course = courseService.getById(Long.parseLong(id));
             ref.homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
             course.ifPresent(itemCourse -> ref.lessons = lessonService.getAllByCourse(itemCourse));
         }

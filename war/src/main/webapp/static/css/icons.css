@@ -52,4 +52,10 @@
     fill: #0d6efd;
 }
 
+.circle_image_course_page{
+    border-radius: 1000px;
+    width:50px;
+    margin:0px 10px;
+}
+
 

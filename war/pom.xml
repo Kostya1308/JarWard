@@ -15,7 +15,6 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-
         <!-- https://mvnrepository.com/artifact/com.guicedee.services/sl4j -->
         <dependency>
             <groupId>com.guicedee.services</groupId>

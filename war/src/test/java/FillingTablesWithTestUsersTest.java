@@ -295,6 +295,9 @@ public class FillingTablesWithTestUsersTest {
         javaFundamentalsHomework2.setMarks(List.of(markHomework2));
         homeworkService.save(javaFundamentalsHomework2);
 
+        javaFundamentalsLesson1.setStudents(List.of(kostyaStudent, nastyaStudent));
+        lessonService.save(javaFundamentalsLesson1);
+
         javaFundamentalsCourse.setTeacher(jamesGoslingTeacher);
         javaEnterpriseCourse.setTeacher(joshuaBlochTeacher);
         dataBaseCourse.setTeacher(kathySierraTeacher);
