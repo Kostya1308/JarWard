@@ -34,20 +34,19 @@
 
             <div class="absent_container">
                 <span class="presence_text">Presence</span>
-                <form method="post" action="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
-                    <c:forEach items="${students}" var="student" >
+                <form:form id="homeworkForm" modelAttribute="homeworkForm" method="post" action="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
+
                         <div class="user_presence_item_container">
                             <div style="display:flex; align-items:center; justify-content:space-between">
                                 <div>
-                                    <img src="${pageContext.request.contextPath}/file/show-avatar?login=${student.login}" class="circle_image_course_page"/>
+                                    <img src="${pageContext.request.contextPath}/file/show-avatar?login=${homeworkForm.login}" class="circle_image_course_page"/>
                                 </div>
                                 <span class="user_stat_text">
-                                    ${student.name} ${student.surname}
+                                    ${homeworkForm.studentName}
                                 </span>
                             </div>
-                            <input type="checkbox" name="presentStudents" value="${student.id}">
+                            <form:input id="mark" path="homeworkForm.mark">
                         </div>
-                    </c:forEach>
                     <input class="save_lesson_button" value="Save Lesson" type="submit" required>
                 </form>
             </div>

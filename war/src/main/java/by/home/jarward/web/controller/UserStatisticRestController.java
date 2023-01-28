@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping(value = "/statistic")

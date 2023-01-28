@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HomeworkServiceImpl implements HomeworkService {
@@ -14,8 +15,15 @@ public class HomeworkServiceImpl implements HomeworkService {
     HomeworkJpaRepository homeworkJpaRepository;
 
     @Override
+    public Optional<Homework> getById(Long id) {
+        return homeworkJpaRepository.findById(id);
+    }
+
+    @Override
     public Homework save(Homework homework) {
         return homeworkJpaRepository.save(homework);
+
+
     }
 
     @Override
