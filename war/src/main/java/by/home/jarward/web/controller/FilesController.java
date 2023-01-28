@@ -31,6 +31,7 @@ public class FilesController {
         String resource;
         switch (value) {
             case "1" -> resource = "static/images/student.jpg";
+            case "2" -> resource = "static/images/logo.jpg";
             default -> resource = "static/images/student.jpg";
         }
         InputStream inputStream = servletContext.getResourceAsStream(resource);

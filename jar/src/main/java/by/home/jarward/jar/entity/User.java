@@ -72,6 +72,10 @@ public class User extends DateTimeEntity implements Serializable {
         return Objects.hash(super.hashCode(), id);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

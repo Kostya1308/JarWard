@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LessonServiceImpl implements LessonService {
@@ -17,6 +18,11 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public Lesson save(Lesson lesson) {
         return lessonJpaRepository.save(lesson);
+    }
+
+    @Override
+    public Optional<Lesson> getById(Long id) {
+        return lessonJpaRepository.findById(id);
     }
 
     @Override

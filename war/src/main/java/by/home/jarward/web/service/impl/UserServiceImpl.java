@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> getById(Long id) {
+        return userJpaRepository.findById(id);
+    }
+
+    @Override
     public Optional<User> getByLogin(String login) {
         return userJpaRepository.findByLogin(login);
     }

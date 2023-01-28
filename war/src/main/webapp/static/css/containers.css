@@ -386,6 +386,58 @@
     border-bottom:thin solid rgb(255 255 255 / 16%);
 }
 
+.lesson_page_container{
+    position:relative;
+    display:flex;
+    padding-top:65px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100%;
+    width: 100%;
+    background-color:#212020;
+}
+
+.lesson_title_container{
+     top:100px;
+     width: 900px;
+     height: 110px;
+     font-family: 'Open Sans', sans-serif;
+     font-size: 50px;
+     font-weight: bold;
+     color:white;
+     display:flex;
+     align-items: center;
+     justify-content: start;
+     border-bottom:thin solid rgb(255 255 255 / 16%);
+}
+
+.lesson_start_container{
+    width: 900px;
+    height: 60px;
+    padding: 30px 0px;
+    margin-bottom: 30px;
+    display:flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.user_presence_item_container{
+    width: 900px;
+    height: 80px;
+    padding: 20px 20px 20px 0px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:thin solid rgb(255 255 255 / 16%);
+}
+
+.user_presence_item_container:hover{
+    background: #2e2d2d;
+        transition-duration: 0.2s;
+
+ }
+
 
 
 

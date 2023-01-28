@@ -136,3 +136,22 @@
     transition: 0.2s;
 }
 
+.save_lesson_button{
+    transition-duration: 0.2s;
+    border: none;
+    border-radius: 10px;
+    padding:10px;
+    margin: 50px 0px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    width: 250px;
+    text-align:center;
+    background-color: #0d6efd;
+}
+
+.save_lesson_button:hover{
+    background-color: #0b5ed7;
+    cursor: pointer;
+}
+
