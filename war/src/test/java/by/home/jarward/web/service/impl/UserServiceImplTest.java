@@ -64,6 +64,14 @@ class UserServiceImplTest {
         System.out.println(marks.size());
     }
 
+    @Test
+    public void getCourseByTeacherLogin(){
+        Pageable pageWithThreeElements = PageRequest.of(0, 3);
+
+        Page<Course> courses = courseService.getAllByTeacherLogin("James", pageWithThreeElements);
+        System.out.println(courses.get().toList().size());
+    }
+
 
 //    @Test
 //    public void fillBase() {

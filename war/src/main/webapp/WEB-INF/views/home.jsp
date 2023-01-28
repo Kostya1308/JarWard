@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="translations" var="messages"/>
+
 
 <html>
     <head>
@@ -24,7 +24,7 @@
     <body>
         <jsp:include page="header.jsp" flush="true" />
         <div class="black_page">
-            <div class="index_page_container">
+          <div class="index_page_container">
                 <div class="text_about_university_container">
                     <span class="text_about_university">"Like Harvard, but Jarward"</span>
                     <span class="text_2_about_university">Piskunov Constantine</span>

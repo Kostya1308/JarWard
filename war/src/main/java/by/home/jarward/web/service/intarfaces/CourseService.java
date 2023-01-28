@@ -3,6 +3,7 @@ package by.home.jarward.web.service.intarfaces;
 import by.home.jarward.jar.entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface CourseService {
     Page<Course> getAllByDateEndGreaterThanAndLogin(LocalDate localDate, String login, Pageable pageable);
     Optional<Course> getByIdWithStudents(Long id);
     void deleteAll();
+    Page<Course> getAllByTeacherLogin(String login, Pageable pageable);
 }

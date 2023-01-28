@@ -15,7 +15,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Properties;
@@ -146,7 +145,7 @@ public class FillingTablesWithTestUsersTest {
         joshuaBlochTeacher.setDateOfBirth(LocalDate.of(1961, 8, 28));
         joshuaBlochTeacher.setLanguage("english");
         inputStream = new FileInputStream("src/main/resources/photos/joshua.jpeg");
-        jamesGoslingTeacher.setPhoto(inputStream.readAllBytes());
+        joshuaBlochTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
         userService.save(jamesGoslingTeacher);
 
@@ -180,9 +179,9 @@ public class FillingTablesWithTestUsersTest {
 
         nastyaStudent.setName("Nastya");
         nastyaStudent.setSurname("Glushenok");
-        nastyaStudent.setLogin("Nastya");
+        nastyaStudent.setLogin("Nastya1212");
         nastyaStudent.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
-        nastyaStudent.setEmail("nastya@gmail.com");
+        nastyaStudent.setEmail("nastya1212@gmail.com");
         nastyaStudent.setRole(Role.STUDENT);
         nastyaStudent.setEnabled(true);
         nastyaStudent.setDateOfBirth(LocalDate.of(1992, 9, 10));
@@ -295,8 +294,6 @@ public class FillingTablesWithTestUsersTest {
         markHomework2.setMark(8);
         javaFundamentalsHomework2.setMarks(List.of(markHomework2));
         homeworkService.save(javaFundamentalsHomework2);
-
-
 
         javaFundamentalsCourse.setTeacher(jamesGoslingTeacher);
         javaEnterpriseCourse.setTeacher(joshuaBlochTeacher);

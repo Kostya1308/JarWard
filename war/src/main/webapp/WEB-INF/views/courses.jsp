@@ -36,9 +36,11 @@
                         </span>
 
                         <c:if test="${isMyCourses!=true}">
-                            <div>
-                                <a href="${pageContext.request.contextPath}/courses/registration?course=${course.id}" class="appoint_button_courses_page">Registration</a>
-                            </div>
+                            <security:authorize access="(hasRole('student') || !isAuthenticated())">
+                                <div>
+                                    <a href="${pageContext.request.contextPath}/courses/registration?course=${course.id}" class="appoint_button_courses_page">Registration</a>
+                                </div>
+                            </security:authorize>
                         </c:if>
                         <c:if test="${isMyCourses==true}">
                             <div>

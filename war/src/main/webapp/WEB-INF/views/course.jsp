@@ -27,10 +27,17 @@
             <span class="course_title_container">
                 ${course.title}
             </span>
-            <div class="average_mark_container">
-                <span class="average_mark_text">Your average mark:</span>
-                <span class="average_mark">${average}</span>
-            </div>
+            <security:authorize access="hasRole('student')">
+                <div class="average_mark_container">
+                    <span class="average_mark_text">Your average mark:</span>
+                    <span class="average_mark">${average}</span>
+                </div>
+            </security:authorize>
+            <security:authorize access="hasRole('teacher')">
+                <div class="course_start_container">
+                    <span class="course_start_text">Start: ${course.dateStart} | End: ${course.dateEnd}</span>
+                </div>
+            </security:authorize>
             <div class="schedule_homework_container">
                 <div class="schedule_container">
                     <span class="schedule_text">Schedule</span>
@@ -39,9 +46,19 @@
                         <jsp:useBean id="now" class="java.util.Date"/>
                         <fmt:parseDate value = "${lesson.dateEnd}" var = "parsedEndDate" pattern = "yyyy-MM-dd" />
                         <fmt:parseDate value = "${lesson.dateStart}" var = "parsedStartDate" pattern = "yyyy-MM-dd" />
+
                         <div class="lesson_item_container">
                             <c:if test="${parsedEndDate le now}">
-                                <span class="lesson_title_text_course_page_passed">${lesson.title}</span>
+                                <span class="lesson_title_text_course_page_passed">
+                                    <security:authorize access="hasRole('teacher')">
+                                        <a class="lesson_title_text_course_page_passed_link" href="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
+                                            ${lesson.title}
+                                        </a>
+                                    </security:authorize>
+                                    <security:authorize access="hasRole('student')">
+                                            ${lesson.title}
+                                    </security:authorize>
+                                </span>
                                 <span class="lesson_title_text_course_page_passed">
                                     <c:out value="${lesson.dateStart}"/>
                                 </span>
@@ -50,7 +67,16 @@
                                 </span>
                             </c:if>
                             <c:if test="${parsedEndDate ge now}">
-                                <span class="lesson_title_text_course_page">${lesson.title}</span>
+                                <span class="lesson_title_text_course_page">
+                                    <security:authorize access="hasRole('teacher')">
+                                        <a class="lesson_title_text_course_page_link" href="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
+                                            ${lesson.title}
+                                        </a>
+                                    </security:authorize>
+                                    <security:authorize access="hasRole('student')">
+                                            ${lesson.title}
+                                    </security:authorize>
+                                </span>
                                 <span class="lesson_title_text_course_page">
                                     <c:out value="${lesson.dateStart}"/>
                                 </span>
@@ -58,35 +84,62 @@
                                     <c:out value="${lesson.timeStart}"/>
                                 </span>
                             </c:if>
+
                         </div>
                     </c:forEach>
                 </div>
 
                 <div class="homework_container">
-                    <span class="schedule_text">Marks</span>
-                    <c:if test="${marks == null}">
-                        <span class="homework_title_text_course_page">You haven't marks yet</span>
-                    </c:if>
-                    <c:if test="${marks != null}">
-                        <c:forEach items="${marks}" var="mark" >
-                            <fmt:parseDate value = "${mark.dateCreate}" var = "parsedDateCreate" pattern = "yyyy-MM-dd" />
-                            <fmt:parseDate value = "${mark.markId.homework.deadLine}" var = "parsedDeadline" pattern = "yyyy-MM-dd" />
+                    <security:authorize access="hasRole('student')">
+                        <span class="schedule_text">Marks</span>
+                        <c:if test="${marks == null}">
+                            <span class="homework_title_text_course_page">You haven't marks yet</span>
+                        </c:if>
+                        <c:if test="${marks != null}">
+                            <c:forEach items="${marks}" var="mark" >
+                                <fmt:parseDate value = "${mark.dateCreate}" var = "parsedDateCreate" pattern = "yyyy-MM-dd" />
+                                <fmt:parseDate value = "${mark.markId.homework.deadLine}" var = "parsedDeadline" pattern = "yyyy-MM-dd" />
 
-                            <c:if test="${parsedDateCreate le parsedDeadline}">
-                                <div class="homework_item_container">
-                                    <span class="homework_title_text_course_page">${mark.markId.homework.title}</span>
-                                    <span class="homework_title_text_course_page">${mark.mark}</span>
-                                </div>
-                            </c:if>
-                            <c:if test="${parsedDateCreate ge parsedDeadline}">
-                                <div class="homework_item_container">
-                                    <span class="homework_title_text_course_page_red">${mark.markId.homework.title}</span>
-                                    <span class="homework_title_text_course_page_red">Deadline - ${mark.markId.homework.deadLine}</span>
-                                    <span class="homework_title_text_course_page_red">${mark.mark}</span>
-                                </div>
-                            </c:if>
+                                <c:if test="${parsedDateCreate le parsedDeadline}">
+                                    <div class="homework_item_container">
+                                        <span class="homework_title_text_course_page">${mark.markId.homework.title}</span>
+                                        <span class="homework_title_text_course_page">${mark.mark}</span>
+                                    </div>
+                                </c:if>
+                                <c:if test="${parsedDateCreate ge parsedDeadline}">
+                                    <div class="homework_item_container">
+                                        <span class="homework_title_text_course_page_red">${mark.markId.homework.title}</span>
+                                        <span class="homework_title_text_course_page_red">Deadline - ${mark.markId.homework.deadLine}</span>
+                                        <span class="homework_title_text_course_page_red">${mark.mark}</span>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+                    </security:authorize>
+                    <security:authorize access="hasRole('teacher')">
+                    <span class="schedule_text">Homeworks</span>
+                        <c:forEach items="${homeworks}" var="homework">
+                            <div class="homework_item_container">
+                                <span class="homework_title_text_course_page">
+                                    <a class="homework_title_text_course_page" href="${pageContext.request.contextPath}/homeworks?id=${homework.id}">
+                                        ${homework.title}
+                                    </a>
+                                </span>
+
+                                <fmt:parseDate value = "${homework.deadLine}" var = "parsedDeadline" pattern = "yyyy-MM-dd" />
+                                <c:if test="${parsedDeadline ge now}">
+                                    <span class="homework_title_text_course_page">
+                                        Deadline: ${homework.deadLine}
+                                    </span>
+                                </c:if>
+                                <c:if test="${parsedDeadline le now}">
+                                    <span class="homework_title_text_course_page_red">
+                                        Deadline: ${homework.deadLine}
+                                    </span>
+                                </c:if>
+                            </div>
                         </c:forEach>
-                    </c:if>
+                    </security:authorize>
                 </div>
             </div>
         </div>

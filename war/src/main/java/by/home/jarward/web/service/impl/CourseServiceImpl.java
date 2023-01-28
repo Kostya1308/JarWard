@@ -60,4 +60,9 @@ public class CourseServiceImpl implements CourseService {
     public void deleteAll() {
         courseJpaRepository.deleteAll();
     }
+
+    @Override
+    public Page<Course> getAllByTeacherLogin(String login, Pageable pageable) {
+        return courseJpaRepository.findAllByTeacherLogin(login, pageable);
+    }
 }

@@ -120,6 +120,10 @@
     font-size: 15px;
 }
 
+.homework_title_text_course_page:hover{
+     text-decoration: underline;
+}
+
 .homework_title_text_course_page_red{
     font-family: 'Open Sans', sans-serif;
     color:red;
@@ -132,15 +136,40 @@
     font-size: 15px;
 }
 
+.lesson_title_text_course_page_link{
+     font-family: 'Open Sans', sans-serif;
+     color:white;
+     font-size: 15px;
+ }
+
 .lesson_title_text_course_page_passed{
     font-family: 'Open Sans', sans-serif;
     color:#4a4848;
     font-size: 15px;
 }
 
+.lesson_title_text_course_page_passed_link{
+     font-family: 'Open Sans', sans-serif;
+     color:#4a4848;
+     font-size: 15px;
+ }
+
+.lesson_title_text_course_page_link:hover{
+     text-decoration: underline;
+ }
+
+ .lesson_title_text_course_page_passed_link:hover{
+      text-decoration: underline
+  }
+
 .schedule_text{
     font-family: 'Open Sans', sans-serif;
     color:white;
     font-size: 30px;
+}
 
+.course_start_text{
+    font-family: 'Open Sans', sans-serif;
+    color:#4a4848;
+    font-size: 15px;
 }

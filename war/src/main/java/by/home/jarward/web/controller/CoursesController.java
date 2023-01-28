@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -35,14 +36,15 @@ public class CoursesController {
     @Autowired
     MarkService markService;
 
+
     @GetMapping(value = "/all")
     public ModelAndView getAllCourses(@RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView modelAndView = new ModelAndView("courses");
         Pageable pageWithThreeElements = PageRequest.of(Integer.parseInt(pageNumber), 3);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Page<Course> page;
 
-        if (auth.getName().equals("anonymousUser")) {
+        if (auth.getName().equals("anonymousUser") || (auth.getAuthorities().stream().anyMatch(item -> item.getAuthority().equals("ROLE_teacher")))) {
             page = courseService.getAllByDateStartGreaterThan(LocalDate.now(), pageWithThreeElements);
         } else {
             Object principal = auth.getPrincipal();
@@ -59,7 +61,8 @@ public class CoursesController {
 
     @GetMapping(value = "/registration")
     public RedirectView getRegistrationPage(@RequestParam("course") String id) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
         String loginPrincipal = ((UserDetails) principal).getUsername();
         Optional<User> student = userService.getByLogin(loginPrincipal);
         Optional<Course> course = courseService.getByIdWithStudents(Long.parseLong(id));
@@ -75,55 +78,79 @@ public class CoursesController {
 
     @GetMapping(value = "/{id}")
     public ModelAndView getCoursePage(@PathVariable("id") String id) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
         String loginPrincipal = ((UserDetails) principal).getUsername();
+        ModelAndView modelAndView = new ModelAndView("course");
         var ref = new Object() {
+            List<Homework> homeworkList = new ArrayList<>();
             List<Lesson> lessons;
             List<Mark> marks;
         };
 
-        Optional<User> student = userService.getByLogin(loginPrincipal);
-        Optional<Course> course = courseService.getById(Long.parseLong(id));
-        List<Homework> homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
-        course.ifPresent(itemCourse -> ref.lessons = lessonService.getAllByCourse(itemCourse));
-        student.ifPresent(itemStudent -> ref.marks = markService.getByHomeworksAndStudent(homeworkList, itemStudent));
+        Optional<Course> course = Optional.empty();
 
-        OptionalDouble average = ref.marks.stream()
-                .map(Mark::getMark)
-                .mapToInt(item -> item)
-                .average();
+        if (auth.getAuthorities().stream()
+                .anyMatch(item -> item.getAuthority().equals("ROLE_student"))) {
+            Optional<User> student = userService.getByLogin(loginPrincipal);
+            course = courseService.getById(Long.parseLong(id));
+            ref.homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
+            course.ifPresent(itemCourse -> ref.lessons = lessonService.getAllByCourse(itemCourse));
+            student.ifPresent(itemStudent -> ref.marks = markService.getByHomeworksAndStudent(ref.homeworkList, itemStudent));
 
-        ModelAndView modelAndView = new ModelAndView("course");
-        modelAndView.addObject("marks", ref.marks);
+            OptionalDouble average = ref.marks.stream()
+                    .map(Mark::getMark)
+                    .mapToInt(item -> item)
+                    .average();
+
+            modelAndView.addObject("marks", ref.marks);
+            average.ifPresent(itemAverage -> modelAndView.addObject("average", itemAverage));
+
+        } else if (auth.getAuthorities().stream()
+                .anyMatch(item -> item.getAuthority().equals("ROLE_teacher"))) {
+            course = courseService.getById(Long.parseLong(id));
+            ref.homeworkList = homeworkService.getAllByCourseId(Long.parseLong(id));
+            course.ifPresent(itemCourse -> ref.lessons = lessonService.getAllByCourse(itemCourse));
+        }
+
         modelAndView.addObject("lessons", ref.lessons);
-        modelAndView.addObject("homeworks", homeworkList);
-        modelAndView.addObject("test", LocalDate.of(2023,8,8));
+        modelAndView.addObject("homeworks", ref.homeworkList);
         course.ifPresent(itemCourse -> modelAndView.addObject("course", itemCourse));
-        average.ifPresent(itemAverage -> modelAndView.addObject("average", itemAverage));
 
         return modelAndView;
     }
 
-    @GetMapping(value = "/user/{login}")
-    public ModelAndView getCoursesByUser(@PathVariable("login") String login,
+    @GetMapping
+    public ModelAndView getCoursesByUser(@RequestParam("login") String login,
                                          @RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
         String loginPrincipal = ((UserDetails) principal).getUsername();
         if (!login.equals(loginPrincipal)) {
             throw new AuthenticationServiceException("Access denied");
         }
 
-        ModelAndView modelAndView = new ModelAndView("courses");
         Pageable pageWithThreeElements = PageRequest.of(Integer.parseInt(pageNumber), 3);
+        ModelAndView modelAndView = new ModelAndView("courses");
+        List<Course> courses = new ArrayList<>();
+        Page<Course> page = null;
 
-        Page<Course> page = courseService.getAllByDateEndGreaterThanAndLogin(LocalDate.now(), loginPrincipal, pageWithThreeElements);
-        List<Course> courses = page.get().toList();
+        if (auth.getAuthorities().stream()
+                .anyMatch(item -> item.getAuthority().equals("ROLE_teacher"))) {
+            page = courseService.getAllByTeacherLogin(login, pageWithThreeElements);
+            courses = page.get().toList();
+
+        } else if (auth.getAuthorities().stream()
+                .anyMatch(item -> item.getAuthority().equals("ROLE_student"))) {
+            page = courseService.getAllByDateEndGreaterThanAndLogin(LocalDate.now(), loginPrincipal, pageWithThreeElements);
+            courses = page.get().toList();
+        }
+
         modelAndView.addObject("isMyCourses", true);
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("page", page);
 
         return modelAndView;
-
     }
 
 }
