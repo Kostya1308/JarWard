@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
+import java.io.IOException;
 import java.util.Optional;
+
 @Component
 public class AuthInterceptor extends WebContentInterceptor {
     @Autowired
@@ -24,18 +26,14 @@ public class AuthInterceptor extends WebContentInterceptor {
         HttpSession session = request.getSession();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> user = Optional.empty();
-        if (principal instanceof UserDetails){
+        if (principal instanceof UserDetails) {
             user = userService.getByLogin(((UserDetails) principal).getUsername());
         }
 
-        if (session != null && session.getAttribute("login") == null) {
-            user.ifPresent(item -> {
-                session.setAttribute("login", item.getLogin());
-                session.setAttribute("photo", item.getPhoto());
-                session.setAttribute("language", item.getLanguage());
-                session.removeAttribute("isValid");
-            });
+        if (session != null && session.getAttribute("login") == null && user.isPresent()) {
+            session.setAttribute("login", user.get().getLogin());
+            session.setAttribute("photo", user.get().getPhoto());
+            session.removeAttribute("isValid");
         }
-
     }
 }

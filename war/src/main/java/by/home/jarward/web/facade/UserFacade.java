@@ -61,6 +61,7 @@ public class UserFacade {
         if (bytes.length >= 1){
             user.setPhoto(bytes);
         }
+        passwordField = new char[]{0, 0, 0, 0};
 
         return user;
     }

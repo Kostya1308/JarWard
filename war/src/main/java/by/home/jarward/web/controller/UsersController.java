@@ -89,19 +89,20 @@ public class UsersController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
                 session.setAttribute("login", userForm.getLogin());
                 session.setAttribute("language", userForm.getLanguage());
-                if (userForm.getFileData() != null) {
+                if (!userForm.getFileData().isEmpty()) {
                     try {
                         session.setAttribute("photo", userForm.getFileData().getBytes());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-
             });
-            return new RedirectView(req.getContextPath() + "/");
+
+            return new RedirectView(req.getContextPath() + "/?lang=" + userForm.getLanguage());
+
         }
     }
 }
+

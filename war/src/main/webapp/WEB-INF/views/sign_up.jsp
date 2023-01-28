@@ -81,8 +81,8 @@
                         <div class="item_input_container_sign_up">
                             <form:select id="select_language" cssClass="select_language" path="language">
                                 <option selected disabled hidden class="opt_sign_up_language_hidden">Choose your language</option>
-                                <option value="English" class="opt_sign_up_language">English</option>
-                                <option value="Russian" class="opt_sign_up_language">Русский</option>
+                                <option value="en" class="opt_sign_up_language">English</option>
+                                <option value="fr" class="opt_sign_up_language">French</option>
                             </form:select>
                         </div>
                     </div>

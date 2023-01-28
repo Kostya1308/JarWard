@@ -98,7 +98,7 @@ public class FillingTablesWithTestUsersTest {
         jamesGoslingTeacher.setGender(Gender.MALE);
         jamesGoslingTeacher.setEnabled(true);
         jamesGoslingTeacher.setDateOfBirth(LocalDate.of(1955, 5, 19));
-        jamesGoslingTeacher.setLanguage("english");
+        jamesGoslingTeacher.setLanguage("en");
         InputStream inputStream = new FileInputStream("src/main/resources/photos/gosling.jpg");
         jamesGoslingTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -113,7 +113,7 @@ public class FillingTablesWithTestUsersTest {
         herbertSchildtTeacher.setGender(Gender.MALE);
         herbertSchildtTeacher.setEnabled(true);
         herbertSchildtTeacher.setDateOfBirth(LocalDate.of(1951, 2, 28));
-        herbertSchildtTeacher.setLanguage("english");
+        herbertSchildtTeacher.setLanguage("en");
         inputStream = new FileInputStream("src/main/resources/photos/herbert.jpg");
         herbertSchildtTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -128,7 +128,7 @@ public class FillingTablesWithTestUsersTest {
         kathySierraTeacher.setGender(Gender.FEMALE);
         kathySierraTeacher.setEnabled(true);
         kathySierraTeacher.setDateOfBirth(LocalDate.of(1957, 2, 12));
-        kathySierraTeacher.setLanguage("english");
+        kathySierraTeacher.setLanguage("en");
         inputStream = new FileInputStream("src/main/resources/photos/sierra.jpeg");
         kathySierraTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -143,7 +143,7 @@ public class FillingTablesWithTestUsersTest {
         joshuaBlochTeacher.setGender(Gender.MALE);
         joshuaBlochTeacher.setEnabled(true);
         joshuaBlochTeacher.setDateOfBirth(LocalDate.of(1961, 8, 28));
-        joshuaBlochTeacher.setLanguage("english");
+        joshuaBlochTeacher.setLanguage("en");
         inputStream = new FileInputStream("src/main/resources/photos/joshua.jpeg");
         joshuaBlochTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -158,6 +158,7 @@ public class FillingTablesWithTestUsersTest {
         nastyaTeacher.setEnabled(true);
         nastyaTeacher.setDateOfBirth(LocalDate.of(1992, 9, 10));
         nastyaTeacher.setGender(Gender.FEMALE);
+        nastyaTeacher.setLanguage("en");
         inputStream = new FileInputStream("src/main/resources/photos/nastya.jpg");
         nastyaTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -172,6 +173,7 @@ public class FillingTablesWithTestUsersTest {
         kostyaStudent.setEnabled(true);
         kostyaStudent.setDateOfBirth(LocalDate.of(1993, 3, 28));
         kostyaStudent.setGender(Gender.MALE);
+        kostyaStudent.setLanguage("en");
         inputStream = new FileInputStream("src/main/resources/photos/kostya.jpeg");
         kostyaStudent.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -186,6 +188,7 @@ public class FillingTablesWithTestUsersTest {
         nastyaStudent.setEnabled(true);
         nastyaStudent.setDateOfBirth(LocalDate.of(1992, 9, 10));
         nastyaStudent.setGender(Gender.FEMALE);
+        nastyaStudent.setLanguage("fr");
         inputStream = new FileInputStream("src/main/resources/photos/nastya.jpg");
         nastyaStudent.setPhoto(inputStream.readAllBytes());
         inputStream.close();
@@ -200,6 +203,7 @@ public class FillingTablesWithTestUsersTest {
         catStudent.setEnabled(true);
         catStudent.setDateOfBirth(LocalDate.of(2022, 4, 15));
         catStudent.setGender(Gender.MALE);
+        catStudent.setLanguage("en");
         inputStream = new FileInputStream("src/main/resources/photos/cat.jpg");
         catStudent.setPhoto(inputStream.readAllBytes());
         inputStream.close();

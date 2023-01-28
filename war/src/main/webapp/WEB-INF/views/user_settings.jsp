@@ -65,11 +65,11 @@
                                 <p class="language">Language:</p>
                                 <form:select id="select_language" cssClass="select_language" path="language">
                                     <option value="${userForm.language}" class="opt_sign_up_language">${userForm.language}</option>
-                                    <c:if test="${userForm.language eq 'English'}">
-                                        <option value="Russian" class="opt_sign_up_language">Русский</option>
+                                    <c:if test="${userForm.language eq 'en'}">
+                                        <option value="fr" class="opt_sign_up_language">French</option>
                                     </c:if>
-                                    <c:if test="${userForm.language eq 'Russian'}">
-                                        <option value="English" class="opt_sign_up_language">English</option>
+                                    <c:if test="${userForm.language eq 'fr'}">
+                                        <option value="en" class="opt_sign_up_language">English</option>
                                     </c:if>
                                 </form:select>
                             </div>
