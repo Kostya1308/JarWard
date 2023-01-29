@@ -228,3 +228,23 @@
     font-family: 'Open Sans', sans-serif;
     color: red;
 }
+
+.input_mark{
+    position:static;
+    border-width: thin;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(255 255 255 / 16%);
+    background-color: #333333;
+    height:35px;
+    width:35px;
+    font-size:15px;
+    color: white;
+    transition-duration: 0.3s;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0px 7px 0px 12px;
+}
+.input_mark:focus{
+    border-color:#0d6efd;
+    outline: none;
+}

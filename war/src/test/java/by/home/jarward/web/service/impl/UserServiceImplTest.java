@@ -65,6 +65,14 @@ class UserServiceImplTest {
     }
 
     @Test
+    public void getMarks2(){
+        Optional<Homework> homework = homeworkService.getById(10L);
+        List<Student> students = courseService.getByIdWithStudents(16L).get().getStudents();
+        List<Mark> marks = markService.getByHomeworkAndStudents(homework.get(), students);
+        System.out.println(marks.size());
+    }
+
+    @Test
     public void getCourseByTeacherLogin(){
         Pageable pageWithThreeElements = PageRequest.of(0, 3);
 

@@ -34,7 +34,7 @@
 
             <div class="absent_container">
                 <span class="presence_text">Presence</span>
-                <form method="post" action="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
+                <form method="post" action="${pageContext.request.contextPath}/lessons/${lesson.id}">
                     <c:forEach items="${students}" var="student" >
                         <div class="user_presence_item_container">
                             <div style="display:flex; align-items:center; justify-content:space-between">

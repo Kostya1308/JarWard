@@ -4,15 +4,14 @@ import by.home.jarward.jar.entity.Homework;
 import by.home.jarward.jar.entity.Mark;
 import by.home.jarward.jar.entity.MarkId;
 import by.home.jarward.jar.entity.Student;
-import by.home.jarward.web.form.HomeworkForm;
+import by.home.jarward.web.form.MarkForm;
+import by.home.jarward.web.form.MarkIdForm;
 import by.home.jarward.web.service.intarfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +32,8 @@ public class HomeworkController {
     @Autowired
     MarkService markService;
 
-    @GetMapping
-    public ModelAndView getHomeworksPage(@ModelAttribute("homeworkForm") HomeworkForm homeworkForm, @RequestParam("id") String id) {
+    @GetMapping(value = "/{id}")
+    public ModelAndView getHomeworksPage(@ModelAttribute("markForm") MarkForm markForm, @PathVariable("id") String id) {
 
         ModelAndView modelAndView = new ModelAndView("homework");
         var ref = new Object() {
@@ -50,11 +49,52 @@ public class HomeworkController {
                     ref.students = itemCourse.getStudents());
         });
 
-        homeworkForm.setStudentName(ref.marks.get(0).getMarkId().getStudent().getName());
-        homeworkForm.setLogin(ref.marks.get(0).getMarkId().getStudent().getLogin());
-        modelAndView.addObject("students", ref.students);
+        ref.marks = markService.getByHomeworkAndStudents(ref.homework, ref.students);
+
+        List<MarkIdForm> markIdForms = new ArrayList<>();
+        ref.marks.forEach(item -> {
+            MarkIdForm markIdForm = new MarkIdForm();
+            markIdForm.setMark(String.valueOf(item.getMark()));
+            markIdForm.setStudentLogin(item.getMarkId().getStudent().getLogin());
+            markIdForm.setStudentName(item.getMarkId().getStudent().getName());
+            markIdForm.setStudentSurname(item.getMarkId().getStudent().getSurname());
+            markIdForms.add(markIdForm);
+        });
+
+        markForm.setMarkIdForms(markIdForms);
+
+        modelAndView.addObject("homework", ref.homework);
+        System.out.println(ref.homework.getTitle());
 
         return modelAndView;
+    }
+
+    @PostMapping(value = "/{id}")
+    public RedirectView saveHomework(@ModelAttribute("markForm") MarkForm markForm, @PathVariable("id") String id) {
+
+        System.out.println(markForm.getMarkIdForms().get(0).getMark());
+        System.out.println(markForm.getMarkIdForms().get(0).getStudentLogin());
+
+        var ref = new Object() {
+            Student student;
+            Homework homework;
+        };
+        homeworkService.getById(Long.parseLong(id)).ifPresent(item -> ref.homework = item);
+
+        markForm.getMarkIdForms().forEach(itemForm -> {
+            if (!itemForm.getMark().equals("")) {
+                Optional.of(itemForm.getMark()).ifPresent(itemMark -> {
+                    userService.getByLogin(itemForm.getStudentLogin()).ifPresent(itemStudent -> ref.student = (Student) itemStudent);
+                    MarkId markId = new MarkId(ref.homework, ref.student);
+                    Mark mark = new Mark();
+                    mark.setMarkId(markId);
+                    mark.setMark(Integer.parseInt(itemMark));
+                    markService.save(mark);
+                });
+            }
+        });
+
+        return new RedirectView("/courses/" + ref.homework.getCourse().getId());
     }
 
 }

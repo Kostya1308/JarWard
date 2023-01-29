@@ -30,8 +30,8 @@ public class LessonController {
     @Autowired
     MarkService markService;
 
-    @GetMapping
-    public ModelAndView getLessonPage(@RequestParam("id") String idLesson) {
+    @GetMapping(value = "/{id}")
+    public ModelAndView getLessonPage(@PathVariable("id") String idLesson) {
 
         ModelAndView modelAndView = new ModelAndView("lesson");
         var ref = new Object() {
@@ -47,8 +47,8 @@ public class LessonController {
         return modelAndView;
     }
 
-    @PostMapping
-    public RedirectView saveLesson(@RequestParam("id") String idLesson, @RequestParam("presentStudents") String[] presentStudents) {
+    @PostMapping(value = "/{id}")
+    public RedirectView saveLesson(@PathVariable("id") String idLesson, @RequestParam("presentStudents") String[] presentStudents) {
         Optional<Lesson> lesson = lessonService.getById(Long.parseLong(idLesson));
         List<Student> students = new ArrayList<>();
         AtomicReference<String> courseId = new AtomicReference<>();

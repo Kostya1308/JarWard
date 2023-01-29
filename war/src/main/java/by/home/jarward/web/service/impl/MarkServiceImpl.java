@@ -28,9 +28,24 @@ public class MarkServiceImpl implements MarkService {
     @Override
     public List<Mark> getByHomeworksAndStudent(List<Homework> homeworkList, User student) {
         List<Mark> marks = new ArrayList<>();
-        for (Homework itemHomework: homeworkList) {
+        for (Homework itemHomework : homeworkList) {
             getById(new MarkId(itemHomework, ((Student) student)))
                     .ifPresent(marks::add);
+        }
+        return marks;
+    }
+
+    @Override
+    public List<Mark> getByHomeworkAndStudents(Homework homework, List<Student> students) {
+        List<Mark> marks = new ArrayList<>();
+        for (Student itemStudent : students) {
+            getById(new MarkId(homework, (itemStudent)))
+                    .ifPresentOrElse(marks::add, () -> {
+                        MarkId markId = new MarkId(homework, itemStudent);
+                        Mark mark = new Mark();
+                        mark.setMarkId(markId);
+                        marks.add(mark);
+                    });
         }
         return marks;
     }

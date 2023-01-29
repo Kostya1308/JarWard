@@ -69,7 +69,7 @@
                             <c:if test="${parsedEndDate ge now}">
                                 <span class="lesson_title_text_course_page">
                                     <security:authorize access="hasRole('teacher')">
-                                        <a class="lesson_title_text_course_page_link" href="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
+                                        <a class="lesson_title_text_course_page_link" href="${pageContext.request.contextPath}/lessons/${lesson.id}">
                                             ${lesson.title}
                                         </a>
                                     </security:authorize>
@@ -121,7 +121,7 @@
                         <c:forEach items="${homeworks}" var="homework">
                             <div class="homework_item_container">
                                 <span class="homework_title_text_course_page">
-                                    <a class="homework_title_text_course_page" href="${pageContext.request.contextPath}/homeworks?id=${homework.id}">
+                                    <a class="homework_title_text_course_page" href="${pageContext.request.contextPath}/homeworks/${homework.id}">
                                         ${homework.title}
                                     </a>
                                 </span>
