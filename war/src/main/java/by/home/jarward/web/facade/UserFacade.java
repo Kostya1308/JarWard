@@ -4,11 +4,13 @@ import by.home.jarward.jar.entity.User;
 import by.home.jarward.jar.enums.Gender;
 import by.home.jarward.web.form.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.codec.CharSequenceEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.nio.CharBuffer;
 import java.time.LocalDate;
 
 @Service
@@ -33,7 +35,10 @@ public class UserFacade {
             user.setLogin(login);
         }
         if (passwordField.length >= 1){
-            user.setPassword(passwordEncoder.encode(String.copyValueOf(passwordField)).toCharArray());
+            CharBuffer charBuffer = CharBuffer.wrap(passwordField);
+            user.setPassword(passwordEncoder.encode(charBuffer).toCharArray());
+            charBuffer = CharBuffer.wrap(new char[]{0,0,0,0,0});
+            passwordField = new char[]{0, 0, 0, 0};
         }
         if (name != null){
             user.setName(name);
@@ -61,7 +66,6 @@ public class UserFacade {
         if (bytes.length >= 1){
             user.setPhoto(bytes);
         }
-        passwordField = new char[]{0, 0, 0, 0};
 
         return user;
     }

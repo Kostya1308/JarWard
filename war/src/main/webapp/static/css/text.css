@@ -66,7 +66,6 @@
     font-size: 50px;
     color: white;
     font-weight: thin;
-
 }
 
 .text_4_about_university{
@@ -74,6 +73,8 @@
     font-size: 15px;
     color: white;
     font-weight: thin;
+    margin-bottom: 30px;
+
 }
 
 .login_on_dropdown{
@@ -159,7 +160,7 @@
  }
 
  .lesson_title_text_course_page_passed_link:hover{
-      text-decoration: underline
+      text-decoration: underline;
   }
 
 .schedule_text{
@@ -190,4 +191,14 @@
     font-family: 'Open Sans', sans-serif;
     color:white;
     font-size: 30px;
+}
+
+.course_sort_text{
+    font-family: 'Open Sans', sans-serif;
+    color:#4a4848;
+    font-size: 15px;
+}
+
+.course_sort_text:hover{
+    text-decoration: underline;
 }

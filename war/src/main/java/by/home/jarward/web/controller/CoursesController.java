@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,11 +39,19 @@ public class CoursesController {
 
 
     @GetMapping(value = "/all")
-    public ModelAndView getAllCourses(@RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber) {
+    public ModelAndView getAllCourses(@RequestParam(value = "pageNumber", defaultValue = "0") String pageNumber,
+                                      @RequestParam(value = "sort-dir", defaultValue = "asc") String sortDir) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView modelAndView = new ModelAndView("courses");
-        Pageable pageWithThreeElements = PageRequest.of(Integer.parseInt(pageNumber), 3);
+        Sort sort;
+        if (sortDir.equals("asc")) {
+            sort = Sort.by("dateStart").ascending();
+        } else {
+            sort = Sort.by("dateStart").descending();
+        }
+        Pageable pageWithThreeElements = PageRequest.of(Integer.parseInt(pageNumber), 3, sort);
         Page<Course> page;
+
 
         if (auth.getName().equals("anonymousUser") || (auth.getAuthorities().stream().anyMatch(item -> item.getAuthority().equals("ROLE_teacher")))) {
             page = courseService.getAllByDateStartGreaterThan(LocalDate.now(), pageWithThreeElements);

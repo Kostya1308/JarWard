@@ -27,6 +27,7 @@
             <span class="course_title_container">
                 ${course.title}
             </span>
+
             <security:authorize access="hasRole('student')">
                 <div class="average_mark_container">
                     <span class="average_mark_text">Your average mark:</span>

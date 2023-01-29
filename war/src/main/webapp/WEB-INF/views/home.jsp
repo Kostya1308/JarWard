@@ -27,24 +27,25 @@
     <body>
         <jsp:include page="header.jsp" flush="true" />
         <div class="black_page">
-          <div class="index_page_container">
+            <div class="index_page_container">
                 <div class="text_about_university_container">
-                    <span class="text_about_university">"Like Harvard, but Jarward"</span>
-                    <h1><spring:message code="Login" text="default"/></h1>
-                    <span class="text_2_about_university">Piskunov Constantine</span>
+                    <span class="text_about_university"><spring:message code="Like.Harvard"/></span>
+                    <span class="text_2_about_university"> &#169 Constantine Piskunov</span>
                 </div>
                 <div class="image_student_container">
                     <img src="${pageContext.request.contextPath}/file/show-photo?param=1"/>
                     <div class="descr_courses_index_page_container">
-                            <span class="text_3_about_university">Our courses</span>
-                            <span class="text_4_about_university">We offer training courses in the most current areas.
-                            The center was created to train aspiring IT professionals to work in the industry. We provide
-                            high-quality IT education and train highly qualified specialists who are able to work in a
-                            dynamically developing industry. The programs are designed for different levels of training.
-                            </span>
-                            <div>
-                                <a href="/courses/all" class="courses_button_index_page">Courses</a>
-                            </div>
+                        <span class="text_3_about_university">
+                            <spring:message code="Our.courses"/>
+                        </span>
+                        <span class="text_4_about_university">
+                            <spring:message code="we.offer"/>
+                        </span>
+                        <div>
+                            <a href="/courses/all" class="courses_button_index_page">
+                                <spring:message code="Courses"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
