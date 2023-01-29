@@ -9,7 +9,7 @@
     border-bottom:thin solid rgb(255 255 255 / 16%);
     padding-left:30px;
     padding-right:30px;
-    z-index:1;
+    z-index:3;
 }
 
 .black_page{
@@ -18,6 +18,13 @@
     background-color:#212020;
     width:100%;
     height: 100%;
+}
+.black_page_index{
+    position:relative;
+    display:flex;
+    background-color:#212020;
+    width:100%;
+    height: 965px;
 }
 
 .buttons_on_header_container{
@@ -144,7 +151,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height:100%;
+    height:950px;
     width: 100%;
     background-color:transient;
 }
@@ -165,6 +172,7 @@
    width:100%;
    height:400px;
    object-fit:cover;
+   margin-bottom:50px;
 }
 
 .text_about_university_container{
@@ -445,5 +453,62 @@
     justify-content: start;
 }
 
+.teachers_page_container{
+    position:relative;
+    display:flex;
+    padding-top:65px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    width: 100%;
+    background-color:#212020;
+    flex-direction: column;
+
+}
+
+.teachers_title_container{
+     top:100px;
+     width: 900px;
+     height: 110px;
+     font-family: 'Open Sans', sans-serif;
+     font-size: 50px;
+     font-weight: bold;
+     color:white;
+     display:flex;
+     align-items: center;
+     justify-content: start;
+     border-bottom:thin solid rgb(255 255 255 / 16%);
+}
+
+.teachers_container{
+    width:100%;
+    height: 500px;
+    padding: 30px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.teacher_container{
+    width: 250px;
+    height: 350px;
+    padding: 30px;
+    border-radius: 5px;
+    border:thin solid rgb(255 255 255 / 16%);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    background-color: #2e2d2d;
+}
+
+.about_teachers_container{
+   display:flex;
+   width:100%;
+   height:250px;
+   justify-content:center;
+   flex-direction: column;
+   align-items:center;
+}
 
 

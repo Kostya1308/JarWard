@@ -17,7 +17,7 @@
             <a class="sign_in_header_button" href="/courses/all">
                 <spring:message code="Courses"/>
             </a>
-            <a class="sign_in_header_button" href="/sign-up">
+            <a class="sign_in_header_button" href="/teachers">
                 <spring:message code="Teachers"/>
             </a>
             <a class="sign_in_header_button" href="/sign-up">

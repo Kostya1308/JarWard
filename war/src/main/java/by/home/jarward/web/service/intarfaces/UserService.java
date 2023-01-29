@@ -1,7 +1,10 @@
 package by.home.jarward.web.service.intarfaces;
 
+import by.home.jarward.jar.entity.Teacher;
 import by.home.jarward.jar.entity.User;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -14,6 +17,8 @@ public interface UserService {
     Optional<User> getByEmail(String email);
 
     void deleteAll();
+
+    List<Teacher> getAllTeachers();
 
 //    void deleteNotEnabledUsers();
 

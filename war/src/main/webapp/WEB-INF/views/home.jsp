@@ -26,12 +26,14 @@
 
     <body>
         <jsp:include page="header.jsp" flush="true" />
-        <div class="black_page">
+        <div class="black_page_index">
             <div class="index_page_container">
+
                 <div class="text_about_university_container">
                     <span class="text_about_university"><spring:message code="Like.Harvard"/></span>
                     <span class="text_2_about_university"> &#169 Constantine Piskunov</span>
                 </div>
+
                 <div class="image_student_container">
                     <img src="${pageContext.request.contextPath}/file/show-photo?param=1"/>
                     <div class="descr_courses_index_page_container">
@@ -48,7 +50,22 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="about_teachers_container">
+                        <span class="text_3_about_university">
+                            Our Trainers
+                        </span>
+                        <span class="text_5_about_university">
+                            All mentors are experienced practitioners from the IT industry. They provide quality feedback on assignments, answer questions, and help the student achieve their goals during the program. Alumni rate the mentor support a 9.1 out of 10.
+                        </span>
+                        <div style="width:300px display:flex; align-items:center">
+                            <a href="/teachers" class="trainers_button_index_page"/>Trainers</a>
+                        </div>
+                </div>
+
             </div>
+
         </div>
+
     </body>
 </html>

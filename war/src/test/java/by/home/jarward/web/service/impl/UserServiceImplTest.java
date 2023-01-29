@@ -5,9 +5,12 @@ import by.home.jarward.jar.enums.Role;
 import by.home.jarward.jar.repository.interfaces.*;
 import by.home.jarward.web.configuration.AppContext;
 import by.home.jarward.web.service.intarfaces.*;
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,7 +60,7 @@ class UserServiceImplTest {
     private static final String PASSWORD = "qwertyui";
 
     @Test
-    public void getMarks(){
+    public void getMarks() {
         List<Homework> homeworkList = homeworkService.getAllByCourseId(39L);
         Optional<User> student = userService.getByLogin("Kostya");
         List<Mark> marks = markService.getByHomeworksAndStudent(homeworkList, student.get());
@@ -65,7 +68,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    public void getMarks2(){
+    public void getMarks2() {
         Optional<Homework> homework = homeworkService.getById(10L);
         List<Student> students = courseService.getByIdWithStudents(16L).get().getStudents();
         List<Mark> marks = markService.getByHomeworkAndStudents(homework.get(), students);
@@ -73,7 +76,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    public void getCourseByTeacherLogin(){
+    public void getCourseByTeacherLogin() {
         Pageable pageWithThreeElements = PageRequest.of(0, 3);
 
         Page<Course> courses = courseService.getAllByTeacherLogin("James", pageWithThreeElements);
@@ -81,7 +84,19 @@ class UserServiceImplTest {
     }
 
     @Test
-    public void getCourseWithStudents(){
+    public void testLog() {
+        Logger logger = LoggerFactory.getLogger(UserServiceImplTest.class);
+        logger.info("SUCCEESSSSS");
+    }
+
+    @Test
+    public void getAllTeachersTest(){
+        List<Teacher> teachers = userService.getAllTeachers();
+        System.out.println(teachers.size());
+    }
+
+    @Test
+    public void getCourseWithStudents() {
 
         Optional<Course> course = courseService.getByIdWithStudents(64L);
         course.ifPresent(itemCourse -> {
@@ -91,7 +106,7 @@ class UserServiceImplTest {
     }
 
 
-//    @Test
+    //    @Test
 //    public void fillBase() {
 //        teacher.setName("Yulia");
 //        teacher.setSurname("Ivanauskas");
@@ -181,7 +196,7 @@ class UserServiceImplTest {
 //        lessonService.save(lesson3);
 //    }
     @Test
-    public void init(){
+    public void init() {
         courseService.getAll();
     }
 

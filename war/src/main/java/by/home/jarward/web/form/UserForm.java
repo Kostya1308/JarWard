@@ -1,6 +1,7 @@
 package by.home.jarward.web.form;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class UserForm {
     @Size(min = 2, message = "incorrect format")
     private String login;
     private String oldLogin;
+    @Pattern(regexp = "[1-9A-Z]{8,}", message = "incorrect format")
     private String password;
     private String passwordConfirm;
     @Email(message = "incorrect e-mail format")

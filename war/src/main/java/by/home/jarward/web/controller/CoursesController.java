@@ -2,6 +2,8 @@ package by.home.jarward.web.controller;
 
 import by.home.jarward.jar.entity.*;
 import by.home.jarward.web.service.intarfaces.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,9 @@ public class CoursesController {
         List<Course> courses = page.get().toList();
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("page", page);
+        Logger logger = LoggerFactory.getLogger(CourseService.class);
 
+        logger.info("SUCCESS!!!");
         return modelAndView;
     }
 

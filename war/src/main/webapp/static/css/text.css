@@ -74,7 +74,15 @@
     color: white;
     font-weight: thin;
     margin-bottom: 30px;
+}
 
+.text_5_about_university{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    color: white;
+    font-weight: thin;
+    margin-bottom: 30px;
+    width: 700px;
 }
 
 .login_on_dropdown{
@@ -202,3 +210,16 @@
 .course_sort_text:hover{
     text-decoration: underline;
 }
+
+.teacher_name{
+    margin-top: 20px;
+    font-family: 'Open Sans', sans-serif;
+    color:white;
+    font-size: 20px;
+}
+
+.teacher_surname{
+     font-family: 'Open Sans', sans-serif;
+     color:white;
+     font-size: 20px;
+ }

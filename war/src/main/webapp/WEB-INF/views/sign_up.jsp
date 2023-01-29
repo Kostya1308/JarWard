@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
     <head>
@@ -17,6 +18,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="icons.jsp" flush="true" />
+
     </head>
     <body>
 
@@ -104,18 +106,17 @@
                             <form:label for="gender_other" cssClass="item_input_label_radio_sign_up_page" path="gender"> Other </form:label>
                         </div>
                     </div>
-                        <div class="item_input_container_sign_up">
-                            <input id="image_uploads" type="file" path="fileData" class="item_input_sign_up_page" name="fileData" required />
-                        </div>
+                    <div class="item_input_container_sign_up">
+                        <input type="file" path="fileData" class="image_uploads" name="fileData" required />
+                    </div>
 
                     <div style="display:flex">
                         <input class="sign_up_button" value="Sign up" type="submit" required/>
                             <a class="main_page_header_button" href="/">Main page</a>
                     </div>
-
                 </form:form>
             </div>
-
         </div>
     </body>
+
 </html>
