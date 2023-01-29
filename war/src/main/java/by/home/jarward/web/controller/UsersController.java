@@ -28,6 +28,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -68,41 +69,47 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("userForm", userForm);
 
             return new RedirectView(req.getContextPath() + "/users/settings");
-        } else {
-            UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            HttpSession session = req.getSession();
+        }
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        HttpSession session = req.getSession();
 
-            Optional<User> user = userService.getByLogin(principal.getUsername());
-            user.ifPresent(item -> {
+        Optional<User> user = userService.getByLogin(principal.getUsername());
+        user.ifPresent(item -> {
+            try {
+                userFacade.getUserFromUserForm(item, userForm);
+                userService.save(item);
+
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+                GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + item.getRole().getName());
+                updatedAuthorities.add(grantedAuthority);
+                UserDetails userDetails = authService.loadUserByUsername(userForm.getLogin());
+                Authentication newAuth = new UsernamePasswordAuthenticationToken(userDetails,
+                        auth.getCredentials(), updatedAuthorities);
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            session.setAttribute("login", userForm.getLogin());
+            if (!userForm.getFileData().isEmpty()) {
                 try {
-                    userFacade.getUserFromUserForm(item, userForm);
-                    userService.save(item);
-
-                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + item.getRole().getName());
-                    updatedAuthorities.add(grantedAuthority);
-                    UserDetails userDetails = authService.loadUserByUsername(userForm.getLogin());
-                    Authentication newAuth = new UsernamePasswordAuthenticationToken(userDetails,
-                            auth.getCredentials(), updatedAuthorities);
-                    SecurityContextHolder.getContext().setAuthentication(newAuth);
+                    session.setAttribute("photo", userForm.getFileData().getBytes());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                session.setAttribute("login", userForm.getLogin());
-                session.setAttribute("language", userForm.getLanguage());
-                if (!userForm.getFileData().isEmpty()) {
-                    try {
-                        session.setAttribute("photo", userForm.getFileData().getBytes());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+            }
 
-            return new RedirectView(req.getContextPath() + "/?lang=" + userForm.getLanguage());
+            switch (user.get().getLanguage()) {
+                case "English" -> session.setAttribute("language", Locale.US);
 
-        }
+                case "French" -> session.setAttribute("language", Locale.FRENCH);
+            }
+        });
+
+        return new RedirectView(req.getContextPath() + "/");
+
+
     }
 }
 

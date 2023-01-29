@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 
 @Component
@@ -34,6 +35,10 @@ public class AuthInterceptor extends WebContentInterceptor {
             session.setAttribute("login", user.get().getLogin());
             session.setAttribute("photo", user.get().getPhoto());
             session.removeAttribute("isValid");
+            switch (user.get().getLanguage()) {
+                case "English" -> session.setAttribute("language", Locale.US);
+                case "French" -> session.setAttribute("language", Locale.FRENCH);
+            }
         }
     }
 }
