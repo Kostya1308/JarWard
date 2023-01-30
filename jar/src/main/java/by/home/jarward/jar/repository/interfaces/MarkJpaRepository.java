@@ -7,6 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MarkJpaRepository extends JpaRepository<Mark, MarkId> {
 
-
-
 }

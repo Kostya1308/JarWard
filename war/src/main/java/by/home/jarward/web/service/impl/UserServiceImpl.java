@@ -5,11 +5,9 @@ import by.home.jarward.jar.entity.User;
 import by.home.jarward.jar.repository.interfaces.UserJpaRepository;
 import by.home.jarward.web.service.intarfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.scheduling.annotation.Scheduled;
+
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +37,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteAll() {
-        userJpaRepository.deleteAll();
+    public List<Teacher> getAllTeachers() {
+        return userJpaRepository.findTeachers();
     }
 
     @Override
-    public List<Teacher> getAllTeachers() {
-        return userJpaRepository.findTeachers();
+    public void deleteAll() {
+        userJpaRepository.deleteAll();
     }
 
     //    @Override

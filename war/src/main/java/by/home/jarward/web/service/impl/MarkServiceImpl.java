@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class MarkServiceImpl implements MarkService {
+
     @Autowired
     MarkJpaRepository markJpaRepository;
 

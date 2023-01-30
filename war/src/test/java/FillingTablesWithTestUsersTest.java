@@ -3,7 +3,6 @@ import by.home.jarward.jar.enums.Gender;
 import by.home.jarward.jar.enums.Role;
 import by.home.jarward.web.configuration.AppContext;
 import by.home.jarward.web.service.intarfaces.*;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +22,6 @@ import java.util.Properties;
 @ContextConfiguration(classes = AppContext.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WebAppConfiguration
-@Slf4j
 public class FillingTablesWithTestUsersTest {
 
     @Autowired
@@ -65,7 +63,6 @@ public class FillingTablesWithTestUsersTest {
 
     private final Mark markHomework1 = new Mark();
     private final Mark markHomework2 = new Mark();
-
 
     private static final String PASSWORD = "qwertyui";
 

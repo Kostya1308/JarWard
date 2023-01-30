@@ -42,14 +42,14 @@
 
                     <div style="display:flex">
                         <div class="item_input_container_sign_up">
-                            <form:input id="name_input" cssClass="item_input_sign_up_page" path="name" name="name" required="required"/>
+                            <form:input id="name_input" cssClass="item_input_sign_up_page" cssErrorClass="item_input_invalidate_sign_up_page" path="name" name="name" required="required"/>
                             <form:label for="name_input" cssClass="item_input_label_sign_up_page" path="name" required="required"> Name </form:label>
                             <form:errors path="name" cssClass="error_sign_up_page"/>
                         </div>
 
                         <div class="item_input_container_sign_up">
-                            <form:input id="surname_input" cssClass="item_input_sign_up_page" path="surname" name="surname" required="required"/>
-                            <form:label for="surname_input" cssClass="item_input_label_sign_up_page" path="login" required="required"> Surname </form:label>
+                            <form:input id="surname_input" cssClass="item_input_sign_up_page" cssErrorClass="item_input_invalidate_sign_up_page" path="surname" name="surname" required="required"/>
+                            <form:label for="surname_input" cssClass="item_input_label_sign_up_page" path="surname" required="required"> Surname </form:label>
                             <form:errors path="surname" cssClass="error_sign_up_page"/>
                         </div>
                     </div>

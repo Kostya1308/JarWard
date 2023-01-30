@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "by.home.jarward.web")
@@ -38,6 +37,7 @@ public class SecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/lessons/*", "/homeworks/*").hasRole("teacher")
                         .requestMatchers("/users", "/courses/registration").authenticated()
                         .anyRequest().permitAll()
                 )

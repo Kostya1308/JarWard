@@ -1,203 +1,194 @@
 package by.home.jarward.web.service.impl;
 
+import by.home.jarward.jar.configuration.AppContextForTest;
 import by.home.jarward.jar.entity.*;
+import by.home.jarward.jar.enums.Gender;
 import by.home.jarward.jar.enums.Role;
-import by.home.jarward.jar.repository.interfaces.*;
-import by.home.jarward.web.configuration.AppContext;
-import by.home.jarward.web.service.intarfaces.*;
-import org.apache.logging.log4j.LogManager;
+import by.home.jarward.web.service.intarfaces.UserService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = AppContext.class)
+@ContextConfiguration(classes = AppContextForTest.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WebAppConfiguration
 class UserServiceImplTest {
 
     @Autowired
-    UserService userService;
-    @Autowired
-    CourseService courseService;
-    @Autowired
-    HomeworkService homeworkService;
-    @Autowired
-    LessonService lessonService;
-    @Autowired
-    MarkService markService;
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private UserService userService;
 
-    Teacher teacher = new Teacher();
-    Student student1 = new Student();
-    Student student2 = new Student();
-    Course javaCoreCourse = new Course();
-    Course javaEnterpriseCourse = new Course();
-    Course dataBasecourse = new Course();
-    Course javaScriptCourse = new Course();
-    Homework homework1 = new Homework();
-    Lesson lesson1 = new Lesson();
-    Lesson lesson2 = new Lesson();
-    Lesson lesson3 = new Lesson();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    private final Teacher jamesGoslingTeacher = new Teacher();
+    private final Teacher herbertSchildtTeacher = new Teacher();
+    private final Teacher kathySierraTeacher = new Teacher();
+    private final Teacher joshuaBlochTeacher = new Teacher();
+    private final Teacher nastyaTeacher = new Teacher();
+
+    private final Student kostyaStudent = new Student();
+    private final Student nastyaStudent = new Student();
+    private final Student catStudent = new Student();
+
     private static final String PASSWORD = "qwertyui";
 
+    private final File file = new File("src/main/resources/course_description.properties");
+    private final Properties properties = new Properties();
+
+
     @Test
-    public void getMarks() {
-        List<Homework> homeworkList = homeworkService.getAllByCourseId(39L);
-        Optional<User> student = userService.getByLogin("Kostya");
-        List<Mark> marks = markService.getByHomeworksAndStudent(homeworkList, student.get());
-        System.out.println(marks.size());
+    void getByLogin() {
+        Optional<User> user = userService.getByLogin("Kostya");
+        user.ifPresent(item -> Assertions.assertEquals(item.getLogin(), "Kostya"));
     }
 
     @Test
-    public void getMarks2() {
-        Optional<Homework> homework = homeworkService.getById(10L);
-        List<Student> students = courseService.getByIdWithStudents(16L).get().getStudents();
-        List<Mark> marks = markService.getByHomeworkAndStudents(homework.get(), students);
-        System.out.println(marks.size());
+    void getByEmail() {
     }
 
     @Test
-    public void getCourseByTeacherLogin() {
-        Pageable pageWithThreeElements = PageRequest.of(0, 3);
+    void getAllTeachers() {
+    }
 
-        Page<Course> courses = courseService.getAllByTeacherLogin("James", pageWithThreeElements);
-        System.out.println(courses.get().toList().size());
+    @BeforeAll
+    public void fillDataBase() throws IOException {
+        properties.load(new FileReader(file));
+        jamesGoslingTeacher.setName("James");
+        jamesGoslingTeacher.setSurname("Gosling");
+        jamesGoslingTeacher.setLogin("James");
+        jamesGoslingTeacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        jamesGoslingTeacher.setEmail("jamesgosling@gmail.com");
+        jamesGoslingTeacher.setRole(Role.TEACHER);
+        jamesGoslingTeacher.setGender(Gender.MALE);
+        jamesGoslingTeacher.setEnabled(true);
+        jamesGoslingTeacher.setDateOfBirth(LocalDate.of(1955, 5, 19));
+        jamesGoslingTeacher.setLanguage("en");
+        InputStream inputStream = new FileInputStream("src/main/resources/photos/gosling.jpg");
+        jamesGoslingTeacher.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(jamesGoslingTeacher);
+
+        herbertSchildtTeacher.setName("Herbert");
+        herbertSchildtTeacher.setSurname("Schildt");
+        herbertSchildtTeacher.setLogin("Herbert");
+        herbertSchildtTeacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        herbertSchildtTeacher.setEmail("herbertschildt@gmail.com");
+        herbertSchildtTeacher.setRole(Role.TEACHER);
+        herbertSchildtTeacher.setGender(Gender.MALE);
+        herbertSchildtTeacher.setEnabled(true);
+        herbertSchildtTeacher.setDateOfBirth(LocalDate.of(1951, 2, 28));
+        herbertSchildtTeacher.setLanguage("en");
+        inputStream = new FileInputStream("src/main/resources/photos/herbert.jpg");
+        herbertSchildtTeacher.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(herbertSchildtTeacher);
+
+        kathySierraTeacher.setName("Kathy");
+        kathySierraTeacher.setSurname("Sierra");
+        kathySierraTeacher.setLogin("Kathy");
+        kathySierraTeacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        kathySierraTeacher.setEmail("kathysierra@gmail.com");
+        kathySierraTeacher.setRole(Role.TEACHER);
+        kathySierraTeacher.setGender(Gender.FEMALE);
+        kathySierraTeacher.setEnabled(true);
+        kathySierraTeacher.setDateOfBirth(LocalDate.of(1957, 2, 12));
+        kathySierraTeacher.setLanguage("en");
+        inputStream = new FileInputStream("src/main/resources/photos/sierra.jpeg");
+        kathySierraTeacher.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(kathySierraTeacher);
+
+        joshuaBlochTeacher.setName("Joshua");
+        joshuaBlochTeacher.setSurname("Bloch");
+        joshuaBlochTeacher.setLogin("Joshua");
+        joshuaBlochTeacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        joshuaBlochTeacher.setEmail("joshuabloch@gmail.com");
+        joshuaBlochTeacher.setRole(Role.TEACHER);
+        joshuaBlochTeacher.setGender(Gender.MALE);
+        joshuaBlochTeacher.setEnabled(true);
+        joshuaBlochTeacher.setDateOfBirth(LocalDate.of(1961, 8, 28));
+        joshuaBlochTeacher.setLanguage("English");
+        inputStream = new FileInputStream("src/main/resources/photos/joshua.jpeg");
+        joshuaBlochTeacher.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(jamesGoslingTeacher);
+
+        nastyaTeacher.setName("Nastya");
+        nastyaTeacher.setSurname("Glushenok");
+        nastyaTeacher.setLogin("Nastya");
+        nastyaTeacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        nastyaTeacher.setEmail("nastya@gmail.com");
+        nastyaTeacher.setRole(Role.TEACHER);
+        nastyaTeacher.setEnabled(true);
+        nastyaTeacher.setDateOfBirth(LocalDate.of(1992, 9, 10));
+        nastyaTeacher.setGender(Gender.FEMALE);
+        nastyaTeacher.setLanguage("English");
+        inputStream = new FileInputStream("src/main/resources/photos/nastya.jpg");
+        nastyaTeacher.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(nastyaTeacher);
+
+        kostyaStudent.setName("Constantine");
+        kostyaStudent.setSurname("Piskunov");
+        kostyaStudent.setLogin("Kostya");
+        kostyaStudent.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        kostyaStudent.setEmail("kostya@gmail.com");
+        kostyaStudent.setRole(Role.STUDENT);
+        kostyaStudent.setEnabled(true);
+        kostyaStudent.setDateOfBirth(LocalDate.of(1993, 3, 28));
+        kostyaStudent.setGender(Gender.MALE);
+        kostyaStudent.setLanguage("English");
+        inputStream = new FileInputStream("src/main/resources/photos/kostya.jpeg");
+        kostyaStudent.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(kostyaStudent);
+
+        nastyaStudent.setName("Nastya");
+        nastyaStudent.setSurname("Glushenok");
+        nastyaStudent.setLogin("Nastya1212");
+        nastyaStudent.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        nastyaStudent.setEmail("nastya1212@gmail.com");
+        nastyaStudent.setRole(Role.STUDENT);
+        nastyaStudent.setEnabled(true);
+        nastyaStudent.setDateOfBirth(LocalDate.of(1992, 9, 10));
+        nastyaStudent.setGender(Gender.FEMALE);
+        nastyaStudent.setLanguage("French");
+        inputStream = new FileInputStream("src/main/resources/photos/nastya.jpg");
+        nastyaStudent.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(nastyaStudent);
+
+        catStudent.setName("Customs");
+        catStudent.setSurname("Piskunov");
+        catStudent.setLogin("Customs");
+        catStudent.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        catStudent.setEmail("meow@gmail.com");
+        catStudent.setRole(Role.STUDENT);
+        catStudent.setEnabled(true);
+        catStudent.setDateOfBirth(LocalDate.of(2022, 4, 15));
+        catStudent.setGender(Gender.MALE);
+        catStudent.setLanguage("English");
+        inputStream = new FileInputStream("src/main/resources/photos/cat.jpg");
+        catStudent.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(catStudent);
     }
 
     @Test
-    public void testLog() {
-        Logger logger = LoggerFactory.getLogger(UserServiceImplTest.class);
-        logger.info("SUCCEESSSSS");
+    public void clearDataBase(){
+        userService.deleteAll();
     }
-
-    @Test
-    public void getAllTeachersTest(){
-        List<Teacher> teachers = userService.getAllTeachers();
-        System.out.println(teachers.size());
-    }
-
-    @Test
-    public void getCourseWithStudents() {
-
-        Optional<Course> course = courseService.getByIdWithStudents(64L);
-        course.ifPresent(itemCourse -> {
-            int size = itemCourse.getStudents().size();
-            System.out.println(size);
-        });
-    }
-
-
-    //    @Test
-//    public void fillBase() {
-//        teacher.setName("Yulia");
-//        teacher.setSurname("Ivanauskas");
-//        teacher.setLogin("Yulia");
-//        teacher.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
-//        teacher.setEmail("Yulia@gmail.com");
-//        teacher.setRole(Role.TEACHER);
-//        teacher.setEnabled(true);
-//        userService.save(teacher);
-//
-//        student1.setName("Kostya");
-//        student1.setSurname("Piskunou");
-//        student1.setLogin("Kostya1308");
-//        student1.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
-//        student1.setEmail("kostya1308@gmail.com");
-//        student1.setRole(Role.STUDENT);
-//        student1.setEnabled(true);
-//        userService.save(student1);
-//
-//        student2.setName("Alex");
-//        student2.setSurname("Ivanov");
-//        student2.setLogin("Alex");
-//        student2.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
-//        student2.setEmail("alex@gmail.com");
-//        student2.setRole(Role.STUDENT);
-//        student2.setEnabled(true);
-//        userService.save(student2);
-//
-//        javaCoreCourse.setTitle("Java Core");
-//        javaCoreCourse.setDateStart(LocalDate.of(2023, 6, 6));
-//        javaCoreCourse.setDateEnd(LocalDate.of(2023, 8, 6));
-//        javaCoreCourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
-//        javaEnterpriseCourse.setTitle("Java Enterprise");
-//        javaEnterpriseCourse.setDateStart(LocalDate.of(2023, 6, 6));
-//        javaEnterpriseCourse.setDateEnd(LocalDate.of(2023, 8, 6));
-//        javaEnterpriseCourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
-//        dataBasecourse.setTitle("Database");
-//        dataBasecourse.setDateStart(LocalDate.of(2023, 6, 6));
-//        dataBasecourse.setDateEnd(LocalDate.of(2023, 8, 6));
-//        dataBasecourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
-//        javaScriptCourse.setTitle("JavaScript");
-//        javaScriptCourse.setDateStart(LocalDate.of(2023, 6, 6));
-//        javaScriptCourse.setDateEnd(LocalDate.of(2023, 8, 6));
-//        javaScriptCourse.setDescription("Java Core is a term that can be used differently in different contexts. If it appears in job postings for a junior-level developer, it usually refers to a basic knowledge of Java. But Sun Microsystems, where the Java language was developed, defines Core Java as a Java-based computing platform.");
-//
-//        courseService.save(javaCoreCourse);
-//        courseService.save(javaEnterpriseCourse);
-//        courseService.save(dataBasecourse);
-//        courseService.save(javaScriptCourse);
-//
-//        List<Student> students = new ArrayList<>();
-//        students.add(student1);
-//        List<Teacher> teachers = new ArrayList<>();
-//        teachers.add(teacher);
-//        javaCoreCourse.setStudents(students);
-//        javaCoreCourse.setTeachers(teachers);
-//        courseService.save(javaCoreCourse);
-//
-//        homework1.setCourse(javaCoreCourse);
-//        Mark mark = new Mark();
-//        MarkId markId = new MarkId();
-//        markId.setStudent(student1);
-//        markId.setHomework(homework1);
-//        mark.setMarkId(markId);
-//        mark.setMark(9);
-//        List<Mark> marks = new ArrayList<>();
-//        marks.add(mark);
-//        homework1.setMarks(marks);
-//        homeworkService.save(homework1);
-//
-//        lesson1.setCourse(javaCoreCourse);
-//        lesson1.setStudents(students);
-//        lesson1.setTeachers(teachers);
-//        lesson1.setDateTimeStart(LocalDateTime.of(2023, 6, 1, 18, 0));
-//        lessonService.save(lesson1);
-//
-//        lesson2.setCourse(javaCoreCourse);
-//        lesson2.setStudents(students);
-//        lesson2.setTeachers(teachers);
-//        lesson2.setDateTimeStart(LocalDateTime.of(2023, 6, 5, 18, 0));
-//        lessonService.save(lesson2);
-//
-//        lesson3.setCourse(javaCoreCourse);
-//        lesson3.setStudents(students);
-//        lesson3.setTeachers(teachers);
-//        lesson3.setDateTimeStart(LocalDateTime.of(2023, 6, 10, 18, 0));
-//        lessonService.save(lesson3);
-//    }
-    @Test
-    public void init() {
-        courseService.getAll();
-    }
-
 }

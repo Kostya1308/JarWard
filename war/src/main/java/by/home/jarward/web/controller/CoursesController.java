@@ -2,8 +2,7 @@ package by.home.jarward.web.controller;
 
 import by.home.jarward.jar.entity.*;
 import by.home.jarward.web.service.intarfaces.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -54,8 +53,11 @@ public class CoursesController {
         Page<Course> page;
 
 
-        if (auth.getName().equals("anonymousUser") || (auth.getAuthorities().stream().anyMatch(item -> item.getAuthority().equals("ROLE_teacher")))) {
+        if (auth.getName().equals("anonymousUser")
+                || (auth.getAuthorities().stream()
+                .anyMatch(item -> item.getAuthority().equals("ROLE_teacher")))) {
             page = courseService.getAllByDateStartGreaterThan(LocalDate.now(), pageWithThreeElements);
+
         } else {
             Object principal = auth.getPrincipal();
             String login = ((UserDetails) principal).getUsername();
@@ -65,9 +67,7 @@ public class CoursesController {
         List<Course> courses = page.get().toList();
         modelAndView.addObject("courses", courses);
         modelAndView.addObject("page", page);
-        Logger logger = LoggerFactory.getLogger(CourseService.class);
-
-        logger.info("SUCCESS!!!");
+        System.out.println(courses.size());
         return modelAndView;
     }
 

@@ -108,8 +108,6 @@ public class UsersController {
         });
 
         return new RedirectView(req.getContextPath() + "/");
-
-
     }
 }
 

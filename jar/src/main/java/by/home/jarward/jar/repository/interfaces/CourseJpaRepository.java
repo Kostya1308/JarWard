@@ -13,6 +13,7 @@ import java.util.Optional;
 
 
 public interface CourseJpaRepository extends JpaRepository<Course, Long> {
+
     Page<Course> findByDateStartGreaterThan(LocalDate localDate, Pageable pageable);
 
     @Query("select c from Course c left join fetch c.students s")

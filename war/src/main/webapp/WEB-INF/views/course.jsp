@@ -52,7 +52,7 @@
                             <c:if test="${parsedEndDate le now}">
                                 <span class="lesson_title_text_course_page_passed">
                                     <security:authorize access="hasRole('teacher')">
-                                        <a class="lesson_title_text_course_page_passed_link" href="${pageContext.request.contextPath}/lessons?id=${lesson.id}">
+                                        <a class="lesson_title_text_course_page_passed_link" href="${pageContext.request.contextPath}/lessons/${lesson.id}">
                                             ${lesson.title}
                                         </a>
                                     </security:authorize>

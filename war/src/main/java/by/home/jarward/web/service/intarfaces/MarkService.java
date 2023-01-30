@@ -8,10 +8,12 @@ import java.util.Optional;
 public interface MarkService {
 
     Mark save(Mark mark);
+
     Optional<Mark> getById(MarkId markId);
 
     List<Mark> getByHomeworksAndStudent(List<Homework> homeworkList, User student);
-    public List<Mark> getByHomeworkAndStudents(Homework homework, List<Student> student);
+
+    List<Mark> getByHomeworkAndStudents(Homework homework, List<Student> student);
 
     void deleteAll();
 

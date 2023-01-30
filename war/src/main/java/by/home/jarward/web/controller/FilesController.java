@@ -59,10 +59,6 @@ public class FilesController {
                 }
             });
             resp.getOutputStream().close();
-
         }
-
     }
-
-
 }

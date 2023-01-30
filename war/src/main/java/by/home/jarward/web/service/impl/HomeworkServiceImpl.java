@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Service
 public class HomeworkServiceImpl implements HomeworkService {
+
     @Autowired
     HomeworkJpaRepository homeworkJpaRepository;
 
@@ -22,8 +23,6 @@ public class HomeworkServiceImpl implements HomeworkService {
     @Override
     public Homework save(Homework homework) {
         return homeworkJpaRepository.save(homework);
-
-
     }
 
     @Override

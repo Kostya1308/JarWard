@@ -1,7 +1,5 @@
 package by.home.jarward.jar.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OptimisticLockType;
@@ -15,6 +13,8 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 @Access(AccessType.FIELD)
 @OptimisticLocking(type = OptimisticLockType.VERSION)
@@ -84,36 +84,16 @@ public class Course extends DateTimeEntity implements Serializable {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public LocalDate getDateStart() {
-        return dateStart;
     }
 
     public void setDateStart(LocalDate dateStart) {
         this.dateStart = dateStart;
     }
 
-    public LocalDate getDateEnd() {
-        return dateEnd;
-    }
-
     public void setDateEnd(LocalDate dateEnd) {
         this.dateEnd = dateEnd;
-    }
-
-    public boolean isClosed() {
-        return isClosed;
-    }
-
-    public void setClosed(boolean closed) {
-        isClosed = closed;
     }
 
     public List<Student> getStudents() {
@@ -132,21 +112,6 @@ public class Course extends DateTimeEntity implements Serializable {
         this.teacher = teacher;
     }
 
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
-    public List<Homework> getHomeworks() {
-        return homeworks;
-    }
-
-    public void setHomeworks(List<Homework> homeworks) {
-        this.homeworks = homeworks;
-    }
 
 
 }

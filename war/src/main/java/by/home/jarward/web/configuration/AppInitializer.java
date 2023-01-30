@@ -32,18 +32,6 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new String[]{"/"};
     }
 
-//    @Override
-//    public void onStartup(ServletContext servletContext) throws ServletException {
-//        super.onStartup(servletContext);
-//
-//        DelegatingFilterProxy rememberedUsersFilter = new DelegatingFilterProxy();
-//        rememberedUsersFilter.setTargetBeanName("rememberedUsersFilter");
-//
-//        servletContext
-//                .addFilter("rememberedUsersFilter", rememberedUsersFilter.getClass())
-//                .addMappingForUrlPatterns(null, false, "/welcome", "/users/*", "/posts/*", "/topics/*");
-//    }
-
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(getMultipartConfigElement());

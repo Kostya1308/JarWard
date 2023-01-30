@@ -11,7 +11,6 @@ import java.util.List;
 @DiscriminatorValue("student")
 @Getter
 @Setter
-@ToString
 public class Student extends User {
     @Column
     private String education;

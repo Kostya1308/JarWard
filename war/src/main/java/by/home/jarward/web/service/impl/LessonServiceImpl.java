@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class LessonServiceImpl implements LessonService {
+
     @Autowired
     LessonJpaRepository lessonJpaRepository;
 
@@ -38,7 +39,5 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public void deleteAll() {
         lessonJpaRepository.deleteAll();
-
-
     }
 }

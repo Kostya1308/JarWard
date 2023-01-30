@@ -23,18 +23,27 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Page<Course> getAllByDateStartGreaterThan(LocalDate localDate, Pageable pageable) {
-        return courseJpaRepository.findByDateStartGreaterThan(localDate, pageable);
+    public Optional<Course> getById(Long id) {
+        return courseJpaRepository.findById(id);
     }
 
     @Override
-    public List<Course> getAllWithStudents() {
-        return courseJpaRepository.findAllWithStudents();
+    public Optional<Course> getByIdWithStudents(Long id){
+        return courseJpaRepository.findByIdWithStudents(id);
     }
 
     @Override
     public List<Course> getAll() {
         return courseJpaRepository.findAll();
+    }
+
+    @Override
+    public Page<Course> getAllByTeacherLogin(String login, Pageable pageable) {
+        return courseJpaRepository.findAllByTeacherLogin(login, pageable);
+    }
+    @Override
+    public Page<Course> getAllByDateStartGreaterThan(LocalDate localDate, Pageable pageable) {
+        return courseJpaRepository.findByDateStartGreaterThan(localDate, pageable);
     }
 
     @Override
@@ -47,22 +56,10 @@ public class CourseServiceImpl implements CourseService {
         return courseJpaRepository.findByDateEndGreaterThanAndLogin(localDate, login, pageable);
     }
 
-    public Optional<Course> getByIdWithStudents(Long id){
-        return courseJpaRepository.findByIdWithStudents(id);
-    }
-
-    @Override
-    public Optional<Course> getById(Long id) {
-        return courseJpaRepository.findById(id);
-    }
-
     @Override
     public void deleteAll() {
         courseJpaRepository.deleteAll();
     }
 
-    @Override
-    public Page<Course> getAllByTeacherLogin(String login, Pageable pageable) {
-        return courseJpaRepository.findAllByTeacherLogin(login, pageable);
-    }
+
 }
