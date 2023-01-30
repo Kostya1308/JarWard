@@ -1,6 +1,8 @@
 package by.home.jarward.jar.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Year;
@@ -8,6 +10,8 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("teacher")
+@Getter
+@Setter
 public class Teacher extends User {
     @Column
     @Lob

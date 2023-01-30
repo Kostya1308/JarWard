@@ -43,7 +43,20 @@
                             ${teacher.surname}
                         </span>
 
+                        <span class="teacher_work">
+                            ${teacher.company}
+                        </span>
 
+                        <div class="teacher_details_container">
+
+                            <span class="teacher_work">
+                                Train since: ${teacher.sinceTeachingExperience}
+                            </span>
+
+                            <span class="teacher_work">
+                                Work since: ${teacher.sinceWorkExperience}
+                            </span>
+                        </div>
 
                 </div>
                     </c:forEach>

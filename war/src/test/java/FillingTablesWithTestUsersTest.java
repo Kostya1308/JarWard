@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Year;
 import java.util.List;
 import java.util.Properties;
 
@@ -36,6 +37,8 @@ public class FillingTablesWithTestUsersTest {
     private MarkService markService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private final User admin = new User();
 
     private final Teacher jamesGoslingTeacher = new Teacher();
     private final Teacher herbertSchildtTeacher = new Teacher();
@@ -64,7 +67,7 @@ public class FillingTablesWithTestUsersTest {
     private final Mark markHomework1 = new Mark();
     private final Mark markHomework2 = new Mark();
 
-    private static final String PASSWORD = "qwertyui";
+    private static final String PASSWORD = "QQQQ1111";
 
     private final File file = new File("src/main/resources/course_description.properties");
     private final Properties properties = new Properties();
@@ -86,6 +89,22 @@ public class FillingTablesWithTestUsersTest {
     @Test
     public void fillDataBase() throws IOException {
         properties.load(new FileReader(file));
+
+        admin.setName("Admin");
+        admin.setSurname("Admin");
+        admin.setLogin("Admin");
+        admin.setPassword((passwordEncoder.encode(PASSWORD)).toCharArray());
+        admin.setEmail("admin@gmail.com");
+        admin.setRole(Role.ADMIN);
+        admin.setEnabled(true);
+        admin.setDateOfBirth(LocalDate.of(1993, 3, 28));
+        admin.setGender(Gender.MALE);
+        admin.setLanguage("English");
+        InputStream inputStream = new FileInputStream("src/main/resources/photos/kostya.jpeg");
+        kostyaStudent.setPhoto(inputStream.readAllBytes());
+        inputStream.close();
+        userService.save(admin);
+
         jamesGoslingTeacher.setName("James");
         jamesGoslingTeacher.setSurname("Gosling");
         jamesGoslingTeacher.setLogin("James");
@@ -95,8 +114,11 @@ public class FillingTablesWithTestUsersTest {
         jamesGoslingTeacher.setGender(Gender.MALE);
         jamesGoslingTeacher.setEnabled(true);
         jamesGoslingTeacher.setDateOfBirth(LocalDate.of(1955, 5, 19));
+        jamesGoslingTeacher.setSinceWorkExperience(Year.of(1975));
+        jamesGoslingTeacher.setSinceTeachingExperience(Year.of(1993));
+        jamesGoslingTeacher.setCompany("Sun Microsystems");
         jamesGoslingTeacher.setLanguage("English");
-        InputStream inputStream = new FileInputStream("src/main/resources/photos/gosling.jpg");
+        inputStream = new FileInputStream("src/main/resources/photos/gosling.jpg");
         jamesGoslingTeacher.setPhoto(inputStream.readAllBytes());
         inputStream.close();
         userService.save(jamesGoslingTeacher);
@@ -110,6 +132,9 @@ public class FillingTablesWithTestUsersTest {
         herbertSchildtTeacher.setGender(Gender.MALE);
         herbertSchildtTeacher.setEnabled(true);
         herbertSchildtTeacher.setDateOfBirth(LocalDate.of(1951, 2, 28));
+        herbertSchildtTeacher.setSinceWorkExperience(Year.of(1983));
+        herbertSchildtTeacher.setSinceTeachingExperience(Year.of(1992));
+        herbertSchildtTeacher.setCompany("ISO");
         herbertSchildtTeacher.setLanguage("English");
         inputStream = new FileInputStream("src/main/resources/photos/herbert.jpg");
         herbertSchildtTeacher.setPhoto(inputStream.readAllBytes());
@@ -125,6 +150,9 @@ public class FillingTablesWithTestUsersTest {
         kathySierraTeacher.setGender(Gender.FEMALE);
         kathySierraTeacher.setEnabled(true);
         kathySierraTeacher.setDateOfBirth(LocalDate.of(1957, 2, 12));
+        kathySierraTeacher.setSinceWorkExperience(Year.of(1977));
+        kathySierraTeacher.setSinceTeachingExperience(Year.of(1995));
+        kathySierraTeacher.setCompany("University of California");
         kathySierraTeacher.setLanguage("English");
         inputStream = new FileInputStream("src/main/resources/photos/sierra.jpeg");
         kathySierraTeacher.setPhoto(inputStream.readAllBytes());
@@ -140,6 +168,9 @@ public class FillingTablesWithTestUsersTest {
         joshuaBlochTeacher.setGender(Gender.MALE);
         joshuaBlochTeacher.setEnabled(true);
         joshuaBlochTeacher.setDateOfBirth(LocalDate.of(1961, 8, 28));
+        joshuaBlochTeacher.setSinceWorkExperience(Year.of(1986));
+        joshuaBlochTeacher.setSinceTeachingExperience(Year.of(1991));
+        joshuaBlochTeacher.setCompany("Google");
         joshuaBlochTeacher.setLanguage("English");
         inputStream = new FileInputStream("src/main/resources/photos/joshua.jpeg");
         joshuaBlochTeacher.setPhoto(inputStream.readAllBytes());
@@ -154,6 +185,9 @@ public class FillingTablesWithTestUsersTest {
         nastyaTeacher.setRole(Role.TEACHER);
         nastyaTeacher.setEnabled(true);
         nastyaTeacher.setDateOfBirth(LocalDate.of(1992, 9, 10));
+        nastyaTeacher.setSinceWorkExperience(Year.of(2021));
+        nastyaTeacher.setSinceTeachingExperience(Year.of(2023));
+        nastyaTeacher.setCompany("ByteDance");
         nastyaTeacher.setGender(Gender.FEMALE);
         nastyaTeacher.setLanguage("English");
         inputStream = new FileInputStream("src/main/resources/photos/nastya.jpg");

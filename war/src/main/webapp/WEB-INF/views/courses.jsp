@@ -27,6 +27,7 @@
             <div class="courses_page_container">
                 <span class="course_title_container">
                     Upcoming events
+                    ${pageContext.request.contextPath}
                 </span>
 
                 <div class="course_sort_container">
