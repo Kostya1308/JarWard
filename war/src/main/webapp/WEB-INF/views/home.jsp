@@ -59,7 +59,7 @@
                             All mentors are experienced practitioners from the IT industry. They provide quality feedback on assignments, answer questions, and help the student achieve their goals during the program. Alumni rate the mentor support a 9.1 out of 10.
                         </span>
                         <div style="width:300px display:flex; align-items:center">
-                            <a href="/teachers" class="trainers_button_index_page"/>Trainers</a>
+                            <a href="${pageContext.request.contextPath}/teachers" class="trainers_button_index_page"/>Trainers</a>
                         </div>
                 </div>
 

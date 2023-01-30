@@ -24,13 +24,13 @@ import java.util.OptionalDouble;
 @RequestMapping(value = "/statistic")
 public class UserStatisticRestController {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
     @Autowired
-    MarkService markService;
+    private MarkService markService;
     @Autowired
-    HomeworkService homeworkService;
+    private HomeworkService homeworkService;
 
     @GetMapping(value = "/present")
     public ResponseEntity<String> getQuantityLessons(@RequestParam("login") String login,

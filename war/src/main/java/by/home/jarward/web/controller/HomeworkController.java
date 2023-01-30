@@ -22,15 +22,15 @@ import java.util.Optional;
 public class HomeworkController {
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    HomeworkService homeworkService;
+    private HomeworkService homeworkService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
     @Autowired
-    MarkService markService;
+    private MarkService markService;
 
     @GetMapping(value = "/{id}")
     public ModelAndView getHomeworksPage(@ModelAttribute("markForm") MarkForm markForm, @PathVariable("id") String id) {

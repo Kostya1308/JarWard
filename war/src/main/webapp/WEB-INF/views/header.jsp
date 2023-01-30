@@ -14,13 +14,13 @@
             <a class="sign_in_header_button" href="/">
                 <spring:message code="Home"/>
             </a>
-            <a class="sign_in_header_button" href="/courses/all">
+            <a class="sign_in_header_button" href="${pageContext.request.contextPath}/courses/all">
                 <spring:message code="Courses"/>
             </a>
-            <a class="sign_in_header_button" href="/teachers">
+            <a class="sign_in_header_button" href="${pageContext.request.contextPath}/teachers">
                 <spring:message code="Teachers"/>
             </a>
-            <a class="sign_in_header_button" href="/about">
+            <a class="sign_in_header_button" href="${pageContext.request.contextPath}/about">
                 <spring:message code="About"/>
             </a>
         </div>
@@ -56,7 +56,7 @@
                     <span>
                 </a>
 
-            <a class="dropdown_item_container" href="/users/settings">
+            <a class="dropdown_item_container" href="${pageContext.request.contextPath}/users/settings">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#settings"></use>
                 </svg>
@@ -67,7 +67,7 @@
 
             <div class="line_2"></div>
 
-            <a class="dropdown_item_container" href="/logout">
+            <a class="dropdown_item_container" href="${pageContext.request.contextPath}/logout">
                 <svg width=25 height=25 class="dropdown_item_icon">
                     <use xlink:href="#logout"></use>
                 </svg>

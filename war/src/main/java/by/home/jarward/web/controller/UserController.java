@@ -33,7 +33,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/users")
-public class UsersController {
+public class UserController {
     @Autowired
     UserService userService;
     @Autowired

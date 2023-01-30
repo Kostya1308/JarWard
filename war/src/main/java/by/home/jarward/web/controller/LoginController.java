@@ -17,7 +17,7 @@ import java.io.IOException;
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping(value = "/login")
     public ModelAndView getValidateLoginPage(@ModelAttribute("userForm") UserForm userForm,

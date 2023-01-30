@@ -12,9 +12,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/teachers")
-public class TeachersController {
+public class TeacherController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping
     public ModelAndView getTeachersPage(){

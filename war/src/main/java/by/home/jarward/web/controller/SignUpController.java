@@ -32,21 +32,21 @@ import java.util.Properties;
 @PropertySource("classpath:mail_sender.properties")
 public class SignUpController {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
     @Autowired
-    UserFacade userFacade;
+    private UserFacade userFacade;
 
     @Qualifier(value = "newUserValidator")
     @Autowired
-    NewUserValidator newUserValidator;
+    private NewUserValidator newUserValidator;
 
     @Autowired
-    Properties properties;
+    private Properties properties;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

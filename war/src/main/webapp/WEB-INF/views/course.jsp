@@ -19,6 +19,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/file/show-photo?param=2" type="image/jpg">
+
         <jsp:include page="icons.jsp" flush="true" />
     </head>
     <body>

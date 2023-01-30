@@ -25,17 +25,17 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/courses")
-public class CoursesController {
+public class CourseController {
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    HomeworkService homeworkService;
+    private HomeworkService homeworkService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
     @Autowired
-    MarkService markService;
+    private MarkService markService;
 
 
     @GetMapping(value = "/all")
@@ -78,6 +78,7 @@ public class CoursesController {
         String loginPrincipal = ((UserDetails) principal).getUsername();
         Optional<User> student = userService.getByLogin(loginPrincipal);
         Optional<Course> course = courseService.getByIdWithStudents(Long.parseLong(id));
+
         course.ifPresent(itemCourse -> {
                     student.ifPresent(itemStudent ->
                             itemCourse.getStudents().add((Student) itemStudent));

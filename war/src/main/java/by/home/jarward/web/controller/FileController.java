@@ -21,9 +21,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/file")
 
-public class FilesController {
+public class FileController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping(value = "/show-photo")
     public ResponseEntity<byte[]> showPhoto(@RequestParam("param") String value, HttpServletRequest req) throws IOException {

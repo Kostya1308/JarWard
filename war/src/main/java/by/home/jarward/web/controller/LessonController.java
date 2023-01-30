@@ -20,23 +20,25 @@ import java.util.concurrent.atomic.AtomicReference;
 @RequestMapping(value = "/lessons")
 public class LessonController {
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    HomeworkService homeworkService;
+    private HomeworkService homeworkService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
     @Autowired
-    MarkService markService;
+    private MarkService markService;
 
     @GetMapping(value = "/{id}")
     public ModelAndView getLessonPage(@PathVariable("id") String idLesson) {
 
         ModelAndView modelAndView = new ModelAndView("lesson");
+
         var ref = new Object() {
             Course course;
         };
+
         Optional<Lesson> lesson = lessonService.getById(Long.parseLong(idLesson));
         lesson.flatMap(itemLesson ->
                         courseService.getByIdWithStudents(itemLesson.getCourse().getId()))
