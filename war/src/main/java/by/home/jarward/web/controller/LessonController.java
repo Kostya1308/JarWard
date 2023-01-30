@@ -54,6 +54,7 @@ public class LessonController {
         Optional<Lesson> lesson = lessonService.getById(Long.parseLong(idLesson));
         List<Student> students = new ArrayList<>();
         AtomicReference<String> courseId = new AtomicReference<>();
+
         Arrays.stream(presentStudents)
                 .forEach(item -> userService.getById(Long.parseLong(item))
                         .ifPresent(itemUser -> students.add((Student) itemUser)));

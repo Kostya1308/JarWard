@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
     public void deleteNotEnabledUsers() {
         LocalDateTime now = LocalDateTime.now();
         List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
+
         userJpaRepository.deleteAllInBatch(users);
     }
 
