@@ -10,5 +10,4 @@ public class ExceptionHandler {
         e.printStackTrace();
         return new ModelAndView("error");
     }
-
 }

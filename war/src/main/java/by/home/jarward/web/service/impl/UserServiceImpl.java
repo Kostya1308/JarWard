@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         userJpaRepository.deleteAll();
     }
 
-    @Scheduled(fixedRate = 100000)
+    @Scheduled(fixedRate = 86400000)
     public void deleteNotEnabledUsers() {
         LocalDateTime now = LocalDateTime.now();
         List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));

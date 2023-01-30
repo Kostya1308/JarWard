@@ -26,7 +26,9 @@
                     <use xlink:href="#mail"></use>
                 </svg>
                 <p class="text_mail_sent_bold">An email with the link to activate</p>
-                <p class="text_mail_sent">was sent to the email address you provided during registration</p>
+                <p class="text_mail_sent">was sent to the email address you provided during registration.</p>
+                <p></p>
+                <p class="text_mail_sent">An inactivated account will be deleted within 24 hours</p>
             </div>
         </div>
     </body>
