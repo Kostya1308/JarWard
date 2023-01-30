@@ -7,18 +7,21 @@ import by.home.jarward.jar.enums.Role;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = AppContextForTest.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserJpaRepositoryTest {
-
+class CourseJpaRepositoryTest {
     @Autowired
     UserJpaRepository userJpaRepository;
     @Autowired
@@ -56,10 +59,18 @@ class UserJpaRepositoryTest {
     private final Mark markHomework2 = new Mark();
 
     private static final String PASSWORD = "$2a$12$X1/8qZNaRNnq0LMJD9kanubEs2moaHdRws560cXYaYuSd.sHNHRx.";
+    Pageable pageable = PageRequest.of(0, 10);
 
     @Test
-    public void init(){
-        courseJpaRepository.findAll();
+    void findAllByTeacherLogin() {
+        Page<Course> coursesByJames = courseJpaRepository.findAllByTeacherLogin("James", pageable);
+        Assertions.assertEquals(coursesByJames.getTotalElements(), 1);
+    }
+
+    @Test
+    void findByIdWithStudents() {
+        Optional<Course> courseWithStudents = courseJpaRepository.findByIdWithStudents(javaFundamentalsCourse.getId());
+        courseWithStudents.ifPresent(itemCourse -> Assertions.assertFalse(itemCourse.getStudents().isEmpty()));
     }
 
     @BeforeAll
@@ -265,17 +276,5 @@ class UserJpaRepositoryTest {
         homeworkJpaRepository.deleteAll();
         courseJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
-    }
-
-    @Test
-    void findByLogin() {
-        Optional<User> kostya = userJpaRepository.findByLogin("Kostya");
-        kostya.ifPresent(item -> Assertions.assertEquals(item.getSurname(), "Piskunov"));
-    }
-
-    @Test
-    void findTeachers(){
-        int size = userJpaRepository.findTeachers().size();
-        Assertions.assertEquals(size, 5);
     }
 }

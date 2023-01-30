@@ -12,13 +12,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = AppContextForTest.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserJpaRepositoryTest {
-
+class HomeworkJpaRepositoryTest {
     @Autowired
     UserJpaRepository userJpaRepository;
     @Autowired
@@ -56,10 +55,10 @@ class UserJpaRepositoryTest {
     private final Mark markHomework2 = new Mark();
 
     private static final String PASSWORD = "$2a$12$X1/8qZNaRNnq0LMJD9kanubEs2moaHdRws560cXYaYuSd.sHNHRx.";
-
     @Test
-    public void init(){
-        courseJpaRepository.findAll();
+    void findAllByCourseId() {
+        List<Homework> homeworkList = homeworkJpaRepository.findAllByCourseId(javaFundamentalsCourse.getId());
+        Assertions.assertEquals(homeworkList.size(), 3);
     }
 
     @BeforeAll
@@ -265,17 +264,5 @@ class UserJpaRepositoryTest {
         homeworkJpaRepository.deleteAll();
         courseJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
-    }
-
-    @Test
-    void findByLogin() {
-        Optional<User> kostya = userJpaRepository.findByLogin("Kostya");
-        kostya.ifPresent(item -> Assertions.assertEquals(item.getSurname(), "Piskunov"));
-    }
-
-    @Test
-    void findTeachers(){
-        int size = userJpaRepository.findTeachers().size();
-        Assertions.assertEquals(size, 5);
     }
 }

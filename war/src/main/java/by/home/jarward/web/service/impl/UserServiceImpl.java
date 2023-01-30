@@ -6,12 +6,16 @@ import by.home.jarward.jar.repository.interfaces.UserJpaRepository;
 import by.home.jarward.web.service.intarfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@EnableScheduling
 public class UserServiceImpl implements UserService {
     @Autowired
     UserJpaRepository userJpaRepository;
@@ -46,12 +50,11 @@ public class UserServiceImpl implements UserService {
         userJpaRepository.deleteAll();
     }
 
-    //    @Override
-//    @Scheduled(fixedRate = 100000)
-//    public void deleteNotEnabledUsers() {
-//        LocalDateTime now = LocalDateTime.now();
-//        List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
-//        userJpaRepository.deleteAllInBatch(users);
-//    }
+    @Scheduled(fixedRate = 100000)
+    public void deleteNotEnabledUsers() {
+        LocalDateTime now = LocalDateTime.now();
+        List<User> users = userJpaRepository.findByEnabledFalseAndDateTimeCreateLessThan(now.plusHours(1L));
+        userJpaRepository.deleteAllInBatch(users);
+    }
 
 }
